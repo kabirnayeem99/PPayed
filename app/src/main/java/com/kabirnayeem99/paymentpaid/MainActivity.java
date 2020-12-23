@@ -25,32 +25,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clickExportButton() {
-        exportButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Navigates to Export page", Toast.LENGTH_SHORT).show();
-            }
-        });
+        exportButton.setOnClickListener(v -> Toast.makeText(MainActivity.this, "Navigates to Export page", Toast.LENGTH_SHORT).show());
     }
 
     private void clickPaymentButton() {
-        paymentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Navigates to Payment page", Toast.LENGTH_SHORT).show();
-
-            }
-        });
+        paymentButton.setOnClickListener(v -> Toast.makeText(MainActivity.this, "Navigates to Payment page", Toast.LENGTH_SHORT).show());
     }
 
     private void clickWorksButton() {
-        worksButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Navigates to Works page", Toast.LENGTH_SHORT).show();
-
-            }
-        });
+        worksButton.setOnClickListener(v -> Toast.makeText(MainActivity.this, "Navigates to Works page", Toast.LENGTH_SHORT).show());
     }
 
     private void initViews() {
