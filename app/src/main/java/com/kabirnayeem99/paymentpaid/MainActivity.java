@@ -1,7 +1,7 @@
 package com.kabirnayeem99.paymentpaid;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -25,15 +25,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clickExportButton() {
-        exportButton.setOnClickListener(v -> Toast.makeText(MainActivity.this, "Navigates to Export page", Toast.LENGTH_SHORT).show());
+        exportButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ExportActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void clickPaymentButton() {
-        paymentButton.setOnClickListener(v -> Toast.makeText(MainActivity.this, "Navigates to Payment page", Toast.LENGTH_SHORT).show());
+
+        paymentButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, PaymentActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void clickWorksButton() {
-        worksButton.setOnClickListener(v -> Toast.makeText(MainActivity.this, "Navigates to Works page", Toast.LENGTH_SHORT).show());
+        worksButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, WorksActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void initViews() {

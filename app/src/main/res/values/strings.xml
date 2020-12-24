@@ -3,6 +3,9 @@
     <string name="button_works">Works</string>
     <string name="button_payments">Payments</string>
     <string name="button_exports">Exports</string>
+    <string name="activity_export">Export</string>
+    <string name="activity_payment">Payment</string>
+    <string name="activity_works">Works</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>
