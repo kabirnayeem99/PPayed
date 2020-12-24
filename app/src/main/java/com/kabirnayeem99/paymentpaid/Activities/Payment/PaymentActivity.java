@@ -1,8 +1,10 @@
-package com.kabirnayeem99.paymentpaid;
+package com.kabirnayeem99.paymentpaid.Activities.Export.Payment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.kabirnayeem99.paymentpaid.R;
 
 public class PaymentActivity extends AppCompatActivity {
 
