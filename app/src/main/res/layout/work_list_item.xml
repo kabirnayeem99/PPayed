@@ -19,6 +19,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/workListItemTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sample_note_title"
@@ -26,14 +27,18 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/workListItemDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sample_date" />
+                android:text="@string/sample_date"
+                android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/workListItemPayment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sample_payment" />
+                android:text="@string/sample_payment"
+                android:textSize="16sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
