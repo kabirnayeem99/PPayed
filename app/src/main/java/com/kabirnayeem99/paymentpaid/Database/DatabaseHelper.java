@@ -4,7 +4,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-class DatabaseHelper extends SQLiteOpenHelper {
+import com.kabirnayeem99.paymentpaid.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "payment_paid_db";
     public static final String DB_WORK_TABLE = "works_db_table";
@@ -40,5 +45,21 @@ class DatabaseHelper extends SQLiteOpenHelper {
         String dbUpgradeQuery = String.format("DROP TABLE IF EXISTS %s", DB_WORK_TABLE);
         db.execSQL(dbUpgradeQuery);
         onCreate(db);
+    }
+
+    public List<Work> getWorkList() {
+        List<Work> workList = new ArrayList<>();
+
+        Work work1 = new Work("Niaz GBEI",
+                "26-Dec-2020",
+                "2200");
+        Work work2 = new Work("Marai MSBP",
+                "22-Dec-2020",
+                "3000");
+
+        workList.add(work1);
+        workList.add(work2);
+
+        return workList;
     }
 }

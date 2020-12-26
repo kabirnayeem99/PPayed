@@ -14,4 +14,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="CustomCardView" parent="CardView.Light">
+        <item name="background">@color/purple_500</item>
+        <item name="backgroundColor">@color/purple_500</item>
+        <item name="cardBackgroundColor">@color/purple_500</item>
+    </style>
+
 </resources>

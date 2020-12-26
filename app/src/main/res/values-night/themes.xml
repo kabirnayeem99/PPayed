@@ -13,4 +13,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="CustomCardView" parent="CardView.Dark">
+        <item name="backgroundTint">@color/purple_200</item>
+        <item name="background">@color/purple_200</item>
+        <item name="backgroundColor">@color/purple_200</item>
+        <item name="cardBackgroundColor">@color/purple_200</item>
+
+    </style>
 </resources>
