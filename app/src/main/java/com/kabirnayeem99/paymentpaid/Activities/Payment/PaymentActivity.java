@@ -1,4 +1,4 @@
-package com.kabirnayeem99.paymentpaid.Activities.Export.Payment;
+package com.kabirnayeem99.paymentpaid.Activities.Payment;
 
 import androidx.appcompat.app.AppCompatActivity;
 

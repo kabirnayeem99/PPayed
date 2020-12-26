@@ -11,9 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PaymentPaid">
         <activity android:name=".Activities.Export.ExportActivity" android:label="@string/activity_export"/>
-        <activity android:name=".Activities.Export.Payment.PaymentActivity" android:label="@string/activity_payment"/>
+        <activity android:name=".Activities.Payment.PaymentActivity" android:label="@string/activity_payment"/>
         <activity
-            android:name=".Activities.Export.Work.WorksActivity"
+            android:name=".Activities.Work.WorksActivity"
             android:label="@string/activity_works" />
         <activity
             android:name=".MainActivity"

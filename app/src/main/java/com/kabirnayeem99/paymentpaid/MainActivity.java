@@ -7,8 +7,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kabirnayeem99.paymentpaid.Activities.Export.ExportActivity;
-import com.kabirnayeem99.paymentpaid.Activities.Export.Payment.PaymentActivity;
-import com.kabirnayeem99.paymentpaid.Activities.Export.Work.WorksActivity;
+import com.kabirnayeem99.paymentpaid.Activities.Work.WorksActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         initViews();
 
         clickWorksButton();
-        clickPaymentButton();
+//        clickPaymentButton();
         clickExportButton();
     }
 
@@ -34,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void clickPaymentButton() {
-
-        paymentButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, PaymentActivity.class);
-            startActivity(intent);
-        });
-    }
+//    private void clickPaymentButton() {
+//
+//        paymentButton.setOnClickListener(v -> {
+//            Intent intent = new Intent(MainActivity.this, PaymentActivity.class);
+//            startActivity(intent);
+//        });
+//    }
 
     private void clickWorksButton() {
         worksButton.setOnClickListener(v -> {
