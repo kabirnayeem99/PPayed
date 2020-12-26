@@ -61,7 +61,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView workListItemTitle, workListItemDate, workListItemPayment;
+        final TextView workListItemTitle, workListItemDate, workListItemPayment;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

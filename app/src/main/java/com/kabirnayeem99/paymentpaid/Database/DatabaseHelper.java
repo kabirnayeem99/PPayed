@@ -1,10 +1,9 @@
 package com.kabirnayeem99.paymentpaid.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.kabirnayeem99.paymentpaid.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_WORK_NAME = "work_description";
     private static final String KEY_PAYMENT = "payment";
     private static final String KEY_DATE = "date";
-    public static int DB_VERSION = 2;
+    public static final int  DB_VERSION = 2;
 
     public DatabaseHelper(Context context) {
         super(context, DatabaseHelper.DB_NAME, null, DB_VERSION);
@@ -47,15 +46,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
+    public boolean addToWork(Work work) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(KEY_WORK_NAME, work.getName());
+        contentValues.put(KEY_DATE, work.getDate());
+        contentValues.put(KEY_PAYMENT, work.getPayment());
+        contentValues.put(KEY_STUDENT_NAME, work.getStudentName());
+
+        db.insert(DB_WORK_TABLE, null, contentValues);
+
+        return true;
+    }
+
     public List<Work> getWorkList() {
         List<Work> workList = new ArrayList<>();
 
         Work work1 = new Work("Niaz GBEI",
                 "26-Dec-2020",
-                "2200");
-        Work work2 = new Work("Marai MSBP",
+                "2200", "Niaz");
+        Work work2 = new Work("Maria MSBP",
                 "22-Dec-2020",
-                "3000");
+                "3000", "Maria");
 
         workList.add(work1);
         workList.add(work2);
