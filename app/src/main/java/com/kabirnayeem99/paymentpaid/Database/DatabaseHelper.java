@@ -12,12 +12,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "payment_paid_db";
     public static final String DB_WORK_TABLE = "works_db_table";
+    public static final int DB_VERSION = 2;
     private static final String KEY_ID = "id";
     private static final String KEY_STUDENT_NAME = "student_name";
     private static final String KEY_WORK_NAME = "work_description";
     private static final String KEY_PAYMENT = "payment";
     private static final String KEY_DATE = "date";
-    public static final int  DB_VERSION = 2;
 
     public DatabaseHelper(Context context) {
         super(context, DatabaseHelper.DB_NAME, null, DB_VERSION);
@@ -47,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean addToWork(Work work) {
+    public long addToWork(Work work) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -57,9 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(KEY_PAYMENT, work.getPayment());
         contentValues.put(KEY_STUDENT_NAME, work.getStudentName());
 
-        db.insert(DB_WORK_TABLE, null, contentValues);
-
-        return true;
+        return db.insert(DB_WORK_TABLE, null, contentValues);
     }
 
     public List<Work> getWorkList() {
