@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">পেমেন্টপেইড</string>
+    <string name="button_works">কাজ</string>
+    <string name="button_payments">দেনা</string>
+    <string name="button_exports">এক্সপোর্ট</string>
+    <string name="activity_export">এক্সপোর্ট</string>
+    <string name="activity_payment">দেনা</string>
+    <string name="activity_works">কাজ</string>
+    <string name="sample_date">২৬-ডিসেম্বর-২০২০</string>
+    <string name="sample_payment">২২০০</string>
+    <string name="sample_note_title">মারিয়া এমএসবিপি</string>
+</resources>
