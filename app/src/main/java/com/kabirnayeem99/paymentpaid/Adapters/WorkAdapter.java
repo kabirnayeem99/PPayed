@@ -13,7 +13,7 @@ import java.util.List;
 
 public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
     private LayoutInflater inflater;
-    private List<Work> workList;
+    private final List<Work> workList;
 
     public WorkAdapter(List<Work> workList) {
         this.workList = workList;
