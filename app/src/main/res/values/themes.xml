@@ -15,9 +15,20 @@
     </style>
 
     <style name="CustomCardView" parent="CardView.Light">
+        <!-- for the list item tiles in the work, payment activity lists-->
         <item name="background">@color/purple_500</item>
         <item name="backgroundColor">@color/purple_500</item>
         <item name="cardBackgroundColor">@color/purple_500</item>
+    </style>
+
+    <style name="RoundedTextField" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="CustomDialog" parent="Theme.MaterialComponents">
+        <!--        for the text input dialog title bar background-->
+        <item name="background">@color/purple_500</item>
     </style>
 
 </resources>

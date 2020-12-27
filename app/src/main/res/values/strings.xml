@@ -9,6 +9,10 @@
     <string name="sample_date">26-Dec-2020</string>
     <string name="sample_note_title">Maria MSBP</string>
     <string name="sample_payment">2200</string>
+    <string name="hint_work_name">Work Name</string>
+    <string name="hint_payment">Payment</string>
+    <string name="hint_student_name">Student Name</string>
+    <string name="hint_date">Date</string>
     <string name="action_add_new_work">Add new work</string>
     <!-- Strings used for fragments for navigation -->
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/lobster</item>
+        <item>@font/ubuntu_mono</item>
+        <item>@font/ubuntu_mono_italic</item>
+    </array>
+</resources>

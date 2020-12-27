@@ -10,4 +10,9 @@
     <string name="sample_date">২৬-ডিসেম্বর-২০২০</string>
     <string name="sample_payment">২২০০</string>
     <string name="sample_note_title">মারিয়া এমএসবিপি</string>
+    <string name="hint_student_name">ছাত্রের নাম</string>
+    <string name="hint_date">তারিখ</string>
+    <string name="action_add_new_work">নতুন কাজ যোগ</string>
+    <string name="hint_payment">অর্থ</string>
+    <string name="hint_work_name">কাজের নাম</string>
 </resources>
