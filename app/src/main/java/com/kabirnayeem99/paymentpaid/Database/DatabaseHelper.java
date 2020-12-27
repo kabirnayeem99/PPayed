@@ -2,6 +2,7 @@ package com.kabirnayeem99.paymentpaid.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -28,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // CREATE TABLE DB_WORK_TABLE(id INT PRIMARY KEY, student TEXT, work_name TEXT, INT payment, date TEXT);
 
-        String dbCreateQuery = String.format("CREATE TABLE %s(%s INT PRIMARY KEY, %s TEXT, " +
+        String dbCreateQuery = String.format("CREATE TABLE %s(%s INTEGER PRIMARY KEY, %s TEXT, " +
                         "%s TEXT, %s INT , %s TEXT)",
                 DB_WORK_TABLE, KEY_ID, KEY_STUDENT_NAME, KEY_WORK_NAME, KEY_PAYMENT, KEY_DATE);
 
@@ -47,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public long addToWork(Work work) {
+    public void addToWork(Work work) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -57,21 +58,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(KEY_PAYMENT, work.getPayment());
         contentValues.put(KEY_STUDENT_NAME, work.getStudentName());
 
-        return db.insert(DB_WORK_TABLE, null, contentValues);
+        db.insert(DB_WORK_TABLE, null, contentValues);
     }
 
     public List<Work> getWorkList() {
         List<Work> workList = new ArrayList<>();
 
-        Work work1 = new Work("Niaz GBEI",
-                "26-Dec-2020",
-                "2200", "Niaz");
-        Work work2 = new Work("Maria MSBP",
-                "22-Dec-2020",
-                "3000", "Maria");
+        SQLiteDatabase db = getReadableDatabase();
 
-        workList.add(work1);
-        workList.add(work2);
+        String selectNoteQuery = String.format("SELECT * FROM %s", DB_WORK_TABLE);
+
+        try (Cursor cursor = db.rawQuery(selectNoteQuery, null)) {
+            if (cursor.moveToFirst()) {
+                do {
+                    Work work = new Work();
+                    work.setStudentName(cursor.getString(1));
+                    work.setName(cursor.getString(2));
+                    work.setPayment(cursor.getInt(3));
+                    work.setDate(cursor.getString(4));
+                    workList.add(work);
+                } while (cursor.moveToNext());
+            }
+        }
 
         return workList;
     }

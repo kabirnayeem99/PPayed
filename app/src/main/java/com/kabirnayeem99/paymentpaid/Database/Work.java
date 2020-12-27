@@ -3,14 +3,17 @@ package com.kabirnayeem99.paymentpaid.Database;
 public class Work {
     private String name;
     private String date;
-    private String payment;
+    private int payment;
     private String studentName;
 
-    public Work(String name, String date, String payment, String studentName) {
+    public Work(String name, String date, int payment, String studentName) {
         this.name = name;
         this.date = date;
         this.payment = payment;
         this.studentName = studentName;
+    }
+
+    public Work() {
     }
 
     public String getName() {
@@ -29,11 +32,11 @@ public class Work {
         this.date = date;
     }
 
-    public String getPayment() {
+    public int getPayment() {
         return payment;
     }
 
-    public void setPayment(String payment) {
+    public void setPayment(int payment) {
         this.payment = payment;
     }
 
@@ -43,15 +46,5 @@ public class Work {
 
     public void setStudentName(String studentName) {
         this.studentName = studentName;
-    }
-
-    @Override
-    public String toString() {
-        return "Work{" +
-                "name='" + name + '\'' +
-                ", date='" + date + '\'' +
-                ", payment='" + payment + '\'' +
-                ", studentName='" + studentName + '\'' +
-                '}';
     }
 }

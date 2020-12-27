@@ -44,7 +44,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         // gets the data from the database, i.e. work title, submission date and payment amount.
         String workListItemTitle = workList.get(position).getName();
         String workListItemDate = workList.get(position).getDate();
-        String workListItemPayment = workList.get(position).getPayment();
+        String workListItemPayment = String.format("%s", workList.get(position).getPayment());
 
         // binds the data for each of the work got from the db to the existing adapter based on the
         // screen time of the lists item.
