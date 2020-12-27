@@ -1,7 +1,11 @@
 package com.kabirnayeem99.paymentpaid.Activities.Work;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,10 +28,21 @@ public class WorksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_works);
-
         initViews();
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
+        // creates new add new work option menu in the work activity
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.work_activity_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     private void initViews() {
