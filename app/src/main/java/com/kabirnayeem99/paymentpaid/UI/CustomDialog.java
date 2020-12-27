@@ -1,17 +1,19 @@
 package com.kabirnayeem99.paymentpaid.UI;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.view.Window;
+import android.content.Context;
+import android.view.View;
 
-import com.kabirnayeem99.paymentpaid.R;
+import androidx.annotation.NonNull;
 
-public class CustomDialog {
-    public void showDialog(Activity activity) {
-        final Dialog dialog = new Dialog(activity);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(true);
-        dialog.setContentView(R.layout.dialog_new_work);
+public class CustomDialog extends Dialog {
 
+    public CustomDialog(@NonNull Context context) {
+        super(context);
+    }
+
+    @Override
+    public void setContentView(@NonNull View view) {
+        super.setContentView(view);
     }
 }

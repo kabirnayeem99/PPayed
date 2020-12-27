@@ -1,6 +1,6 @@
 package com.kabirnayeem99.paymentpaid.Activities.Work;
 
-import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +15,6 @@ import com.kabirnayeem99.paymentpaid.Adapters.WorkAdapter;
 import com.kabirnayeem99.paymentpaid.Database.DatabaseHelper;
 import com.kabirnayeem99.paymentpaid.Database.Work;
 import com.kabirnayeem99.paymentpaid.R;
-import com.kabirnayeem99.paymentpaid.UI.CustomDialog;
 
 import java.util.List;
 
@@ -44,11 +43,9 @@ public class WorksActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        CustomDialog customDialog = new CustomDialog();
         if (item.getItemId() == R.id.add_new_work) {
-            Dialog dialog = new Dialog(WorksActivity.this);
-            dialog.setContentView(R.layout.dialog_new_work);
-            dialog.show();
+            Intent intent = new Intent(this, AddNewWorkActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
