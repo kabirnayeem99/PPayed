@@ -14,6 +14,8 @@
     <string name="hint_student_name">Student Name</string>
     <string name="hint_date">Date</string>
     <string name="action_add_new_work">Add new work</string>
+    <string name="action_submit">Submit</string>
+    <string name="action_cancel">Cancel</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>
