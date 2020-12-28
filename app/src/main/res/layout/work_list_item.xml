@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sample_note_title"
-                android:textColor="@color/white"
+                android:textColor="@color/grey_200"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/workListItemTitle"
                 android:text="@string/sample_date"
-                android:textColor="@color/white"
+                android:textColor="@color/grey_200"
                 android:textSize="12sp" />
 
             <TextView
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/workListItemDate"
                 android:text="@string/sample_payment"
-                android:textColor="@color/white"
+                android:textColor="@color/grey_200"
                 android:textSize="12sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
