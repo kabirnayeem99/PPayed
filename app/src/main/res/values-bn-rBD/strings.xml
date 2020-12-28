@@ -15,4 +15,6 @@
     <string name="action_add_new_work">নতুন কাজ যোগ</string>
     <string name="hint_payment">অর্থ</string>
     <string name="hint_work_name">কাজের নাম</string>
+    <string name="action_submit">সংরক্ষণ</string>
+    <string name="action_cancel">বাতিল</string>
 </resources>
