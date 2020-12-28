@@ -1,5 +1,6 @@
 package com.kabirnayeem99.paymentpaid.Activities.Work;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -7,23 +8,28 @@ import android.view.MenuItem;
 import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.kabirnayeem99.paymentpaid.Database.DatabaseHelper;
 import com.kabirnayeem99.paymentpaid.Database.Work;
 import com.kabirnayeem99.paymentpaid.R;
+import com.kabirnayeem99.paymentpaid.Utils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
+import java.util.Objects;
 
 public class AddNewWorkActivity extends AppCompatActivity {
 
     TextInputLayout newWorkDialogWorkName, newWorkDialogWorkPayment, newWorkDialogWorkStudentName;
     DatePicker newWorkDialogWorkDate;
     Work work;
+    String workName = "";
+    String studentName = "";
+    String stringDate;
+    Date date;
+    int payment = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,29 +52,22 @@ public class AddNewWorkActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.newWorkDialogWorkCancelButton) {
             onBackPressed();
         } else if (item.getItemId() == R.id.newWorkDialogWorkSubmitButton) {
 
-            String workName = "";
-            String studentName = "";
-            String stringDate = "2020-12-12";
-            Date date = new Date();
-            int payment = 0;
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
 
-            workName = newWorkDialogWorkName.getEditText().getText().toString();
-            studentName = newWorkDialogWorkStudentName.getEditText().getText().toString();
-            payment = Integer.parseInt(newWorkDialogWorkPayment.getEditText().getText().toString());
+            workName = Objects.requireNonNull(newWorkDialogWorkName.getEditText()).getText().toString();
+            studentName = Objects.requireNonNull(newWorkDialogWorkStudentName.getEditText()).getText().toString();
+            payment = Integer.parseInt(Objects.requireNonNull(newWorkDialogWorkPayment.getEditText()).getText().toString());
             stringDate = newWorkDialogWorkDate.toString();
-            try {
-                date = sdf.parse(stringDate);
-                System.out.println(String.format("date: %s", date));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            newWorkDialogWorkDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth) -> {
+                String stringDate = String.format("%s-%s-%s", year, monthOfYear, dayOfMonth);
+                date = Utils.formatStringToDate(stringDate);
+            });
 
             work = new Work(workName, date, payment, studentName);
             DatabaseHelper databaseHelper = new DatabaseHelper(this);

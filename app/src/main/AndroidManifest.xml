@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PaymentPaid">
-        <activity android:name=".Activities.Work.AddNewWorkActivity"></activity>
+        <activity android:name=".Activities.Work.AddNewWorkActivity" />
         <activity
             android:name=".Activities.Export.ExportActivity"
             android:label="@string/activity_export" />

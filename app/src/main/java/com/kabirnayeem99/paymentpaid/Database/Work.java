@@ -1,8 +1,8 @@
 package com.kabirnayeem99.paymentpaid.Database;
 
-import java.text.SimpleDateFormat;
+import com.kabirnayeem99.paymentpaid.Utils;
+
 import java.util.Date;
-import java.util.Locale;
 
 public class Work {
     private String name;
@@ -29,8 +29,7 @@ public class Work {
     }
 
     public String getDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
-        return sdf.format(new Date());
+        return Utils.formatDateToString(date);
     }
 
     public void setDate(Date date) {

@@ -6,12 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import com.kabirnayeem99.paymentpaid.Utils;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -65,7 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(DB_WORK_TABLE, null, contentValues);
     }
 
-    public List<Work> getWorkList() throws ParseException {
+    public List<Work> getWorkList() {
         List<Work> workList = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
@@ -79,9 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     work.setStudentName(cursor.getString(1));
                     work.setName(cursor.getString(2));
                     work.setPayment(cursor.getInt(3));
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
-                    Date date = sdf.parse(cursor.getString(4));
-                    work.setDate(date);
+                    work.setDate(Utils.formatStringToDate(cursor.getString(4)));
                     workList.add(work);
                 } while (cursor.moveToNext());
             }
