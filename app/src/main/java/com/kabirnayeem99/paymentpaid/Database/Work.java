@@ -1,12 +1,16 @@
 package com.kabirnayeem99.paymentpaid.Database;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Work {
     private String name;
-    private String date;
+    private Date date;
     private int payment;
     private String studentName;
 
-    public Work(String name, String date, int payment, String studentName) {
+    public Work(String name, Date date, int payment, String studentName) {
         this.name = name;
         this.date = date;
         this.payment = payment;
@@ -25,10 +29,11 @@ public class Work {
     }
 
     public String getDate() {
-        return date;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
+        return sdf.format(new Date());
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

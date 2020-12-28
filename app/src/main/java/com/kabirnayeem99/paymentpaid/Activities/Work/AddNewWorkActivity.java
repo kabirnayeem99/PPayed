@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +14,15 @@ import com.kabirnayeem99.paymentpaid.Database.DatabaseHelper;
 import com.kabirnayeem99.paymentpaid.Database.Work;
 import com.kabirnayeem99.paymentpaid.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class AddNewWorkActivity extends AppCompatActivity {
 
-    TextInputLayout newWorkDialogWorkName, newWorkDialogWorkPayment, newWorkDialogWorkStudentName,
-            newWorkDialogWorkDate;
+    TextInputLayout newWorkDialogWorkName, newWorkDialogWorkPayment, newWorkDialogWorkStudentName;
+    DatePicker newWorkDialogWorkDate;
     Work work;
 
     @Override
@@ -46,13 +52,23 @@ public class AddNewWorkActivity extends AppCompatActivity {
             onBackPressed();
         } else if (item.getItemId() == R.id.newWorkDialogWorkSubmitButton) {
 
-            String workName, studentName, date;
-            int payment;
+            String workName = "";
+            String studentName = "";
+            String stringDate = "2020-12-12";
+            Date date = new Date();
+            int payment = 0;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
 
             workName = newWorkDialogWorkName.getEditText().getText().toString();
             studentName = newWorkDialogWorkStudentName.getEditText().getText().toString();
-            payment = newWorkDialogWorkPayment.getEditText().getText().toString() == null ? 2 : Integer.parseInt(newWorkDialogWorkPayment.getEditText().getText().toString());
-            date = newWorkDialogWorkDate.getEditText().getText().toString();
+            payment = Integer.parseInt(newWorkDialogWorkPayment.getEditText().getText().toString());
+            stringDate = newWorkDialogWorkDate.toString();
+            try {
+                date = sdf.parse(stringDate);
+                System.out.println(String.format("date: %s", date));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             work = new Work(workName, date, payment, studentName);
             DatabaseHelper databaseHelper = new DatabaseHelper(this);

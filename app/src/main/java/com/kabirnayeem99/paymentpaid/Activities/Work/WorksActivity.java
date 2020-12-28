@@ -16,6 +16,7 @@ import com.kabirnayeem99.paymentpaid.Database.DatabaseHelper;
 import com.kabirnayeem99.paymentpaid.Database.Work;
 import com.kabirnayeem99.paymentpaid.R;
 
+import java.text.ParseException;
 import java.util.List;
 
 public class WorksActivity extends AppCompatActivity {
@@ -29,7 +30,11 @@ public class WorksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_works);
-        initViews();
+        try {
+            initViews();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -51,7 +56,7 @@ public class WorksActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void initViews() {
+    private void initViews() throws ParseException {
         workListRV = findViewById(R.id.workListRV);
         databaseHelper = new DatabaseHelper(WorksActivity.this);
         workList = databaseHelper.getWorkList();

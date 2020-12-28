@@ -22,14 +22,4 @@
         <item name="backgroundColor">@color/green_700</item>
         <item name="cardBackgroundColor">@color/green_700</item>
     </style>
-
-    <style name="CustomDialog" parent="Theme.MaterialComponents">
-        <!--        for the text input dialog title bar background-->
-        <item name="background">@color/green_500</item>
-    </style>
-
-    <style name="RoundedTextField" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">12dp</item>
-    </style>
 </resources>
