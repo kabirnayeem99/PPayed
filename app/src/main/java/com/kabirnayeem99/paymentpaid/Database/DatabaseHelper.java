@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.kabirnayeem99.paymentpaid.Utils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     work.setStudentName(cursor.getString(1));
                     work.setName(cursor.getString(2));
                     work.setPayment(cursor.getInt(3));
-                    work.setDate(Utils.formatStringToDate(cursor.getString(4)));
+                    work.setDate(cursor.getString(4));
                     workList.add(work);
                 } while (cursor.moveToNext());
             }

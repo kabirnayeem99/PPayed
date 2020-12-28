@@ -15,9 +15,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.kabirnayeem99.paymentpaid.Database.DatabaseHelper;
 import com.kabirnayeem99.paymentpaid.Database.Work;
 import com.kabirnayeem99.paymentpaid.R;
-import com.kabirnayeem99.paymentpaid.Utils;
 
-import java.util.Date;
 import java.util.Objects;
 
 public class AddNewWorkActivity extends AppCompatActivity {
@@ -25,17 +23,26 @@ public class AddNewWorkActivity extends AppCompatActivity {
     TextInputLayout newWorkDialogWorkName, newWorkDialogWorkPayment, newWorkDialogWorkStudentName;
     DatePicker newWorkDialogWorkDate;
     Work work;
+
+
     String workName = "";
     String studentName = "";
-    String stringDate;
-    Date date;
+    String date;
     int payment = 0;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_work);
         initViews();
+
+        newWorkDialogWorkDate.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                date = String.format("%s-%s-%s", year, monthOfYear, dayOfMonth);
+            }
+        });
     }
 
     private void initViews() {
@@ -52,22 +59,19 @@ public class AddNewWorkActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+
         if (item.getItemId() == R.id.newWorkDialogWorkCancelButton) {
             onBackPressed();
         } else if (item.getItemId() == R.id.newWorkDialogWorkSubmitButton) {
-
-
             workName = Objects.requireNonNull(newWorkDialogWorkName.getEditText()).getText().toString();
             studentName = Objects.requireNonNull(newWorkDialogWorkStudentName.getEditText()).getText().toString();
             payment = Integer.parseInt(Objects.requireNonNull(newWorkDialogWorkPayment.getEditText()).getText().toString());
-            stringDate = newWorkDialogWorkDate.toString();
-            newWorkDialogWorkDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth) -> {
-                String stringDate = String.format("%s-%s-%s", year, monthOfYear, dayOfMonth);
-                date = Utils.formatStringToDate(stringDate);
-            });
+
 
             work = new Work(workName, date, payment, studentName);
             DatabaseHelper databaseHelper = new DatabaseHelper(this);

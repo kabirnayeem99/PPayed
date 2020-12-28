@@ -1,16 +1,12 @@
 package com.kabirnayeem99.paymentpaid.Database;
 
-import com.kabirnayeem99.paymentpaid.Utils;
-
-import java.util.Date;
-
 public class Work {
     private String name;
-    private Date date;
+    private String date;
     private int payment;
     private String studentName;
 
-    public Work(String name, Date date, int payment, String studentName) {
+    public Work(String name, String date, int payment, String studentName) {
         this.name = name;
         this.date = date;
         this.payment = payment;
@@ -29,10 +25,10 @@ public class Work {
     }
 
     public String getDate() {
-        return Utils.formatDateToString(date);
+        return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
