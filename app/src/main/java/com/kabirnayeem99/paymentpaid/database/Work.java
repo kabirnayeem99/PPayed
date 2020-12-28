@@ -1,4 +1,4 @@
-package com.kabirnayeem99.paymentpaid.Database;
+package com.kabirnayeem99.paymentpaid.database;
 
 public class Work {
     private String name;

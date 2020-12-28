@@ -1,4 +1,4 @@
-package com.kabirnayeem99.paymentpaid.UI;
+package com.kabirnayeem99.paymentpaid.ui;
 
 import android.app.Dialog;
 import android.content.Context;

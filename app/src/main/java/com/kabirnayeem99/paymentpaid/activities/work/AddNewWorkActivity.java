@@ -1,4 +1,4 @@
-package com.kabirnayeem99.paymentpaid.Activities.Work;
+package com.kabirnayeem99.paymentpaid.activities.work;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.kabirnayeem99.paymentpaid.Database.DatabaseHelper;
-import com.kabirnayeem99.paymentpaid.Database.Work;
+import com.kabirnayeem99.paymentpaid.database.DatabaseHelper;
+import com.kabirnayeem99.paymentpaid.database.Work;
 import com.kabirnayeem99.paymentpaid.R;
 
 import java.util.Objects;
@@ -37,12 +37,7 @@ public class AddNewWorkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_work);
         initViews();
 
-        newWorkDialogWorkDate.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                date = String.format("%s-%s-%s", year, monthOfYear, dayOfMonth);
-            }
-        });
+        newWorkDialogWorkDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth) -> date = String.format("%s-%s-%s", year, monthOfYear, dayOfMonth));
     }
 
     private void initViews() {

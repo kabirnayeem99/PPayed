@@ -1,4 +1,4 @@
-package com.kabirnayeem99.paymentpaid.Adapters;
+package com.kabirnayeem99.paymentpaid.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kabirnayeem99.paymentpaid.Database.Work;
+import com.kabirnayeem99.paymentpaid.database.Work;
 import com.kabirnayeem99.paymentpaid.R;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.kabirnayeem99.paymentpaid.Activities.Work;
+package com.kabirnayeem99.paymentpaid.activities.work;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kabirnayeem99.paymentpaid.Adapters.WorkAdapter;
-import com.kabirnayeem99.paymentpaid.Database.DatabaseHelper;
-import com.kabirnayeem99.paymentpaid.Database.Work;
 import com.kabirnayeem99.paymentpaid.R;
+import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter;
+import com.kabirnayeem99.paymentpaid.database.DatabaseHelper;
+import com.kabirnayeem99.paymentpaid.database.Work;
 
-import java.text.ParseException;
 import java.util.List;
 
 public class WorksActivity extends AppCompatActivity {
@@ -30,11 +29,7 @@ public class WorksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_works);
-        try {
-            initViews();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        initViews();
     }
 
     @Override
@@ -56,7 +51,7 @@ public class WorksActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void initViews() throws ParseException {
+    private void initViews() {
         workListRV = findViewById(R.id.workListRV);
         databaseHelper = new DatabaseHelper(WorksActivity.this);
         workList = databaseHelper.getWorkList();

@@ -10,15 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PaymentPaid">
-        <activity android:name=".Activities.Work.AddNewWorkActivity" />
+        <activity android:name=".activities.work.AddNewWorkActivity" />
         <activity
-            android:name=".Activities.Export.ExportActivity"
+            android:name=".activities.export.ExportActivity"
             android:label="@string/activity_export" />
         <activity
-            android:name=".Activities.Payment.PaymentActivity"
+            android:name=".activities.payment.PaymentActivity"
             android:label="@string/activity_payment" />
         <activity
-            android:name=".Activities.Work.WorksActivity"
+            android:name=".activities.work.WorksActivity"
             android:label="@string/activity_works" />
         <activity
             android:name=".MainActivity"
