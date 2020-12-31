@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.database.DatabaseHelper;
@@ -68,6 +69,7 @@ public class AddNewWorkActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     private void saveToNoteDB() {
 

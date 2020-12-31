@@ -27,7 +27,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        // CREATE TABLE DB_WORK_TABLE(id INT PRIMARY KEY, student TEXT, work_name TEXT, INT payment, date TEXT);
+        // CREATE TABLE DB_WORK_TABLE(id INT PRIMARY KEY, student TEXT, work_name
+        // TEXT, INT payment, date TEXT);
 
         String dbCreateQuery = String.format("CREATE TABLE %s(%s INTEGER PRIMARY KEY, %s TEXT, " +
                         "%s TEXT, %s INT , %s TEXT)",
@@ -71,13 +72,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String selectNoteQuery = String.format("SELECT * FROM %s", DB_WORK_TABLE);
 
         try (Cursor cursor = db.rawQuery(selectNoteQuery, null)) {
+            // creates a work array list
             if (cursor.moveToFirst()) {
                 do {
                     Work work = new Work();
+
                     work.setStudentName(cursor.getString(1));
                     work.setName(cursor.getString(2));
                     work.setPayment(cursor.getInt(3));
                     work.setDate(cursor.getString(4));
+
                     workList.add(work);
                 } while (cursor.moveToNext());
             }

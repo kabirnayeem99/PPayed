@@ -2,15 +2,13 @@ package com.kabirnayeem99.paymentpaid.activities.work;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter;
 import com.kabirnayeem99.paymentpaid.database.DatabaseHelper;
@@ -24,40 +22,33 @@ public class WorksActivity extends AppCompatActivity {
     WorkAdapter workAdapter;
     List<Work> workList;
     DatabaseHelper databaseHelper;
+    FloatingActionButton fabAddNewWork;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_works);
         initViews();
+
+        fabAddNewWork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WorksActivity.this, AddNewWorkActivity.class);
+                startActivity(intent);
+            }
+        });
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // creates new add new work option menu in the work activity
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.work_activity_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.add_new_work) {
-            Intent intent = new Intent(this, AddNewWorkActivity.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
+    
     private void initViews() {
         workListRV = findViewById(R.id.workListRV);
+        fabAddNewWork = findViewById(R.id.fabAddNewWork);
+
         databaseHelper = new DatabaseHelper(WorksActivity.this);
         workList = databaseHelper.getWorkList();
 
         workAdapter = new WorkAdapter(workList);
         workListRV.setLayoutManager(new LinearLayoutManager(this));
         workListRV.setAdapter(workAdapter);
+
     }
 }
