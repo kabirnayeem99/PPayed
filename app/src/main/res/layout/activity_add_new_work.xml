@@ -35,12 +35,14 @@
                 android:id="@+id/newWorkDialogWorkName"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="12dp" />
+                    android:layout_margin="12dp"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -62,7 +64,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -83,7 +86,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="12dp" />
+                    android:layout_margin="12dp"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
 

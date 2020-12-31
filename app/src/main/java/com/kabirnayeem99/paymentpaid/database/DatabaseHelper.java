@@ -90,4 +90,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return workList;
     }
 
+    public List<Work> getWorkListSortedByMonth(Integer month) {
+        List<Work> workList = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String selectNoteQuery = String.format("SELECT * FROM %s WHERE %s LIKE '2020-%s-__'",
+                DB_WORK_TABLE, KEY_DATE, month);
+
+        try (Cursor cursor = db.rawQuery(selectNoteQuery, null)) {
+            // creates a work array list
+            if (cursor.moveToFirst()) {
+                do {
+                    Work work = new Work();
+
+                    work.setStudentName(cursor.getString(1));
+                    work.setName(cursor.getString(2));
+                    work.setPayment(cursor.getInt(3));
+                    work.setDate(cursor.getString(4));
+
+                    workList.add(work);
+                } while (cursor.moveToNext());
+            }
+        }
+
+        return workList;
+    }
+
 }

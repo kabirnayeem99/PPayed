@@ -38,13 +38,13 @@ public class WorksActivity extends AppCompatActivity {
             }
         });
     }
-    
+
     private void initViews() {
         workListRV = findViewById(R.id.workListRV);
         fabAddNewWork = findViewById(R.id.fabAddNewWork);
 
         databaseHelper = new DatabaseHelper(WorksActivity.this);
-        workList = databaseHelper.getWorkList();
+        workList = databaseHelper.getWorkListSortedByMonth(11);
 
         workAdapter = new WorkAdapter(workList);
         workListRV.setLayoutManager(new LinearLayoutManager(this));

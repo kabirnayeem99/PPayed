@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.database.DatabaseHelper;
@@ -47,6 +46,8 @@ public class AddNewWorkActivity extends AppCompatActivity {
         newWorkDialogWorkPayment = findViewById(R.id.newWorkDialogWorkPayment);
         newWorkDialogWorkStudentName = findViewById(R.id.newWorkDialogWorkStudentName);
         newWorkDialogWorkDate = findViewById(R.id.newWorkDialogWorkDate);
+
+        newWorkDialogWorkName.setErrorEnabled(true);
     }
 
     @Override
@@ -65,7 +66,11 @@ public class AddNewWorkActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.newWorkDialogWorkCancelButton) {
             onBackPressed();
         } else if (item.getItemId() == R.id.newWorkDialogWorkSubmitButton) {
-            saveToNoteDB();
+            if (isValid()) {
+                saveToNoteDB();
+            } else {
+                showErrorMessage();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -75,15 +80,40 @@ public class AddNewWorkActivity extends AppCompatActivity {
 
         // saves added note to the note database
 
+        newWorkDialogWorkDate.setEnabled(true);
+
         workName = Objects.requireNonNull(newWorkDialogWorkName.getEditText()).getText().toString();
         studentName = Objects.requireNonNull(newWorkDialogWorkStudentName.getEditText()).getText().toString();
         payment = Integer.parseInt(Objects.requireNonNull(newWorkDialogWorkPayment.getEditText()).getText().toString());
 
 
         work = new Work(workName, date, payment, studentName);
+
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         databaseHelper.addToWork(work);
         onBackPressed();
+    }
+
+    private boolean isValid() {
+        if (workName.length() < 5) {
+            return false;
+        }
+        if (studentName.length() <= 3) {
+            return false;
+        }
+        if (payment < 50) {
+            return false;
+        }
+        return true;
+    }
+
+    private void showErrorMessage() {
+        newWorkDialogWorkName.setError("Student_name-WORK_NAME");
+        newWorkDialogWorkPayment.setError("2200");
+        newWorkDialogWorkStudentName.setError("Naimul Kabir");
+        newWorkDialogWorkName.setErrorEnabled(true);
+        newWorkDialogWorkPayment.setErrorEnabled(true);
+        newWorkDialogWorkStudentName.setErrorEnabled(true);
     }
 
 }
