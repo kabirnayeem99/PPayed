@@ -17,4 +17,5 @@
     <string name="hint_work_name">কাজের নাম</string>
     <string name="action_submit">সংরক্ষণ</string>
     <string name="action_cancel">বাতিল</string>
+    <string name="activity_add_new_work">নতুন কাজ যোগ করুন</string>
 </resources>

@@ -10,6 +10,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PaymentPaid">
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.work.WorksActivity"
+            android:label="@string/activity_works">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.kabirnayeem99.paymentpaid.MainActivity" />
+        </activity>
+
         <activity
             android:name=".activities.work.AddNewWorkActivity"
             android:label="@string/activity_add_new_work">
@@ -20,26 +38,20 @@
 
         <activity
             android:name=".activities.export.ExportActivity"
-            android:label="@string/activity_export" />
-        <activity
-            android:name=".activities.payment.PaymentActivity"
-            android:label="@string/activity_payment" />
-        <activity
-            android:name=".activities.work.WorksActivity"
-            android:label="@string/activity_works">
+            android:label="@string/activity_export">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.kabirnayeem99.paymentpaid.MainActivity" />
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity
+            android:name=".activities.payment.PaymentActivity"
+            android:label="@string/activity_payment">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.kabirnayeem99.paymentpaid.MainActivity" />
         </activity>
+
 
         <meta-data
             android:name="preloaded_fonts"
