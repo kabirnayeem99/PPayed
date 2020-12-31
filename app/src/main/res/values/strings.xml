@@ -16,6 +16,7 @@
     <string name="action_add_new_work">Add new work</string>
     <string name="action_submit">Submit</string>
     <string name="action_cancel">Cancel</string>
+    <string name="activity_add_new_work">Add New Work</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>
