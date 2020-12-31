@@ -101,10 +101,7 @@ public class AddNewWorkActivity extends AppCompatActivity {
         if (studentName.length() <= 3) {
             return false;
         }
-        if (payment < 50) {
-            return false;
-        }
-        return true;
+        return payment >= 50;
     }
 
     private void showErrorMessage() {

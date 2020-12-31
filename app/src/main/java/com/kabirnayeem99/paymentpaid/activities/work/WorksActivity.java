@@ -30,12 +30,9 @@ public class WorksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_works);
         initViews();
 
-        fabAddNewWork.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WorksActivity.this, AddNewWorkActivity.class);
-                startActivity(intent);
-            }
+        fabAddNewWork.setOnClickListener(v -> {
+            Intent intent = new Intent(WorksActivity.this, AddNewWorkActivity.class);
+            startActivity(intent);
         });
     }
 

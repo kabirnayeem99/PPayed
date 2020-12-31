@@ -6,10 +6,6 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Utils {
-    public static String formatDateToString(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
-        return sdf.format(date);
-    }
 
     public static Date formatStringToDate(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
