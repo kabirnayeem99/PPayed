@@ -1,4 +1,7 @@
-package com.kabirnayeem99.paymentpaid;
+package com.kabirnayeem99.paymentpaid.utils;
+
+import android.app.Activity;
+import android.view.inputmethod.InputMethodManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,4 +19,5 @@ public class Utils {
             return new Date();
         }
     }
+
 }

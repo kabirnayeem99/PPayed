@@ -1,4 +1,4 @@
-package com.kabirnayeem99.paymentpaid.activities.work;
+package com.kabirnayeem99.paymentpaid.activities;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.kabirnayeem99.paymentpaid.R;
-import com.kabirnayeem99.paymentpaid.database.DatabaseHelper;
-import com.kabirnayeem99.paymentpaid.database.Work;
+import com.kabirnayeem99.paymentpaid.utils.DatabaseHelper;
+import com.kabirnayeem99.paymentpaid.models.Work;
 
 import java.util.Objects;
 
@@ -22,13 +22,12 @@ public class AddNewWorkActivity extends AppCompatActivity {
 
     TextInputLayout newWorkDialogWorkName, newWorkDialogWorkPayment, newWorkDialogWorkStudentName;
     DatePicker newWorkDialogWorkDate;
+    DatabaseHelper databaseHelper;
     Work work;
-
-
     String workName = "";
     String studentName = "";
-    String date;
-    int payment = 0;
+    String date = "2020-12-12";
+    int payment;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -66,8 +65,10 @@ public class AddNewWorkActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.newWorkDialogWorkCancelButton) {
             onBackPressed();
         } else if (item.getItemId() == R.id.newWorkDialogWorkSubmitButton) {
-            if (isValid()) {
-                saveToNoteDB();
+            if (true) {
+                if (saveToNoteDB() > 0) {
+                    onBackPressed();
+                }
             } else {
                 showErrorMessage();
             }
@@ -76,41 +77,29 @@ public class AddNewWorkActivity extends AppCompatActivity {
     }
 
 
-    private void saveToNoteDB() {
+    private long saveToNoteDB() {
 
         // saves added note to the note database
-
-        newWorkDialogWorkDate.setEnabled(true);
 
         workName = Objects.requireNonNull(newWorkDialogWorkName.getEditText()).getText().toString();
         studentName = Objects.requireNonNull(newWorkDialogWorkStudentName.getEditText()).getText().toString();
         payment = Integer.parseInt(Objects.requireNonNull(newWorkDialogWorkPayment.getEditText()).getText().toString());
 
-
         work = new Work(workName, date, payment, studentName);
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        databaseHelper.addToWork(work);
-        onBackPressed();
+        databaseHelper = new DatabaseHelper(this);
+        return databaseHelper.addToWork(work);
     }
 
-    private boolean isValid() {
-        if (workName.length() < 5) {
-            return false;
-        }
-        if (studentName.length() <= 3) {
-            return false;
-        }
-        return payment >= 50;
-    }
 
     private void showErrorMessage() {
         newWorkDialogWorkName.setError("Student_name-WORK_NAME");
         newWorkDialogWorkPayment.setError("2200");
         newWorkDialogWorkStudentName.setError("Naimul Kabir");
-        newWorkDialogWorkName.setErrorEnabled(true);
-        newWorkDialogWorkPayment.setErrorEnabled(true);
-        newWorkDialogWorkStudentName.setErrorEnabled(true);
+        newWorkDialogWorkName.setErrorEnabled(workName.length() > 5);
+        newWorkDialogWorkPayment.setErrorEnabled(payment > 5);
+        newWorkDialogWorkStudentName.setErrorEnabled(studentName.length() > 3);
     }
+
 
 }

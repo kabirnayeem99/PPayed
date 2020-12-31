@@ -6,8 +6,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.kabirnayeem99.paymentpaid.activities.export.ExportActivity;
-import com.kabirnayeem99.paymentpaid.activities.work.WorksActivity;
+import com.kabirnayeem99.paymentpaid.activities.ExportActivity;
+import com.kabirnayeem99.paymentpaid.activities.WorksActivity;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,10 +1,12 @@
-package com.kabirnayeem99.paymentpaid.database;
+package com.kabirnayeem99.paymentpaid.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.kabirnayeem99.paymentpaid.models.Work;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void addToWork(Work work) {
+    public long addToWork(Work work) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -59,9 +61,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(KEY_PAYMENT, work.getPayment());
         contentValues.put(KEY_STUDENT_NAME, work.getStudentName());
 
-        db.insert(DB_WORK_TABLE, null, contentValues);
 
-        notify();
+        return db.insert(DB_WORK_TABLE, null, contentValues);
     }
 
     public List<Work> getWorkList() {
@@ -70,7 +71,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         String selectNoteQuery = String.format("SELECT * FROM %s", DB_WORK_TABLE);
-
         try (Cursor cursor = db.rawQuery(selectNoteQuery, null)) {
             // creates a work array list
             if (cursor.moveToFirst()) {
