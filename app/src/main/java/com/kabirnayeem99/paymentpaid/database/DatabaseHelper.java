@@ -59,6 +59,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(KEY_STUDENT_NAME, work.getStudentName());
 
         db.insert(DB_WORK_TABLE, null, contentValues);
+
+        notify();
     }
 
     public List<Work> getWorkList() {

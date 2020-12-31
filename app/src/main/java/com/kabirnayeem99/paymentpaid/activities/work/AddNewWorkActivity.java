@@ -12,9 +12,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.database.DatabaseHelper;
 import com.kabirnayeem99.paymentpaid.database.Work;
-import com.kabirnayeem99.paymentpaid.R;
 
 import java.util.Objects;
 
@@ -37,7 +37,8 @@ public class AddNewWorkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_work);
         initViews();
 
-        newWorkDialogWorkDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth) -> date = String.format("%s-%s-%s", year, monthOfYear, dayOfMonth));
+        newWorkDialogWorkDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth)
+                -> date = String.format("%s-%s-%s", year, monthOfYear, dayOfMonth));
     }
 
     private void initViews() {
@@ -63,16 +64,24 @@ public class AddNewWorkActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.newWorkDialogWorkCancelButton) {
             onBackPressed();
         } else if (item.getItemId() == R.id.newWorkDialogWorkSubmitButton) {
-            workName = Objects.requireNonNull(newWorkDialogWorkName.getEditText()).getText().toString();
-            studentName = Objects.requireNonNull(newWorkDialogWorkStudentName.getEditText()).getText().toString();
-            payment = Integer.parseInt(Objects.requireNonNull(newWorkDialogWorkPayment.getEditText()).getText().toString());
-
-
-            work = new Work(workName, date, payment, studentName);
-            DatabaseHelper databaseHelper = new DatabaseHelper(this);
-            databaseHelper.addToWork(work);
-            onBackPressed();
+            saveToNoteDB();
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void saveToNoteDB() {
+
+        // saves added note to the note database
+
+        workName = Objects.requireNonNull(newWorkDialogWorkName.getEditText()).getText().toString();
+        studentName = Objects.requireNonNull(newWorkDialogWorkStudentName.getEditText()).getText().toString();
+        payment = Integer.parseInt(Objects.requireNonNull(newWorkDialogWorkPayment.getEditText()).getText().toString());
+
+
+        work = new Work(workName, date, payment, studentName);
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        databaseHelper.addToWork(work);
+        onBackPressed();
+    }
+
 }
