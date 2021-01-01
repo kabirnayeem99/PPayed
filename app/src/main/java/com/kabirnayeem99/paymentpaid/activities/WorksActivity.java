@@ -2,6 +2,7 @@ package com.kabirnayeem99.paymentpaid.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,12 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter;
-import com.kabirnayeem99.paymentpaid.utils.DatabaseHelper;
 import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.utils.DatabaseHelper;
 
 import java.util.List;
 
 public class WorksActivity extends AppCompatActivity {
+
+    private static final String TAG = "WorksActivity";
 
     RecyclerView workListRV;
     WorkAdapter workAdapter;
@@ -40,7 +43,16 @@ public class WorksActivity extends AppCompatActivity {
         fabAddNewWork = findViewById(R.id.fabAddNewWork);
 
         databaseHelper = new DatabaseHelper(WorksActivity.this);
-        workList = databaseHelper.getWorkList();
+
+
+        try {
+            workList = databaseHelper.getWorkListSortedByMonth(11);
+            Log.d(TAG, "initViews: size of the getWorkListSortedByMonth" + workList.size());
+        } catch (Exception e) {
+            workList = databaseHelper.getWorkList();
+            Log.d(TAG, "initViews: size of the getWorkList " + workList.size());
+
+        }
 
         workAdapter = new WorkAdapter(workList);
         workListRV.setLayoutManager(new LinearLayoutManager(this));

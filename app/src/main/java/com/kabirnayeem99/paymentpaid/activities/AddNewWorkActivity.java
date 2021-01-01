@@ -3,12 +3,8 @@ package com.kabirnayeem99.paymentpaid.activities;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.DatePicker;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,13 +19,15 @@ public class AddNewWorkActivity extends AppCompatActivity {
 
     private static final String TAG = "AddNewWorkActivity";
 
-    TextInputLayout newWorkDialogWorkName, newWorkDialogWorkPayment, newWorkDialogWorkStudentName;
+    TextInputLayout newWorkDialogWorkName;
+    TextInputLayout newWorkDialogWorkPayment;
+    TextInputLayout newWorkDialogWorkStudentName;
     DatePicker newWorkDialogWorkDate;
     DatabaseHelper databaseHelper;
     Work work;
-    String workName = "";
-    String studentName = "";
-    String date = "2020-12-12";
+    String workName;
+    String studentName;
+    String date;
     int payment;
     long noteId;
 
@@ -49,26 +47,16 @@ public class AddNewWorkActivity extends AppCompatActivity {
         newWorkDialogWorkPayment = findViewById(R.id.newWorkDialogWorkPayment);
         newWorkDialogWorkStudentName = findViewById(R.id.newWorkDialogWorkStudentName);
         newWorkDialogWorkDate = findViewById(R.id.newWorkDialogWorkDate);
-
-        newWorkDialogWorkName.setErrorEnabled(true);
     }
 
 
     @Override
     protected void onPause() {
-
         try {
             noteId = saveToNoteDB();
-            if (noteId <= 0) {
-                super.onResume();
-            } else {
-                super.onPause();
-
-            }
         } catch (Exception e) {
             Log.d(TAG, "onPause: " + e);
-        }
-        finally {
+        } finally {
             super.onPause();
         }
     }
@@ -87,14 +75,6 @@ public class AddNewWorkActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
         return databaseHelper.addToWork(work);
-    }
 
-    private void showErrorMessage() {
-        newWorkDialogWorkName.setError("Student_name-WORK_NAME");
-        newWorkDialogWorkPayment.setError("2200");
-        newWorkDialogWorkStudentName.setError("Naimul Kabir");
-        newWorkDialogWorkName.setErrorEnabled(workName.length() > 5);
-        newWorkDialogWorkPayment.setErrorEnabled(payment > 5);
-        newWorkDialogWorkStudentName.setErrorEnabled(studentName.length() > 3);
     }
 }

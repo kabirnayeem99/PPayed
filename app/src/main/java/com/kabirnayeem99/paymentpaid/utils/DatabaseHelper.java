@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.kabirnayeem99.paymentpaid.models.Work;
 
@@ -16,11 +17,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "payment_paid_db";
     public static final String DB_WORK_TABLE = "works_db_table";
     public static final int DB_VERSION = 2;
+    private static final String TAG = "DatabaseHelper";
     private static final String KEY_ID = "id";
     private static final String KEY_STUDENT_NAME = "student_name";
     private static final String KEY_WORK_NAME = "work_description";
     private static final String KEY_PAYMENT = "payment";
     private static final String KEY_DATE = "date";
+
 
     public DatabaseHelper(Context context) {
         super(context, DatabaseHelper.DB_NAME, null, DB_VERSION);
@@ -95,30 +98,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Work> getWorkListSortedByMonth(Integer month) {
-        List<Work> workList = new ArrayList<>();
+        List<Work> workList = this.getWorkList();
+        Log.d(TAG, "getWorkListSortedByMonth: workList Size " + workList.size());
+        List<Work> workListByMonth = new ArrayList<>();
+        Log.d(TAG, "getWorkListSortedByMonth: workListByMonth Size " + workListByMonth.size());
 
         SQLiteDatabase db = getReadableDatabase();
 
-        String selectNoteQuery = String.format("SELECT * FROM %s WHERE %s LIKE '2020-%s-__'",
-                DB_WORK_TABLE, KEY_DATE, month);
 
-        try (Cursor cursor = db.rawQuery(selectNoteQuery, null)) {
-            // creates a work array list
-            if (cursor.moveToFirst()) {
-                do {
-                    Work work = new Work();
-
-                    work.setStudentName(cursor.getString(1));
-                    work.setName(cursor.getString(2));
-                    work.setPayment(cursor.getInt(3));
-                    work.setDate(cursor.getString(4));
-
-                    workList.add(work);
-                } while (cursor.moveToNext());
-            }
+        for (int i = 0; i < 2; i++) {
+            workListByMonth.add(workList.get(i));
         }
+        Log.d(TAG, "getWorkListSortedByMonth: workListByMonth Size after adding " + workListByMonth.size());
 
-        return workList;
+
+        return workListByMonth;
     }
 
 }
