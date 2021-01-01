@@ -56,13 +56,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(KEY_WORK_NAME, work.getName());
-        contentValues.put(KEY_DATE, work.getDate());
-        contentValues.put(KEY_PAYMENT, work.getPayment());
-        contentValues.put(KEY_STUDENT_NAME, work.getStudentName());
+        if (work.getDate() != null && work.getPayment() > 100) {
+            contentValues.put(KEY_WORK_NAME, work.getName());
+            contentValues.put(KEY_DATE, work.getDate());
+            contentValues.put(KEY_PAYMENT, work.getPayment());
+            contentValues.put(KEY_STUDENT_NAME, work.getStudentName());
 
+            return db.insert(DB_WORK_TABLE, null, contentValues);
+        }
 
-        return db.insert(DB_WORK_TABLE, null, contentValues);
+        return -1;
+
     }
 
     public List<Work> getWorkList() {

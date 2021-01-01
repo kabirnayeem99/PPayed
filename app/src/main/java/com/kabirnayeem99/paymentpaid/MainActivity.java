@@ -1,5 +1,6 @@
 package com.kabirnayeem99.paymentpaid;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kabirnayeem99.paymentpaid.activities.ExportActivity;
+import com.kabirnayeem99.paymentpaid.activities.PaymentActivity;
 import com.kabirnayeem99.paymentpaid.activities.WorksActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         clickWorksButton();
         clickExportButton();
+        clickPaymentButton();
     }
 
     private void clickExportButton() {
@@ -32,13 +35,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    private void clickPaymentButton() {
-//
-//        paymentButton.setOnClickListener(v -> {
-//            Intent intent = new Intent(MainActivity.this, PaymentActivity.class);
-//            startActivity(intent);
-//        });
-//    }
+    private void clickPaymentButton() {
+        paymentButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, PaymentActivity.class);
+            startActivity(intent);
+        });
+    }
 
     private void clickWorksButton() {
         worksButton.setOnClickListener(v -> {
@@ -52,4 +54,5 @@ public class MainActivity extends AppCompatActivity {
         paymentButton = findViewById(R.id.payments_button);
         exportButton = findViewById(R.id.exports_button);
     }
+
 }

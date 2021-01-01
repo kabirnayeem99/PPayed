@@ -47,4 +47,14 @@ public class Work {
     public void setStudentName(String studentName) {
         this.studentName = studentName;
     }
+
+    @Override
+    public String toString() {
+        return "Work{" +
+                "name='" + name + '\'' +
+                ", date='" + date + '\'' +
+                ", payment=" + payment +
+                ", studentName='" + studentName + '\'' +
+                '}';
+    }
 }
