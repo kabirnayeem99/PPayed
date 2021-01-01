@@ -2,7 +2,6 @@ package com.kabirnayeem99.paymentpaid.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,15 +43,8 @@ public class WorksActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(WorksActivity.this);
 
-
-        try {
-            workList = databaseHelper.getWorkListSortedByMonth(11);
-            Log.d(TAG, "initViews: size of the getWorkListSortedByMonth" + workList.size());
-        } catch (Exception e) {
-            workList = databaseHelper.getWorkList();
-            Log.d(TAG, "initViews: size of the getWorkList " + workList.size());
-
-        }
+        workList = databaseHelper.getWorkListSortedByMonth(12);
+//        workList = databaseHelper.getWorkList();
 
         workAdapter = new WorkAdapter(workList);
         workListRV.setLayoutManager(new LinearLayoutManager(this));

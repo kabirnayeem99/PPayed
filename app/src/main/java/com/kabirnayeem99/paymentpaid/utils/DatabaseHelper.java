@@ -99,18 +99,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<Work> getWorkListSortedByMonth(Integer month) {
         List<Work> workList = this.getWorkList();
-        Log.d(TAG, "getWorkListSortedByMonth: workList Size " + workList.size());
         List<Work> workListByMonth = new ArrayList<>();
-        Log.d(TAG, "getWorkListSortedByMonth: workListByMonth Size " + workListByMonth.size());
-
-        SQLiteDatabase db = getReadableDatabase();
 
 
-        for (int i = 0; i < 2; i++) {
-            workListByMonth.add(workList.get(i));
+        for (int i = 0; i < workList.size(); i++) {
+            Log.d(TAG, "getWorkListSortedByMonth: " + workList.get(i).getDate());
+
+            if (Utils.checkDate(workList.get(i).getDate(), month)) {
+                Log.d(TAG, "getWorkListSortedByMonth: " + workList.get(i).toString());
+                workListByMonth.add(workList.get(i));
+            }
         }
-        Log.d(TAG, "getWorkListSortedByMonth: workListByMonth Size after adding " + workListByMonth.size());
 
+        Log.d(TAG, "getWorkListSortedByMonth: size after adding " + workListByMonth.size());
 
         return workListByMonth;
     }
