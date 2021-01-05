@@ -13,12 +13,10 @@
     <string name="hint_payment">Payment</string>
     <string name="hint_student_name">Student Name</string>
     <string name="hint_date">Date</string>
-    <string name="action_submit">Submit</string>
-    <string name="action_cancel">Cancel</string>
     <string name="activity_add_new_work">Add New Work</string>
-    <string name="sample_total_payment">12000</string>
     <string name="sample_month_year_name">January 2020</string>
     <string name="sample_money_amount">12000</string>
+    <string name="sample_month_year">January 2020</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

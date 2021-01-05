@@ -118,7 +118,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String selectNoteQuery = String.format("SELECT SUM(%s) FROM %s", KEY_PAYMENT, DB_WORK_TABLE);
 
-        try (Cursor cursor = db.rawQuery(selectNoteQuery, null);) {
+        try (Cursor cursor = db.rawQuery(selectNoteQuery, null)) {
             if (cursor.moveToFirst()) {
                 totalPayment = cursor.getInt(0);
             }
@@ -129,7 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<Integer> getTotalPaymentByMonth() {
 
-        ArrayList<Integer> paymentListByMonth = new ArrayList<Integer>();
+        ArrayList<Integer> paymentListByMonth = new ArrayList<>();
 
         for (int i = 1; i <= 12; i++) {
             for (int j = 0; j < getWorkListSortedByMonth(i).size(); j++) {

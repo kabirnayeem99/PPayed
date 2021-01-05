@@ -46,18 +46,19 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
         // binds the data for each of the work got from the db to the existing adapter based on the
         // screen time of the lists item.
-        holder.paymentListMonthNameTextView.setText("January 2020");
+        holder.paymentListMonthNameTextView.setText(R.string.sample_month_year);
         holder.paymentListPaymentAmountTextView.setText(String.valueOf(paymentAmount));
     }
 
     @Override
     public int getItemCount() {
+        // the size of the work list
         return paymentListByMonth.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView paymentListMonthNameTextView;
-        TextView paymentListPaymentAmountTextView;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        final TextView paymentListMonthNameTextView;
+        final TextView paymentListPaymentAmountTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
