@@ -16,6 +16,7 @@
     <string name="action_submit">Submit</string>
     <string name="action_cancel">Cancel</string>
     <string name="activity_add_new_work">Add New Work</string>
+    <string name="sample_total_payment">12000</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

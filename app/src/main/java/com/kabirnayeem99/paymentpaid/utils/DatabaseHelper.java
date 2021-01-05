@@ -116,4 +116,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return workListByMonth;
     }
 
+    public String getTotalPayment() {
+        int totalPayment = 0;
+        SQLiteDatabase db = getReadableDatabase();
+        String selectNoteQuery = String.format("SELECT SUM(%s) FROM %s", KEY_PAYMENT, DB_WORK_TABLE);
+
+        try (Cursor cursor = db.rawQuery(selectNoteQuery, null);) {
+            if (cursor.moveToFirst()) {
+                totalPayment = cursor.getInt(0);
+            }
+        }
+        Log.d(TAG, "getTotalPayment: " + totalPayment);
+        return String.format("%s", totalPayment);
+    }
+
 }
