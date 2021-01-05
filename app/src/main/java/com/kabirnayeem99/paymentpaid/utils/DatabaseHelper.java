@@ -103,15 +103,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         for (int i = 0; i < workList.size(); i++) {
-            Log.d(TAG, "getWorkListSortedByMonth: " + workList.get(i).getDate());
 
             if (Utils.checkDate(workList.get(i).getDate(), month)) {
-                Log.d(TAG, "getWorkListSortedByMonth: " + workList.get(i).toString());
                 workListByMonth.add(workList.get(i));
             }
         }
 
-        Log.d(TAG, "getWorkListSortedByMonth: size after adding " + workListByMonth.size());
 
         return workListByMonth;
     }
@@ -128,6 +125,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         Log.d(TAG, "getTotalPayment: " + totalPayment);
         return String.format("%s", totalPayment);
+    }
+
+    public ArrayList<Integer> getTotalPaymentByMonth() {
+
+        ArrayList<Integer> paymentListByMonth = new ArrayList<Integer>();
+
+        for (int i = 1; i <= 12; i++) {
+            for (int j = 0; j < getWorkListSortedByMonth(i).size(); j++) {
+                int payment;
+                payment = getWorkListSortedByMonth(i).get(j).getPayment();
+                paymentListByMonth.add(payment);
+            }
+            Log.d(TAG, "getTotalPaymentByMonth: " + i);
+            Log.d(TAG, "getTotalPaymentByMonth: " + paymentListByMonth);
+        }
+        return paymentListByMonth;
     }
 
 }
