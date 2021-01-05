@@ -17,4 +17,7 @@
     <string name="action_submit">সংরক্ষণ</string>
     <string name="action_cancel">বাতিল</string>
     <string name="activity_add_new_work">নতুন কাজ যোগ করুন</string>
+    <string name="sample_total_payment">১২০০০</string>
+    <string name="sample_month_year_name">জানুয়ারি ২০২০</string>
+    <string name="sample_money_amount">১২০০০</string>
 </resources>
