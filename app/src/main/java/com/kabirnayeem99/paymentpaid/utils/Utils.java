@@ -18,10 +18,10 @@ public class Utils {
         }
     }
 
-    public static boolean checkDate(String date, int month) {
+    public static boolean checkDate(String date, int month, int year) {
         //generated from [https://www.regular-expressions.info/dates.html]
         // tested in [https://regex101.com/]
-        String regex = String.format("^(20)\\d\\d([- \\/.])(%s)\\2(0[1-9]|[12][0-9]|3[01])$", month);
+        String regex = String.format("^(20)\\2\\1([- \\/.])(%s)\\2(0[1-9]|[12][0-9]|3[01])$", month);
         return date.matches(regex);
     }
 

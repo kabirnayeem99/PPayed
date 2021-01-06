@@ -10,7 +10,9 @@ import android.util.Log;
 import com.kabirnayeem99.paymentpaid.models.Work;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -104,7 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         for (int i = 0; i < workList.size(); i++) {
 
-            if (Utils.checkDate(workList.get(i).getDate(), month)) {
+            if (Utils.checkDate(workList.get(i).getDate(), month, 2021)) {
                 workListByMonth.add(workList.get(i));
             }
         }
@@ -123,20 +125,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 totalPayment = cursor.getInt(0);
             }
         }
-        Log.d(TAG, "getTotalPayment: " + totalPayment);
         return String.format("%s", totalPayment);
     }
 
-    public ArrayList<Integer> getTotalPaymentByMonth() {
+    public Map<Integer, Integer> getTotalPaymentByMonth() {
 
-        ArrayList<Integer> paymentListByMonth = new ArrayList<>();
+        Map<Integer, Integer> paymentListByMonth = new HashMap<Integer, Integer>();
 
         for (int i = 1; i <= 12; i++) {
+            int monthlyPayment = 0;
             for (int j = 0; j < getWorkListSortedByMonth(i).size(); j++) {
-                int payment;
-                payment = getWorkListSortedByMonth(i).get(j).getPayment();
-                paymentListByMonth.add(payment);
+                monthlyPayment = monthlyPayment + getWorkListSortedByMonth(i).get(j).getPayment();
+                Log.d(TAG, "getTotalPaymentByMonth: " + getWorkListSortedByMonth(i).get(j).getPayment());
+                Log.d(TAG, "getTotalPaymentByMonth: " + monthlyPayment);
             }
+            paymentListByMonth.put(i, monthlyPayment);
+
             Log.d(TAG, "getTotalPaymentByMonth: " + i);
             Log.d(TAG, "getTotalPaymentByMonth: " + paymentListByMonth);
         }

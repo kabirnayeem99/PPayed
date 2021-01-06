@@ -1,5 +1,6 @@
 package com.kabirnayeem99.paymentpaid.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kabirnayeem99.paymentpaid.R;
 
-import java.util.ArrayList;
+import java.util.Map;
 
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
+    private static final String TAG = "PaymentAdapter";
 
-    private final ArrayList<Integer> paymentListByMonth;
+    private final Map<Integer, Integer> paymentListByMonth;
 
-    public PaymentAdapter(ArrayList<Integer> paymentListByMonth) {
+    public PaymentAdapter(Map<Integer, Integer> paymentListByMonth) {
         this.paymentListByMonth = paymentListByMonth;
     }
 
@@ -46,13 +48,16 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
         // binds the data for each of the work got from the db to the existing adapter based on the
         // screen time of the lists item.
-        holder.paymentListMonthNameTextView.setText(R.string.sample_month_year);
+        String[] monthArrayList = new String[]{"January", "February", "March", "April", "May",
+                "June", "July", "August", "September", "October", "November", "December"};
+        holder.paymentListMonthNameTextView.setText(monthArrayList[position]);
         holder.paymentListPaymentAmountTextView.setText(String.valueOf(paymentAmount));
     }
 
     @Override
     public int getItemCount() {
         // the size of the work list
+        Log.d(TAG, "getItemCount: " + paymentListByMonth.size());
         return paymentListByMonth.size();
     }
 

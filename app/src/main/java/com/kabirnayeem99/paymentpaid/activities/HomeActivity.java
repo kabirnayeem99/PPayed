@@ -1,4 +1,4 @@
-package com.kabirnayeem99.paymentpaid;
+package com.kabirnayeem99.paymentpaid.activities;
 
 
 import android.content.Intent;
@@ -7,11 +7,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.kabirnayeem99.paymentpaid.activities.ExportActivity;
-import com.kabirnayeem99.paymentpaid.activities.PaymentActivity;
-import com.kabirnayeem99.paymentpaid.activities.WorksActivity;
+import com.kabirnayeem99.paymentpaid.R;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     Button worksButton;
     Button paymentButton;
@@ -20,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
         initViews();
 
         clickWorksButton();
@@ -30,21 +28,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void clickExportButton() {
         exportButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, ExportActivity.class);
+            Intent intent = new Intent(HomeActivity.this, ExportActivity.class);
             startActivity(intent);
         });
     }
 
     private void clickPaymentButton() {
         paymentButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, PaymentActivity.class);
+            Intent intent = new Intent(HomeActivity.this, PaymentActivity.class);
             startActivity(intent);
         });
     }
 
     private void clickWorksButton() {
         worksButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, WorksActivity.class);
+            Intent intent = new Intent(HomeActivity.this, WorksActivity.class);
             startActivity(intent);
         });
     }
