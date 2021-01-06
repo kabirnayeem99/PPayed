@@ -25,4 +25,10 @@ public class Utils {
         return date.matches(regex);
     }
 
+    public static String padMonth(int month) {
+        String output = Integer.toString(month);
+        while (output.length() < 2) output = "0" + output;
+        return output;
+    }
+
 }

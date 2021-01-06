@@ -1,6 +1,7 @@
 package com.kabirnayeem99.paymentpaid.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import com.kabirnayeem99.paymentpaid.utils.DatabaseHelper;
 import java.util.Map;
 
 public class PaymentActivity extends AppCompatActivity {
+    private static final String TAG = "PaymentActivity";
 
     RecyclerView paymentListByMontRecyclyerView;
     DatabaseHelper databaseHelper;
@@ -32,6 +34,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         Map<Integer, Integer> totalPaymentListByMont = databaseHelper.getTotalPaymentByMonth();
+        Log.d(TAG, "initRecyclerView: " + totalPaymentListByMont);
         PaymentAdapter paymentAdapter = new PaymentAdapter(totalPaymentListByMont);
         paymentListByMontRecyclyerView.setLayoutManager(new LinearLayoutManager(this));
         paymentListByMontRecyclyerView.setAdapter(paymentAdapter);

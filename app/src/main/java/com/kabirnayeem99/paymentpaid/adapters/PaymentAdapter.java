@@ -44,7 +44,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         // as well as the memory usage.
 
         // gets the data from the database, i.e. work title, submission date and payment amount.
-        Integer paymentAmount = paymentListByMonth.get(position);
+        Integer paymentAmount = paymentListByMonth.get(position+1);
 
         // binds the data for each of the work got from the db to the existing adapter based on the
         // screen time of the lists item.

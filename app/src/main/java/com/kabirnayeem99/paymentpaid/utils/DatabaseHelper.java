@@ -110,7 +110,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 workListByMonth.add(workList.get(i));
             }
         }
-
+        Log.d(TAG, "getWorkListSortedByMonth: " + workListByMonth);
 
         return workListByMonth;
     }
@@ -129,22 +129,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Map<Integer, Integer> getTotalPaymentByMonth() {
+        Map<Integer, Integer> totalPayment = new HashMap<>();
+        totalPayment.put(1, 2);
+        int monthlyPayment = 0;
+        char quotes = '"';
+        SQLiteDatabase db = getReadableDatabase();
 
-        Map<Integer, Integer> paymentListByMonth = new HashMap<Integer, Integer>();
 
         for (int i = 1; i <= 12; i++) {
-            int monthlyPayment = 0;
-            for (int j = 0; j < getWorkListSortedByMonth(i).size(); j++) {
-                monthlyPayment = monthlyPayment + getWorkListSortedByMonth(i).get(j).getPayment();
-                Log.d(TAG, "getTotalPaymentByMonth: " + getWorkListSortedByMonth(i).get(j).getPayment());
-                Log.d(TAG, "getTotalPaymentByMonth: " + monthlyPayment);
-            }
-            paymentListByMonth.put(i, monthlyPayment);
+            String month = Utils.padMonth(i);
+            String selectNoteQueryByMonth = String.format("SELECT SUM(%s) FROM %s WHERE %s LIKE %s2021-%s-%%%s",
+                    KEY_PAYMENT, DB_WORK_TABLE, KEY_DATE, quotes, month, quotes);
 
-            Log.d(TAG, "getTotalPaymentByMonth: " + i);
-            Log.d(TAG, "getTotalPaymentByMonth: " + paymentListByMonth);
+            try (Cursor cursor = db.rawQuery(selectNoteQueryByMonth, null)) {
+                if (cursor.moveToFirst()) {
+                    monthlyPayment = cursor.getInt(0);
+                }
+            }
+            totalPayment.put(i, monthlyPayment);
         }
-        return paymentListByMonth;
+        Log.d(TAG, "getTotalPaymentByMonth: " + totalPayment);
+
+        return totalPayment;
+
+//        Map<Integer, Integer> paymentListByMonth = new HashMap<Integer, Integer>();
+//
+//        for (int i = 1; i <= 12; i++) {
+//            int monthlyPayment = 0;
+//            for (int j = 0; j < getWorkListSortedByMonth(i).size(); j++) {
+//                monthlyPayment = monthlyPayment + getWorkListSortedByMonth(i).get(j).getPayment();
+//            }
+//            paymentListByMonth.put(i, monthlyPayment);
+//        }
+//        Log.d(TAG, "getTotalPaymentByMonth: " + paymentListByMonth.toString());
+//        return paymentListByMonth;
     }
 
 }

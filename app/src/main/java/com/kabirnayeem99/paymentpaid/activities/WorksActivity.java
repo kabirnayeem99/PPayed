@@ -43,7 +43,7 @@ public class WorksActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(WorksActivity.this);
 
-        workList = databaseHelper.getWorkListSortedByMonth(12);
+        workList = databaseHelper.getWorkList();
 //        workList = databaseHelper.getWorkList();
 
         workAdapter = new WorkAdapter(workList);
