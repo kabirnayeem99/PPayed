@@ -10,6 +10,7 @@ import android.util.Log;
 import com.kabirnayeem99.paymentpaid.models.WorkModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "payment_paid_db";
     public static final String DB_WORK_TABLE = "works_db_table";
     public static final int DB_VERSION = 2;
+    public static final char SINGLE_QUOTE = '"';
     private static final String TAG = "DatabaseHelper";
     private static final String KEY_ID = "id";
     private static final String KEY_STUDENT_NAME = "student_name";
@@ -144,7 +146,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return workListByMonth;
     }
 
-    public String getTotalPayment() {
+    public String getTotalPaymentByYear() {
         // gets the total payment using the database
 
         int totalPayment = 0;
@@ -152,7 +154,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         // SELECT SUM(payment) FROM works_db_table
-        String selectNoteQuery = String.format("SELECT SUM(%s) FROM %s", KEY_PAYMENT, DB_WORK_TABLE);
+        String selectNoteQuery = String.format("SELECT SUM(%s) FROM %s WHERE %s LIKE %s%s%%%s",
+                KEY_PAYMENT, DB_WORK_TABLE, KEY_DATE, SINGLE_QUOTE, Calendar.getInstance().get(Calendar.YEAR), SINGLE_QUOTE);
+
+        Log.d(TAG, "getTotalPaymentByYear: current year" + Calendar.getInstance().get(Calendar.YEAR));
 
         try (Cursor cursor = db.rawQuery(selectNoteQuery, null)) {
             if (cursor.moveToFirst()) {
@@ -174,7 +179,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int monthlyPayment = 0;
 
         // quotes to help with the string malformation in SQLite query
-        char quotes = '"';
+
 
         SQLiteDatabase db = getReadableDatabase();
 
@@ -183,7 +188,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             // SELECT SUM(payment) FROM works_db_table WHERE date LIKE "2021-01-%%"
 
             String selectNoteQueryByMonth = String.format("SELECT SUM(%s) FROM %s WHERE %s LIKE %s2021-%s-%%%s",
-                    KEY_PAYMENT, DB_WORK_TABLE, KEY_DATE, quotes, Utils.padMonth(month), quotes);
+                    KEY_PAYMENT, DB_WORK_TABLE, KEY_DATE, SINGLE_QUOTE, Utils.padMonth(month), SINGLE_QUOTE);
+            Log.d(TAG, "getTotalPaymentByMonth: Query" + selectNoteQueryByMonth);
 
             try (Cursor cursor = db.rawQuery(selectNoteQueryByMonth, null)) {
                 if (cursor.moveToFirst()) {
@@ -191,6 +197,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
             }
             totalPayment.put(month, monthlyPayment);
+            Log.d(TAG, String.format("getTotalPaymentByMonth: month= %d  payment= %d", month, monthlyPayment));
         }
 
         db.close();

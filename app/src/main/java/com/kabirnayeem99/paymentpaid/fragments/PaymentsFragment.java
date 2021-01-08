@@ -18,6 +18,7 @@ import com.kabirnayeem99.paymentpaid.adapters.PaymentAdapter;
 import com.kabirnayeem99.paymentpaid.utils.DatabaseHelper;
 import com.kabirnayeem99.paymentpaid.utils.Utils;
 
+import java.util.Calendar;
 import java.util.Map;
 
 
@@ -40,7 +41,7 @@ public class PaymentsFragment extends Fragment {
         initViews(view);
 
         databaseHelper = new DatabaseHelper(getActivity());
-        paymentListTotal.setText(Utils.formatNumber(databaseHelper.getTotalPayment()));
+        paymentListTotal.setText(Utils.formatNumber(databaseHelper.getTotalPaymentByYear()));
 
         initRecyclerView(databaseHelper);
 

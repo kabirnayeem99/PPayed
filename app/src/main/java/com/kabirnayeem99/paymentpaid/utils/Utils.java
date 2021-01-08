@@ -1,5 +1,7 @@
 package com.kabirnayeem99.paymentpaid.utils;
 
+import android.util.Log;
+
 import java.text.DecimalFormat;
 
 public class Utils {
@@ -21,12 +23,16 @@ public class Utils {
         //generated from [https://www.regular-expressions.info/dates.html]
         // tested in [https://regex101.com/]
         String regex = String.format("^(20)\\2\\1([- \\/.])(%s)\\2(0[1-9]|[12][0-9]|3[01])$", month);
+        Log.d(TAG, "checkDate: " + regex);
         return date.matches(regex);
     }
 
     public static String padMonth(int month) {
         StringBuilder output = new StringBuilder(Integer.toString(month));
-        while (output.length() < 2) output.insert(0, "0");
+        if (output.length() < 2) {
+            output.insert(0, "0");
+        }
+        Log.d(TAG, "padMonth: " + output);
         return output.toString();
     }
 
