@@ -26,9 +26,9 @@ public class Utils {
     }
 
     public static String padMonth(int month) {
-        String output = Integer.toString(month);
-        while (output.length() < 2) output = "0" + output;
-        return output;
+        StringBuilder output = new StringBuilder(Integer.toString(month));
+        while (output.length() < 2) output.insert(0, "0");
+        return output.toString();
     }
 
 }

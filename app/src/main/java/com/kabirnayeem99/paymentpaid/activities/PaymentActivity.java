@@ -41,7 +41,7 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        paymentListByMontRecyclyerView = findViewById(R.id.paymentListByMontRecyclyerView);
+        paymentListByMontRecyclyerView = findViewById(R.id.paymentListByMontRecyclerView);
         paymentListTotal = findViewById(R.id.paymentListTotal);
     }
 }
