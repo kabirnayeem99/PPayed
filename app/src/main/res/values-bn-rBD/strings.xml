@@ -18,4 +18,9 @@
     <string name="sample_month_year_name">জানুয়ারি ২০২০</string>
     <string name="sample_money_amount">১২০০০</string>
     <string name="total_payment_desc">"সর্বমোট বেতন "</string>
+    <string name="tab_item_exports">এক্সপোর্ট</string>
+    <string name="tab_item_payments">পেমেন্ট</string>
+    <string name="tab_item_works">কাজ</string>
+    <string name="export_data">ডাটা এক্সপোর্ট করুন</string>
+    <string name="hello_blank_fragment">ব্লা ব্লা</string>
 </resources>
