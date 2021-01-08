@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.kabirnayeem99.paymentpaid.R;
-import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.models.WorkModel;
 import com.kabirnayeem99.paymentpaid.utils.DatabaseHelper;
 import com.kabirnayeem99.paymentpaid.utils.Utils;
 
@@ -26,7 +26,7 @@ public class AddNewWorkActivity extends AppCompatActivity {
     TextInputLayout newWorkDialogWorkStudentName;
     DatePicker newWorkDialogWorkDate;
     DatabaseHelper databaseHelper;
-    Work work;
+    WorkModel work;
     String workName;
     String studentName;
     String date;
@@ -76,7 +76,7 @@ public class AddNewWorkActivity extends AppCompatActivity {
         // parses the integer value from the string
         payment = parseInt(requireNonNull(newWorkDialogWorkPayment.getEditText()).getText().toString());
 
-        work = new Work(workName, date, payment, studentName);
+        work = new WorkModel(workName, date, payment, studentName);
 
         Log.d(TAG, "saveToNoteDB: work instance " + work.toString());
 

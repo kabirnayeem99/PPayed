@@ -1,19 +1,19 @@
 package com.kabirnayeem99.paymentpaid.models;
 
-public class Work {
+public class WorkModel {
     private String name;
     private String date;
     private int payment;
     private String studentName;
 
-    public Work(String name, String date, int payment, String studentName) {
+    public WorkModel(String name, String date, int payment, String studentName) {
         this.name = name;
         this.date = date;
         this.payment = payment;
         this.studentName = studentName;
     }
 
-    public Work() {
+    public WorkModel() {
     }
 
     public String getName() {

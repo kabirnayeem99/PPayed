@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.models.WorkModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public long addToWork(Work work) {
+    public long addToWork(WorkModel work) {
         // adds new work to the database
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -92,13 +92,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<Work> getWorkList() {
+    public List<WorkModel> getWorkList() {
         /*
          gets the work list from the database
          and returns as array list
          */
 
-        List<Work> workList = new ArrayList<>();
+        List<WorkModel> workList = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
 
@@ -110,7 +110,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
                     // creates a new instance of work
-                    Work work = new Work();
+                    WorkModel work = new WorkModel();
 
                     // sets the value of the new work object
                     work.setStudentName(cursor.getString(1));
@@ -128,9 +128,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return workList;
     }
 
-    public List<Work> getWorkListSortedByMonth(Integer month) {
-        List<Work> workList = this.getWorkList();
-        List<Work> workListByMonth = new ArrayList<>();
+    public List<WorkModel> getWorkListSortedByMonth(Integer month) {
+        List<WorkModel> workList = this.getWorkList();
+        List<WorkModel> workListByMonth = new ArrayList<>();
 
 
         for (int i = 0; i < workList.size(); i++) {

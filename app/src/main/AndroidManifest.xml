@@ -20,39 +20,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".activities.WorksActivity"
-            android:label="@string/activity_works">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kabirnayeem99.paymentpaid.activities.HomeActivity" />
-        </activity>
-
-        <activity
-            android:name=".activities.AddNewWorkActivity"
-            android:label="@string/activity_add_new_work">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kabirnayeem99.paymentpaid.activities.WorksActivity" />
-        </activity>
-
-        <activity
-            android:name=".activities.ExportActivity"
-            android:label="@string/activity_export">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kabirnayeem99.paymentpaid.activities.HomeActivity" />
-        </activity>
-
-        <activity
-            android:name=".activities.PaymentActivity"
-            android:label="@string/activity_payment">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kabirnayeem99.paymentpaid.activities.HomeActivity" />
-        </activity>
-
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

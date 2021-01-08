@@ -8,15 +8,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.models.WorkModel;
 import com.kabirnayeem99.paymentpaid.R;
 
 import java.util.List;
 
 public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
-    private final List<Work> workList;
+    private final List<WorkModel> workList;
 
-    public WorkAdapter(List<Work> workList) {
+    public WorkAdapter(List<WorkModel> workList) {
         this.workList = workList;
     }
 
