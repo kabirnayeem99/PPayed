@@ -20,6 +20,13 @@
             </intent-filter>
         </activity>
 
+
+        <activity
+            android:name=".activities.AddNewWorkActivity"
+            android:label="@string/add_new_work">
+
+        </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
