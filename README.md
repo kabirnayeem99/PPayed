@@ -1,4 +1,4 @@
-# PPayed - Foss Payment Manager
+# PPayed - FOSS Payment Manager ![Build status](https://github.com/kabirnayeem99/android_paymentpaid_app/workflows/Java%20CI%20with%20Gradle/badge.svg)
 
 <img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/icon.png" align="left"
 width="160" hspace="8" vspace="10">
