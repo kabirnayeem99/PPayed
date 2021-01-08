@@ -1,6 +1,6 @@
 # PPayed - Foss Payment Manager
 
-<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/raw/main/money-transfer.png" align="left"
+<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/icon.png" align="left"
 width="160" hspace="8" vspace="10">
 
 PPayed is your payment management app for your contract-based works.
@@ -24,12 +24,14 @@ The android app lets you:
 
 ## Screenshots
 
-[<img src="/readme/Wallabag%20Reading%20List.png" align="left"
+[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/work_screen.png" align="center"
 width="200"
-    hspace="10" vspace="10">](/readme/Wallabag%20Reading%20List.png)
-[<img src="/readme/Wallabag%20Article%20View.png" align="center"
+    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/work_screen.png)
+
+[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/add_new_note_screen.png" align="center"
 width="200"
-    hspace="10" vspace="10">](/readme/Wallabag%20Article%20View.png)
+    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/add_new_note_screen.png)
+
 
 ## Contributing
 
