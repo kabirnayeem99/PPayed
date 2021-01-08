@@ -1,5 +1,7 @@
 package com.kabirnayeem99.paymentpaid.adapters;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -11,6 +13,7 @@ import com.kabirnayeem99.paymentpaid.fragments.PaymentsFragment;
 import com.kabirnayeem99.paymentpaid.fragments.WorksFragment;
 
 public class HomePagerAdapter extends FragmentStatePagerAdapter {
+    private static final String TAG = "HomePagerAdapter";
 
     private final int numberOfTabs;
 
@@ -22,6 +25,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
+        Log.d(TAG, "getItem: " + position);
         switch (position) {
             case 0:
                 return new WorksFragment();
@@ -38,10 +42,12 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
         return numberOfTabs;
     }
 
-    
+
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return ("Tab" + super.getPageTitle(position));
+        Log.d(TAG, "getPageTitle: " + position);
+        String[] tabTitles = {"Works", "Payments", "Export"};
+        return tabTitles[position];
     }
 }
