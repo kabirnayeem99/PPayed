@@ -10,7 +10,6 @@ import android.util.Log;
 import com.kabirnayeem99.paymentpaid.models.WorkModel;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -155,9 +154,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // SELECT SUM(payment) FROM works_db_table
         String selectNoteQuery = String.format("SELECT SUM(%s) FROM %s WHERE %s LIKE %s%s%%%s",
-                KEY_PAYMENT, DB_WORK_TABLE, KEY_DATE, SINGLE_QUOTE, Calendar.getInstance().get(Calendar.YEAR), SINGLE_QUOTE);
+                KEY_PAYMENT, DB_WORK_TABLE, KEY_DATE, SINGLE_QUOTE, Utils.getCurrentYear(), SINGLE_QUOTE);
 
-        Log.d(TAG, "getTotalPaymentByYear: current year" + Calendar.getInstance().get(Calendar.YEAR));
+        Log.d(TAG, "getTotalPaymentByYear: current year" + Utils.getCurrentYear());
 
         try (Cursor cursor = db.rawQuery(selectNoteQuery, null)) {
             if (cursor.moveToFirst()) {

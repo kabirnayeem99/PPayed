@@ -54,7 +54,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         String[] monthArrayList = new String[]{"January", "February", "March", "April", "May",
                 "June", "July", "August", "September", "October", "November", "December"};
 
-        holder.paymentListMonthNameTextView.setText(String.format("%s 2021", monthArrayList[position]));
+        holder.paymentListMonthNameTextView.setText(String.format("%s %s", monthArrayList[position],
+                Utils.getCurrentYear()));
+
         assert paymentAmount != null;
         holder.paymentListPaymentAmountTextView.setText(String.format("%s",
                 Utils.formatNumber(paymentAmount.toString())));

@@ -3,6 +3,7 @@ package com.kabirnayeem99.paymentpaid.utils;
 import android.util.Log;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 public class Utils {
     private static final String TAG = "Utils";
@@ -47,4 +48,7 @@ public class Utils {
         return number.toString();
     }
 
+    public static String getCurrentYear() {
+        return String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+    }
 }
