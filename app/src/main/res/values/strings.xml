@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PaymentPaid</string>
+    <string name="app_name">PPayed</string>
     <string name="sample_date">26-Dec-2020</string>
     <string name="sample_note_title">Maria MSBP</string>
     <string name="sample_payment">2,200</string>

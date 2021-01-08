@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">পেমেন্টপেইড</string>
+    <string name="app_name">পিপেইড</string>
     <string name="sample_date">২৬-ডিসেম্বর-২০২০</string>
     <string name="sample_payment">২,২০০</string>
     <string name="sample_note_title">মারিয়া এমএসবিপি</string>
