@@ -14,7 +14,8 @@ import com.kabirnayeem99.paymentpaid.models.Work;
 import com.kabirnayeem99.paymentpaid.utils.DatabaseHelper;
 import com.kabirnayeem99.paymentpaid.utils.Utils;
 
-import java.util.Objects;
+import static java.lang.Integer.parseInt;
+import static java.util.Objects.requireNonNull;
 
 public class AddNewWorkActivity extends AppCompatActivity {
 
@@ -44,7 +45,6 @@ public class AddNewWorkActivity extends AppCompatActivity {
             // month is returning a value less than the actual value, so magic number 1 is added
             date = String.format("%s-%s-%s", year, Utils.padMonth(monthOfYear + 1),
                     Utils.padMonth(dayOfMonth));
-            Log.d(TAG, "onCreate: month " + monthOfYear + 1);
         });
     }
 
@@ -68,17 +68,20 @@ public class AddNewWorkActivity extends AppCompatActivity {
     }
 
     private long saveToNoteDB() {
-
         // saves added note to the note database
-        workName = Objects.requireNonNull(newWorkDialogWorkName.getEditText()).getText().toString();
-        studentName = Objects.requireNonNull(newWorkDialogWorkStudentName.getEditText()).getText().toString();
-        payment = Integer.parseInt(Objects.requireNonNull(newWorkDialogWorkPayment.getEditText()).getText().toString());
+
+        // requireNonNull ensures that the field is guaranteed be non-null.
+        workName = requireNonNull(newWorkDialogWorkName.getEditText()).getText().toString();
+        studentName = requireNonNull(newWorkDialogWorkStudentName.getEditText()).getText().toString();
+        // parses the integer value from the string
+        payment = parseInt(requireNonNull(newWorkDialogWorkPayment.getEditText()).getText().toString());
 
         work = new Work(workName, date, payment, studentName);
 
-        Log.d(TAG, "saveToNoteDB: " + work.toString());
+        Log.d(TAG, "saveToNoteDB: work instance " + work.toString());
 
         databaseHelper = new DatabaseHelper(this);
+
         return databaseHelper.addToWork(work);
     }
 }

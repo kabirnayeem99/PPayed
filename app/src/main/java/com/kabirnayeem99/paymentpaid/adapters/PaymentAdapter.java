@@ -44,14 +44,17 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         // as well as the memory usage.
 
         // gets the data from the database, i.e. work title, submission date and payment amount.
-        Integer paymentAmount = paymentListByMonth.get(position+1);
+        Integer paymentAmount = paymentListByMonth.get(position + 1);
+        Log.d(TAG, "onBindViewHolder: position of adapter" + position);
 
         // binds the data for each of the work got from the db to the existing adapter based on the
         // screen time of the lists item.
         String[] monthArrayList = new String[]{"January", "February", "March", "April", "May",
                 "June", "July", "August", "September", "October", "November", "December"};
-        holder.paymentListMonthNameTextView.setText(monthArrayList[position]);
-        holder.paymentListPaymentAmountTextView.setText(String.valueOf(paymentAmount));
+
+        holder.paymentListMonthNameTextView.setText(String.format("%s 2021", monthArrayList[position]));
+        holder.paymentListPaymentAmountTextView.setText(String.format("%s",
+                paymentAmount));
     }
 
     @Override

@@ -17,6 +17,7 @@
     <string name="sample_month_year_name">January 2020</string>
     <string name="sample_money_amount">12000</string>
     <string name="sample_month_year">January 2020</string>
+    <string name="total_payment_desc">Total Payment</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>
