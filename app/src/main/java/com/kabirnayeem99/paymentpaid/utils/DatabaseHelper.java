@@ -34,6 +34,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+        // Calls when the database is created for the first time.
+
         // CREATE TABLE DB_WORK_TABLE(id INT PRIMARY KEY, student TEXT, work_name
         // TEXT, INT payment, date TEXT);
 
@@ -46,10 +48,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Calls when the database needs to be upgraded.
+
         if (oldVersion >= newVersion) {
+            // if no upgrade is needed, the method returns nothing
             return;
         }
 
+        // if the table needs upgrade, drops the table, and creates new database
         String dbUpgradeQuery = String.format("DROP TABLE IF EXISTS %s", DB_WORK_TABLE);
         db.execSQL(dbUpgradeQuery);
         onCreate(db);
@@ -57,6 +63,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public long addToWork(Work work) {
+        // adds new work to the database
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -67,34 +75,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(KEY_PAYMENT, work.getPayment());
             contentValues.put(KEY_STUDENT_NAME, work.getStudentName());
 
+            /*
+            should return a positive value, which will the new primary key
+            of the database
+             */
             return db.insert(DB_WORK_TABLE, null, contentValues);
         }
 
+        db.close();
+
+        /*
+        if the adding new work to database fails
+        return negative value
+        */
         return -1;
 
     }
 
     public List<Work> getWorkList() {
+        /*
+         gets the work list from the database
+         and returns as array list
+         */
+
         List<Work> workList = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
 
+        // SELECT * from works_db_table;
         String selectNoteQuery = String.format("SELECT * FROM %s", DB_WORK_TABLE);
+
         try (Cursor cursor = db.rawQuery(selectNoteQuery, null)) {
             // creates a work array list
             if (cursor.moveToFirst()) {
                 do {
+                    // creates a new instance of work
                     Work work = new Work();
 
+                    // sets the value of the new work object
                     work.setStudentName(cursor.getString(1));
                     work.setName(cursor.getString(2));
                     work.setPayment(cursor.getInt(3));
                     work.setDate(cursor.getString(4));
 
+                    // adds the new work object to the array list
                     workList.add(work);
                 } while (cursor.moveToNext());
             }
         }
+        db.close();
 
         return workList;
     }
@@ -116,52 +145,57 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public String getTotalPayment() {
+        // gets the total payment using the database
+
         int totalPayment = 0;
+
         SQLiteDatabase db = getReadableDatabase();
+
+        // SELECT SUM(payment) FROM works_db_table
         String selectNoteQuery = String.format("SELECT SUM(%s) FROM %s", KEY_PAYMENT, DB_WORK_TABLE);
 
         try (Cursor cursor = db.rawQuery(selectNoteQuery, null)) {
             if (cursor.moveToFirst()) {
+                // there is only one column and one row in the result table
                 totalPayment = cursor.getInt(0);
             }
         }
+
+        db.close();
+
         return String.format("%s", totalPayment);
     }
 
     public Map<Integer, Integer> getTotalPaymentByMonth() {
+        // a method to return a hash map including both the month and the year
+
         Map<Integer, Integer> totalPayment = new HashMap<>();
+
         int monthlyPayment = 0;
+
+        // quotes to help with the string malformation in SQLite query
         char quotes = '"';
+
         SQLiteDatabase db = getReadableDatabase();
 
 
         for (int month = 1; month <= 12; month++) {
+            // SELECT SUM(payment) FROM works_db_table WHERE date LIKE "2021-01-%%"
+
             String selectNoteQueryByMonth = String.format("SELECT SUM(%s) FROM %s WHERE %s LIKE %s2021-%s-%%%s",
                     KEY_PAYMENT, DB_WORK_TABLE, KEY_DATE, quotes, Utils.padMonth(month), quotes);
 
             try (Cursor cursor = db.rawQuery(selectNoteQueryByMonth, null)) {
                 if (cursor.moveToFirst()) {
                     monthlyPayment = cursor.getInt(0);
-                    Log.d(TAG, "getTotalPaymentByMonth: " + month + " " + monthlyPayment);
                 }
             }
             totalPayment.put(month, monthlyPayment);
         }
-        Log.d(TAG, "getTotalPaymentByMonth: " + totalPayment);
+
+        db.close();
 
         return totalPayment;
-
-//        Map<Integer, Integer> paymentListByMonth = new HashMap<Integer, Integer>();
-//
-//        for (int i = 1; i <= 12; i++) {
-//            int monthlyPayment = 0;
-//            for (int j = 0; j < getWorkListSortedByMonth(i).size(); j++) {
-//                monthlyPayment = monthlyPayment + getWorkListSortedByMonth(i).get(j).getPayment();
-//            }
-//            paymentListByMonth.put(i, monthlyPayment);
-//        }
-//        Log.d(TAG, "getTotalPaymentByMonth: " + paymentListByMonth.toString());
-//        return paymentListByMonth;
     }
 
 }
