@@ -8,8 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kabirnayeem99.paymentpaid.models.WorkModel;
 import com.kabirnayeem99.paymentpaid.R;
+import com.kabirnayeem99.paymentpaid.models.WorkModel;
+import com.kabirnayeem99.paymentpaid.utils.Utils;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         // screen time of the lists item.
         holder.workListItemTitle.setText(workListItemTitle);
         holder.workListItemDate.setText(workListItemDate);
-        holder.workListItemPayment.setText(workListItemPayment);
+        holder.workListItemPayment.setText(Utils.formatNumber(workListItemPayment));
     }
 
     @Override

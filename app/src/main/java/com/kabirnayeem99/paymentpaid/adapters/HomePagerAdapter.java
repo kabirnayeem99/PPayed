@@ -34,7 +34,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 return new ExportsFragment();
         }
-        return null;
+        return new WorksFragment();
     }
 
     @Override

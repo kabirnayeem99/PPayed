@@ -2,13 +2,13 @@
     <string name="app_name">PaymentPaid</string>
     <string name="sample_date">26-Dec-2020</string>
     <string name="sample_note_title">Maria MSBP</string>
-    <string name="sample_payment">2200</string>
+    <string name="sample_payment">2,200</string>
     <string name="hint_work_name">Work Name</string>
     <string name="hint_payment">Payment</string>
     <string name="hint_student_name">Student Name</string>
     <string name="hint_date">Date</string>
     <string name="sample_month_year_name">January 2020</string>
-    <string name="sample_money_amount">12000</string>
+    <string name="sample_money_amount">12,000</string>
     <string name="total_payment_desc">Total Payment</string>
     <string name="tab_item_works">Works</string>
     <string name="tab_item_payments">Payments</string>

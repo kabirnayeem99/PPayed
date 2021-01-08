@@ -1,9 +1,6 @@
 package com.kabirnayeem99.paymentpaid.utils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.text.DecimalFormat;
 
 public class Utils {
     private static final String TAG = "Utils";
@@ -31,6 +28,17 @@ public class Utils {
         StringBuilder output = new StringBuilder(Integer.toString(month));
         while (output.length() < 2) output.insert(0, "0");
         return output.toString();
+    }
+
+    public static String formatNumber(String number) {
+        if (number.length() <= 3) {
+            return number.toString();
+        } else {
+            double amount = Double.parseDouble(number);
+            DecimalFormat formatter = new DecimalFormat("#,###");
+            number = formatter.format(amount);
+        }
+        return number.toString();
     }
 
 }

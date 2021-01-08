@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.adapters.PaymentAdapter;
 import com.kabirnayeem99.paymentpaid.utils.DatabaseHelper;
+import com.kabirnayeem99.paymentpaid.utils.Utils;
 
 import java.util.Map;
 
@@ -39,7 +40,7 @@ public class PaymentsFragment extends Fragment {
         initViews(view);
 
         databaseHelper = new DatabaseHelper(getActivity());
-        paymentListTotal.setText(databaseHelper.getTotalPayment());
+        paymentListTotal.setText(Utils.formatNumber(databaseHelper.getTotalPayment()));
 
         initRecyclerView(databaseHelper);
 

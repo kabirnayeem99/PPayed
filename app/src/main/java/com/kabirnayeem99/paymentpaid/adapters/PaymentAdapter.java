@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kabirnayeem99.paymentpaid.R;
+import com.kabirnayeem99.paymentpaid.utils.Utils;
 
 import java.util.Map;
 
@@ -53,8 +54,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
                 "June", "July", "August", "September", "October", "November", "December"};
 
         holder.paymentListMonthNameTextView.setText(String.format("%s 2021", monthArrayList[position]));
+        assert paymentAmount != null;
         holder.paymentListPaymentAmountTextView.setText(String.format("%s",
-                paymentAmount));
+                Utils.formatNumber(paymentAmount.toString())));
     }
 
     @Override
