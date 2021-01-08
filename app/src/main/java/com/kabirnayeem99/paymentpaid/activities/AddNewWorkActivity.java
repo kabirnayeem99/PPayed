@@ -12,6 +12,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.models.Work;
 import com.kabirnayeem99.paymentpaid.utils.DatabaseHelper;
+import com.kabirnayeem99.paymentpaid.utils.Utils;
 
 import java.util.Objects;
 
@@ -39,7 +40,11 @@ public class AddNewWorkActivity extends AppCompatActivity {
         initViews();
 
         newWorkDialogWorkDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth)
-                -> date = String.format("%s-%s-%s", year, monthOfYear, dayOfMonth));
+                -> {
+            // month is returning a value less than the actual value, so magic number 1 is added
+            date = String.format("%s-%s-%s", year, Utils.padMonth(monthOfYear + 1), Utils.padMonth(dayOfMonth));
+            Log.d(TAG, "onCreate: month " + monthOfYear);
+        });
     }
 
     private void initViews() {

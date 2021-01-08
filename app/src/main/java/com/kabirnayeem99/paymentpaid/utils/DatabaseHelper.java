@@ -130,23 +130,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Map<Integer, Integer> getTotalPaymentByMonth() {
         Map<Integer, Integer> totalPayment = new HashMap<>();
-        totalPayment.put(1, 2);
         int monthlyPayment = 0;
         char quotes = '"';
         SQLiteDatabase db = getReadableDatabase();
 
 
-        for (int i = 1; i <= 12; i++) {
-            String month = Utils.padMonth(i);
+        for (int month = 1; month <= 12; month++) {
             String selectNoteQueryByMonth = String.format("SELECT SUM(%s) FROM %s WHERE %s LIKE %s2021-%s-%%%s",
                     KEY_PAYMENT, DB_WORK_TABLE, KEY_DATE, quotes, month, quotes);
 
             try (Cursor cursor = db.rawQuery(selectNoteQueryByMonth, null)) {
                 if (cursor.moveToFirst()) {
                     monthlyPayment = cursor.getInt(0);
+                    Log.d(TAG, "getTotalPaymentByMonth: " + month + " " + monthlyPayment);
                 }
             }
-            totalPayment.put(i, monthlyPayment);
+            totalPayment.put(month, monthlyPayment);
         }
         Log.d(TAG, "getTotalPaymentByMonth: " + totalPayment);
 

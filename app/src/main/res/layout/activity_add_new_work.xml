@@ -99,13 +99,15 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+
             <DatePicker
                 android:id="@+id/newWorkDialogWorkDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:calendarViewShown="false"
-                android:datePickerMode="spinner" />
+                android:calendarViewShown="true"
+                android:datePickerMode="calendar"
+                android:spinnersShown="false" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
