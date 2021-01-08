@@ -8,15 +8,17 @@ import java.util.Locale;
 public class Utils {
     private static final String TAG = "Utils";
 
-    public static Date formatStringToDate(String date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
-        try {
-            return sdf.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return new Date();
-        }
-    }
+// --Commented out by Inspection START (1/8/2021 4:36 PM):
+//    public static Date formatStringToDate(String date) {
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
+//        try {
+//            return sdf.parse(date);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//            return new Date();
+//        }
+//    }
+// --Commented out by Inspection STOP (1/8/2021 4:36 PM)
 
     public static boolean checkDate(String date, int month, int year) {
         //generated from [https://www.regular-expressions.info/dates.html]

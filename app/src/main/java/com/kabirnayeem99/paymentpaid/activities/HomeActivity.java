@@ -2,7 +2,6 @@ package com.kabirnayeem99.paymentpaid.activities;
 
 
 import android.os.Bundle;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
@@ -21,9 +20,6 @@ public class HomeActivity extends AppCompatActivity {
     TabItem tabItemExports;
     ViewPager homeViewPager;
     PagerAdapter pagerAdapter;
-    Button worksButton;
-    Button paymentButton;
-    Button exportButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,43 +40,14 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                
             }
         });
-
-//
-//        clickWorksButton();
-//        clickExportButton();
-//        clickPaymentButton();
-
-
     }
-
-//    private void clickExportButton() {
-//        exportButton.setOnClickListener(v -> {
-//            Intent intent = new Intent(HomeActivity.this, ExportActivity.class);
-//            startActivity(intent);
-//        });
-//    }
-//
-//    private void clickPaymentButton() {
-//        paymentButton.setOnClickListener(v -> {
-//            Intent intent = new Intent(HomeActivity.this, PaymentActivity.class);
-//            startActivity(intent);
-//        });
-//    }
-//
-//    private void clickWorksButton() {
-//        worksButton.setOnClickListener(v -> {
-//            Intent intent = new Intent(HomeActivity.this, WorksActivity.class);
-//            startActivity(intent);
-//        });
-//    }
 
     private void initViews() {
         tabLayout = findViewById(R.id.tab_layout);
@@ -89,5 +56,4 @@ public class HomeActivity extends AppCompatActivity {
         tabItemExports = findViewById(R.id.tab_item_exports);
         homeViewPager = findViewById(R.id.home_view_pager);
     }
-
 }

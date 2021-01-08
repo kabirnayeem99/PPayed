@@ -1,11 +1,5 @@
 <resources>
     <string name="app_name">PaymentPaid</string>
-    <string name="button_works">Works</string>
-    <string name="button_payments">Payments</string>
-    <string name="button_exports">Exports</string>
-    <string name="activity_export">Export</string>
-    <string name="activity_payment">Payment</string>
-    <string name="activity_works">Works</string>
     <string name="sample_date">26-Dec-2020</string>
     <string name="sample_note_title">Maria MSBP</string>
     <string name="sample_payment">2200</string>
@@ -13,7 +7,6 @@
     <string name="hint_payment">Payment</string>
     <string name="hint_student_name">Student Name</string>
     <string name="hint_date">Date</string>
-    <string name="activity_add_new_work">Add New Work</string>
     <string name="sample_month_year_name">January 2020</string>
     <string name="sample_money_amount">12000</string>
     <string name="total_payment_desc">Total Payment</string>
@@ -21,7 +14,6 @@
     <string name="tab_item_payments">Payments</string>
     <string name="tab_item_exports">Exports</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_new_work">Add new work</string>
     <string name="export_data">Export data</string>
     <!-- Strings used for fragments for navigation -->

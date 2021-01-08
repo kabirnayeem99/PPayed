@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">পেমেন্টপেইড</string>
-    <string name="button_works">কাজ</string>
-    <string name="button_payments">দেনা</string>
-    <string name="button_exports">এক্সপোর্ট</string>
-    <string name="activity_export">এক্সপোর্ট</string>
-    <string name="activity_payment">দেনা</string>
-    <string name="activity_works">কাজ</string>
     <string name="sample_date">২৬-ডিসেম্বর-২০২০</string>
     <string name="sample_payment">২২০০</string>
     <string name="sample_note_title">মারিয়া এমএসবিপি</string>
@@ -14,7 +8,6 @@
     <string name="hint_date">তারিখ</string>
     <string name="hint_payment">অর্থ</string>
     <string name="hint_work_name">কাজের নাম</string>
-    <string name="activity_add_new_work">নতুন কাজ যোগ করুন</string>
     <string name="sample_month_year_name">জানুয়ারি ২০২০</string>
     <string name="sample_money_amount">১২০০০</string>
     <string name="total_payment_desc">"সর্বমোট বেতন "</string>
@@ -22,5 +15,4 @@
     <string name="tab_item_payments">পেমেন্ট</string>
     <string name="tab_item_works">কাজ</string>
     <string name="export_data">ডাটা এক্সপোর্ট করুন</string>
-    <string name="hello_blank_fragment">ব্লা ব্লা</string>
 </resources>

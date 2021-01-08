@@ -18,7 +18,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
     private final int numberOfTabs;
 
     public HomePagerAdapter(@NonNull FragmentManager fm, int numberOfTabs) {
-        super(fm);
+        super(fm, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.numberOfTabs = numberOfTabs;
     }
 

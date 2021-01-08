@@ -23,8 +23,6 @@ import java.util.List;
 
 public class WorksFragment extends Fragment {
 
-    private static final String TAG = "WorksFragment";
-
     RecyclerView workListRV;
     WorkAdapter workAdapter;
     List<WorkModel> workList;
