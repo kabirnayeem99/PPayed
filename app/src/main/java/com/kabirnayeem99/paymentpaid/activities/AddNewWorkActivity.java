@@ -42,8 +42,9 @@ public class AddNewWorkActivity extends AppCompatActivity {
         newWorkDialogWorkDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth)
                 -> {
             // month is returning a value less than the actual value, so magic number 1 is added
-            date = String.format("%s-%s-%s", year, Utils.padMonth(monthOfYear + 1), Utils.padMonth(dayOfMonth));
-            Log.d(TAG, "onCreate: month " + monthOfYear);
+            date = String.format("%s-%s-%s", year, Utils.padMonth(monthOfYear + 1),
+                    Utils.padMonth(dayOfMonth));
+            Log.d(TAG, "onCreate: month " + monthOfYear + 1);
         });
     }
 
@@ -69,7 +70,6 @@ public class AddNewWorkActivity extends AppCompatActivity {
     private long saveToNoteDB() {
 
         // saves added note to the note database
-
         workName = Objects.requireNonNull(newWorkDialogWorkName.getEditText()).getText().toString();
         studentName = Objects.requireNonNull(newWorkDialogWorkStudentName.getEditText()).getText().toString();
         payment = Integer.parseInt(Objects.requireNonNull(newWorkDialogWorkPayment.getEditText()).getText().toString());
@@ -80,6 +80,5 @@ public class AddNewWorkActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
         return databaseHelper.addToWork(work);
-
     }
 }

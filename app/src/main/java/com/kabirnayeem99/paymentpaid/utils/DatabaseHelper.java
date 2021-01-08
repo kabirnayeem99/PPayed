@@ -137,7 +137,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         for (int month = 1; month <= 12; month++) {
             String selectNoteQueryByMonth = String.format("SELECT SUM(%s) FROM %s WHERE %s LIKE %s2021-%s-%%%s",
-                    KEY_PAYMENT, DB_WORK_TABLE, KEY_DATE, quotes, month, quotes);
+                    KEY_PAYMENT, DB_WORK_TABLE, KEY_DATE, quotes, Utils.padMonth(month), quotes);
 
             try (Cursor cursor = db.rawQuery(selectNoteQueryByMonth, null)) {
                 if (cursor.moveToFirst()) {
