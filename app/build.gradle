@@ -10,10 +10,10 @@ android {
         applicationId "com.kabirnayeem99.paymentpaid"
         minSdkVersion 26
         targetSdkVersion 30
-        versionName '0.2'
+        versionName '1.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        versionNameSuffix 'Alpha'
+        versionNameSuffix 'Beta 1'
     }
 
     buildTypes {
