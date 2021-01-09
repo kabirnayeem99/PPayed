@@ -39,13 +39,13 @@ public class Utils {
 
     public static String formatNumber(String number) {
         if (number.length() <= 3) {
-            return number.toString();
+            return number;
         } else {
             double amount = Double.parseDouble(number);
             DecimalFormat formatter = new DecimalFormat("#,###");
             number = formatter.format(amount);
         }
-        return number.toString();
+        return number;
     }
 
     public static String getCurrentYear() {

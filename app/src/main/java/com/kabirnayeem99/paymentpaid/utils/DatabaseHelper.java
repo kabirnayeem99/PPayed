@@ -129,21 +129,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return workList;
     }
 
-    public List<WorkModel> getWorkListSortedByMonth(Integer month) {
-        List<WorkModel> workList = this.getWorkList();
-        List<WorkModel> workListByMonth = new ArrayList<>();
-
-
-        for (int i = 0; i < workList.size(); i++) {
-
-            if (Utils.checkDate(workList.get(i).getDate(), month, 2021)) {
-                workListByMonth.add(workList.get(i));
-            }
-        }
-        Log.d(TAG, "getWorkListSortedByMonth: " + workListByMonth);
-
-        return workListByMonth;
-    }
+// --Commented out by Inspection START (1/9/2021 1:12 PM):
+//    public List<WorkModel> getWorkListSortedByMonth(Integer month) {
+//        List<WorkModel> workList = this.getWorkList();
+//        List<WorkModel> workListByMonth = new ArrayList<>();
+//
+//
+//        for (int i = 0; i < workList.size(); i++) {
+//
+//            if (Utils.checkDate(workList.get(i).getDate(), month, 2021)) {
+//                workListByMonth.add(workList.get(i));
+//            }
+//        }
+//        Log.d(TAG, "getWorkListSortedByMonth: " + workListByMonth);
+//
+//        return workListByMonth;
+//    }
+// --Commented out by Inspection STOP (1/9/2021 1:12 PM)
 
     public String getTotalPaymentByYear() {
         // gets the total payment using the database

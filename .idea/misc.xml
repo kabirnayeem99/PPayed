@@ -3,6 +3,9 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0">
       <entry_point TYPE="field" FQNAME="com.kabirnayeem99.paymentpaid.MainActivity paymentButton" />
+      <entry_point TYPE="field" FQNAME="com.kabirnayeem99.paymentpaid.activities.HomeActivity tabItemExports" />
+      <entry_point TYPE="field" FQNAME="com.kabirnayeem99.paymentpaid.activities.HomeActivity tabItemPayments" />
+      <entry_point TYPE="field" FQNAME="com.kabirnayeem99.paymentpaid.activities.HomeActivity tabItemWorks" />
     </entry_points>
   </component>
   <component name="NullableNotNullManager">

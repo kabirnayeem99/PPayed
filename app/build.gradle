@@ -13,7 +13,7 @@ android {
         versionName '1.1'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        versionNameSuffix 'Beta 3'
+        versionNameSuffix '-beta 3'
     }
 
     buildTypes {

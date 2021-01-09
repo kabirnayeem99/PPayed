@@ -1,5 +1,7 @@
 package com.kabirnayeem99.paymentpaid.models;
 
+import androidx.annotation.NonNull;
+
 public class WorkModel {
     private String name;
     private String date;
@@ -48,6 +50,7 @@ public class WorkModel {
         this.studentName = studentName;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Work{" +
