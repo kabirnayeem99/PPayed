@@ -4,13 +4,13 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/workListRV"
+        android:id="@+id/rv_work_list_works"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="12dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddNewWork"
+        android:id="@+id/fab_add_new_work_works"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

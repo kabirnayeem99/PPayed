@@ -54,8 +54,8 @@ public class WorksFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        workListRV = view.findViewById(R.id.workListRV);
-        fabAddNewWork = view.findViewById(R.id.fabAddNewWork);
+        workListRV = view.findViewById(R.id.rv_work_list_works);
+        fabAddNewWork = view.findViewById(R.id.fab_add_new_work_works);
     }
 
     private void initRecyclerView() {

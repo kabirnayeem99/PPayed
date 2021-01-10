@@ -66,9 +66,9 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            workListItemTitle = itemView.findViewById(R.id.workListItemTitle);
-            workListItemDate = itemView.findViewById(R.id.workListItemDate);
-            workListItemPayment = itemView.findViewById(R.id.workListItemPayment);
+            workListItemTitle = itemView.findViewById(R.id.tv_work_name_list_item_work);
+            workListItemDate = itemView.findViewById(R.id.tv_date_list_item_work);
+            workListItemPayment = itemView.findViewById(R.id.tv_payment_amount_list_item_work);
         }
     }
 }

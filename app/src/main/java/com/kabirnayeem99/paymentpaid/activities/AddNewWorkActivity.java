@@ -49,10 +49,10 @@ public class AddNewWorkActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        newWorkDialogWorkName = findViewById(R.id.newWorkDialogWorkName);
-        newWorkDialogWorkPayment = findViewById(R.id.edtNewWorkDialogWorkPayment);
-        newWorkDialogWorkStudentName = findViewById(R.id.edtNewWorkDialogWorkStudentName);
-        newWorkDialogWorkDate = findViewById(R.id.edtNewWorkDialogWorkDate);
+        newWorkDialogWorkName = findViewById(R.id.til_work_name_add_new_work);
+        newWorkDialogWorkPayment = findViewById(R.id.til_work_payment_add_new_work);
+        newWorkDialogWorkStudentName = findViewById(R.id.til_student_name_add_new_work);
+        newWorkDialogWorkDate = findViewById(R.id.dp_date_add_new_work);
     }
 
 

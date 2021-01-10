@@ -32,7 +32,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/newWorkDialogWorkName"
+                android:id="@+id/til_work_name_add_new_work"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edtNewWorkDialogWorkPayment"
+                android:id="@+id/til_work_payment_add_new_work"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -78,7 +78,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edtNewWorkDialogWorkStudentName"
+                android:id="@+id/til_student_name_add_new_work"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -101,7 +101,7 @@
 
 
             <DatePicker
-                android:id="@+id/edtNewWorkDialogWorkDate"
+                android:id="@+id/dp_date_add_new_work"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"

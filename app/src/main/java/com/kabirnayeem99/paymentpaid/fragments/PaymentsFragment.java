@@ -48,8 +48,8 @@ public class PaymentsFragment extends Fragment {
     }
 
     private void initViews(@NonNull View view) {
-        paymentListByMontRecyclerView = view.findViewById(R.id.paymentListByMontRecyclerView);
-        paymentListTotal = view.findViewById(R.id.paymentListTotal);
+        paymentListByMontRecyclerView = view.findViewById(R.id.rv_payment_list_by_month_payments);
+        paymentListTotal = view.findViewById(R.id.tv_payment_list_total_payments);
     }
 
     private void initRecyclerView(DatabaseUtils databaseUtils) {

@@ -75,8 +75,8 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            paymentListMonthNameTextView = itemView.findViewById(R.id.paymentListMonthNameTextView);
-            paymentListPaymentAmountTextView = itemView.findViewById(R.id.paymentListPaymentAmountTextView);
+            paymentListMonthNameTextView = itemView.findViewById(R.id.tv_payment_month_list_item_payment);
+            paymentListPaymentAmountTextView = itemView.findViewById(R.id.tv_payment_amount_list_item_payment);
         }
     }
 }

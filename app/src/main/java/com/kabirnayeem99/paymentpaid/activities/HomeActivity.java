@@ -50,10 +50,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        tabLayout = findViewById(R.id.tab_layout);
-        tabItemWorks = findViewById(R.id.tab_item_works);
-        tabItemPayments = findViewById(R.id.tab_item_payments);
-        tabItemExports = findViewById(R.id.tab_item_exports);
-        homeViewPager = findViewById(R.id.vpHomeViewPager);
+        tabLayout = findViewById(R.id.tl_tab_home);
+        tabItemWorks = findViewById(R.id.ti_work_home);
+        tabItemPayments = findViewById(R.id.ti_payments_work);
+        tabItemExports = findViewById(R.id.ti_export_home);
+        homeViewPager = findViewById(R.id.vp_view_pager_home);
     }
 }
