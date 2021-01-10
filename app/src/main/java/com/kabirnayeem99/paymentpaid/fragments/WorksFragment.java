@@ -16,8 +16,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.activities.AddNewWorkActivity;
 import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter;
-import com.kabirnayeem99.paymentpaid.models.WorkModel;
-import com.kabirnayeem99.paymentpaid.utils.DatabaseHelper;
+import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.utils.DatabaseUtils;
 
 import java.util.List;
 
@@ -25,8 +25,8 @@ public class WorksFragment extends Fragment {
 
     RecyclerView workListRV;
     WorkAdapter workAdapter;
-    List<WorkModel> workList;
-    DatabaseHelper databaseHelper;
+    List<Work> workList;
+    DatabaseUtils databaseUtils;
     FloatingActionButton fabAddNewWork;
 
     public WorksFragment() {
@@ -42,7 +42,7 @@ public class WorksFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initViews(view);
-        databaseHelper = new DatabaseHelper(getActivity());
+        databaseUtils = new DatabaseUtils(getActivity());
         initRecyclerView();
 
         fabAddNewWork.setOnClickListener(v -> {
@@ -59,7 +59,7 @@ public class WorksFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        workList = databaseHelper.getWorkList();
+        workList = databaseUtils.getWorkList();
         workAdapter = new WorkAdapter(workList);
         workListRV.setLayoutManager(new LinearLayoutManager(getActivity()));
         workListRV.setAdapter(workAdapter);

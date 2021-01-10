@@ -10,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.kabirnayeem99.paymentpaid.R;
-import com.kabirnayeem99.paymentpaid.models.WorkModel;
-import com.kabirnayeem99.paymentpaid.utils.DatabaseHelper;
-import com.kabirnayeem99.paymentpaid.utils.Utils;
+import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.utils.DatabaseUtils;
+import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
 import static java.lang.Integer.parseInt;
 import static java.util.Objects.requireNonNull;
@@ -25,8 +25,8 @@ public class AddNewWorkActivity extends AppCompatActivity {
     TextInputLayout newWorkDialogWorkPayment;
     TextInputLayout newWorkDialogWorkStudentName;
     DatePicker newWorkDialogWorkDate;
-    DatabaseHelper databaseHelper;
-    WorkModel work;
+    DatabaseUtils databaseUtils;
+    Work work;
     String workName;
     String studentName;
     String date;
@@ -43,16 +43,16 @@ public class AddNewWorkActivity extends AppCompatActivity {
         newWorkDialogWorkDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth)
                 -> {
             // month is returning a value less than the actual value, so magic number 1 is added
-            date = String.format("%s-%s-%s", year, Utils.padMonth(monthOfYear + 1),
-                    Utils.padMonth(dayOfMonth));
+            date = String.format("%s-%s-%s", year, CustomUtils.padMonth(monthOfYear + 1),
+                    CustomUtils.padMonth(dayOfMonth));
         });
     }
 
     private void initViews() {
         newWorkDialogWorkName = findViewById(R.id.newWorkDialogWorkName);
-        newWorkDialogWorkPayment = findViewById(R.id.newWorkDialogWorkPayment);
-        newWorkDialogWorkStudentName = findViewById(R.id.newWorkDialogWorkStudentName);
-        newWorkDialogWorkDate = findViewById(R.id.newWorkDialogWorkDate);
+        newWorkDialogWorkPayment = findViewById(R.id.edtNewWorkDialogWorkPayment);
+        newWorkDialogWorkStudentName = findViewById(R.id.edtNewWorkDialogWorkStudentName);
+        newWorkDialogWorkDate = findViewById(R.id.edtNewWorkDialogWorkDate);
     }
 
 
@@ -76,12 +76,12 @@ public class AddNewWorkActivity extends AppCompatActivity {
         // parses the integer value from the string
         payment = parseInt(requireNonNull(newWorkDialogWorkPayment.getEditText()).getText().toString());
 
-        work = new WorkModel(workName, date, payment, studentName);
+        work = new Work(workName, date, payment, studentName);
 
         Log.d(TAG, "saveToNoteDB: work instance " + work.toString());
 
-        databaseHelper = new DatabaseHelper(this);
+        databaseUtils = new DatabaseUtils(this);
 
-        return databaseHelper.addToWork(work);
+        return databaseUtils.addToWork(work);
     }
 }

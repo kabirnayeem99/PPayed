@@ -54,6 +54,6 @@ public class HomeActivity extends AppCompatActivity {
         tabItemWorks = findViewById(R.id.tab_item_works);
         tabItemPayments = findViewById(R.id.tab_item_payments);
         tabItemExports = findViewById(R.id.tab_item_exports);
-        homeViewPager = findViewById(R.id.home_view_pager);
+        homeViewPager = findViewById(R.id.vpHomeViewPager);
     }
 }

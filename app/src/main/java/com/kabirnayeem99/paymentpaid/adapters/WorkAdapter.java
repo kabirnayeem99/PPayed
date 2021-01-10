@@ -9,15 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kabirnayeem99.paymentpaid.R;
-import com.kabirnayeem99.paymentpaid.models.WorkModel;
-import com.kabirnayeem99.paymentpaid.utils.Utils;
+import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
 import java.util.List;
 
 public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
-    private final List<WorkModel> workList;
+    private final List<Work> workList;
 
-    public WorkAdapter(List<WorkModel> workList) {
+    public WorkAdapter(List<Work> workList) {
         this.workList = workList;
     }
 
@@ -30,7 +30,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         // Here the layout inflater takes the work list item layout file
         // and turns it into a view
         // later these views are used to draw on screen
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.work_list_item,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_work,
                 parent, false);
 
         // a new view holder is created based on the view of work list item.
@@ -51,7 +51,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         // screen time of the lists item.
         holder.workListItemTitle.setText(workListItemTitle);
         holder.workListItemDate.setText(workListItemDate);
-        holder.workListItemPayment.setText(Utils.formatNumber(workListItemPayment));
+        holder.workListItemPayment.setText(CustomUtils.formatNumber(workListItemPayment));
     }
 
     @Override

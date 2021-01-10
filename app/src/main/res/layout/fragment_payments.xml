@@ -21,7 +21,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/total_payment_desc"
+                android:text="@string/text_total_payment_desc"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -33,7 +33,7 @@
                 android:id="@+id/paymentListTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sample_payment"
+                android:text="@string/text_sample_payment"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>

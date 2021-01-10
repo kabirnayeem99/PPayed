@@ -16,10 +16,10 @@
 
 # Generated files
 bin/
+# Gradle files
 gen/
 out/
 
-# Gradle files
 .gradle
 .gradle/
 build/

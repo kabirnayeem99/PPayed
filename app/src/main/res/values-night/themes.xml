@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.PaymentPaid" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/green_700</item>
-        <item name="colorPrimaryVariant">@color/green_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/material_dark_green_dark</item>
+        <item name="colorPrimaryVariant">@color/material_dark_green_dark</item>
+        <item name="colorOnPrimary">@color/material_black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/orange_500</item>
-        <item name="colorSecondaryVariant">@color/orange_500</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/material_orange_light</item>
+        <item name="colorSecondaryVariant">@color/material_orange_light</item>
+        <item name="colorOnSecondary">@color/material_black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
@@ -16,10 +16,10 @@
 
     <style name="CustomCardView" parent="CardView.Dark">
         <!-- for the list item tiles in the work, payment activity lists-->
-        <item name="backgroundTint">@color/green_700</item>
-        <item name="background">@color/green_700</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="backgroundColor">@color/green_700</item>
-        <item name="cardBackgroundColor">@color/green_700</item>
+        <item name="backgroundTint">@color/material_dark_green_dark</item>
+        <item name="background">@color/material_dark_green_dark</item>
+        <item name="android:textColor">@color/material_black</item>
+        <item name="backgroundColor">@color/material_dark_green_dark</item>
+        <item name="cardBackgroundColor">@color/material_dark_green_dark</item>
     </style>
 </resources>

@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">পিপেইড</string>
-    <string name="sample_date">২৬-ডিসেম্বর-২০২০</string>
-    <string name="sample_payment">২,২০০</string>
-    <string name="sample_note_title">মারিয়া এমএসবিপি</string>
+    <string name="static_app_name">পিপেইড</string>
+    <string name="text_sample_date">২৬-ডিসেম্বর-২০২০</string>
+    <string name="text_sample_payment">২,২০০</string>
+    <string name="static_sample_note_title">মারিয়া এমএসবিপি</string>
     <string name="hint_student_name">ছাত্রের নাম</string>
     <string name="hint_date">তারিখ</string>
     <string name="hint_payment">অর্থ</string>
     <string name="hint_work_name">কাজের নাম</string>
-    <string name="sample_month_year_name">জানুয়ারি ২০২০</string>
-    <string name="sample_money_amount">১২,০০০</string>
-    <string name="total_payment_desc">"সর্বমোট বেতন "</string>
-    <string name="tab_item_exports">এক্সপোর্ট</string>
-    <string name="tab_item_payments">পেমেন্ট</string>
-    <string name="tab_item_works">কাজ</string>
-    <string name="add_new_work">নতুন কাজ যুক্ত করুন</string>
-    <string name="export_data">ডাটা এক্সপোর্ট করুন</string>
+    <string name="text_sample_month_year_name">জানুয়ারি ২০২০</string>
+    <string name="text_sample_money_amount">১২,০০০</string>
+    <string name="text_total_payment_desc">"সর্বমোট বেতন "</string>
+    <string name="label_tab_item_exports">এক্সপোর্ট</string>
+    <string name="label_tab_item_payments">পেমেন্ট</string>
+    <string name="label_tab_item_works">কাজ</string>
+    <string name="action_add_new_work">নতুন কাজ যুক্ত করুন</string>
+    <string name="button_export_data">ডাটা এক্সপোর্ট করুন</string>
+    <string name="developer_name">নাইমুল কবির</string>
+    <string name="content_desc_logo">অ্যাপের লোগো</string>
+    <string name="url_app">https://github.com/kabirnayeem99/PPayed</string>
+    <string name="import_data">ইমপোর্ট ডাটা</string>
 </resources>

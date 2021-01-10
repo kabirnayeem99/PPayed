@@ -43,7 +43,6 @@ public class ExportsFragment extends Fragment {
 // --Commented out by Inspection START (1/9/2021 1:12 PM):
 //    //importing database
 //    private void importDB() {
-//        // TODO Auto-generated method stub
 //
 //
 //        try {
@@ -80,7 +79,6 @@ public class ExportsFragment extends Fragment {
 
     //exporting database
     private void exportDB() {
-        // TODO Auto-generated method stub
 
         try {
             File sd;

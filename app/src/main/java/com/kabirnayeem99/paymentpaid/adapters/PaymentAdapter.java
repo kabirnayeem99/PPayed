@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kabirnayeem99.paymentpaid.R;
-import com.kabirnayeem99.paymentpaid.utils.Utils;
+import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
 import java.util.Map;
 
@@ -32,7 +32,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         // Here the layout inflater takes the work list item layout file
         // and turns it into a view
         // later these views are used to draw on screen
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.payment_list_item,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_payment,
                 parent, false);
 
         // a new view holder is created based on the view of work list item.
@@ -55,11 +55,11 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
                 "June", "July", "August", "September", "October", "November", "December"};
 
         holder.paymentListMonthNameTextView.setText(String.format("%s %s", monthArrayList[position],
-                Utils.getCurrentYear()));
+                CustomUtils.getCurrentYear()));
 
         assert paymentAmount != null;
         holder.paymentListPaymentAmountTextView.setText(String.format("%s",
-                Utils.formatNumber(paymentAmount.toString())));
+                CustomUtils.formatNumber(paymentAmount.toString())));
     }
 
     @Override

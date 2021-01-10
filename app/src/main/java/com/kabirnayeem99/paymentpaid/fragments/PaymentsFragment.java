@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.adapters.PaymentAdapter;
-import com.kabirnayeem99.paymentpaid.utils.DatabaseHelper;
-import com.kabirnayeem99.paymentpaid.utils.Utils;
+import com.kabirnayeem99.paymentpaid.utils.DatabaseUtils;
+import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
 import java.util.Map;
 
@@ -24,7 +24,7 @@ import java.util.Map;
 public class PaymentsFragment extends Fragment {
     private static final String TAG = "PaymentsFragment";
     RecyclerView paymentListByMontRecyclerView;
-    DatabaseHelper databaseHelper;
+    DatabaseUtils databaseUtils;
     TextView paymentListTotal;
 
     @Nullable
@@ -39,10 +39,10 @@ public class PaymentsFragment extends Fragment {
 
         initViews(view);
 
-        databaseHelper = new DatabaseHelper(getActivity());
-        paymentListTotal.setText(Utils.formatNumber(databaseHelper.getTotalPaymentByYear()));
+        databaseUtils = new DatabaseUtils(getActivity());
+        paymentListTotal.setText(CustomUtils.formatNumber(databaseUtils.getTotalPaymentByYear()));
 
-        initRecyclerView(databaseHelper);
+        initRecyclerView(databaseUtils);
 
         super.onViewCreated(view, savedInstanceState);
     }
@@ -52,8 +52,8 @@ public class PaymentsFragment extends Fragment {
         paymentListTotal = view.findViewById(R.id.paymentListTotal);
     }
 
-    private void initRecyclerView(DatabaseHelper databaseHelper) {
-        Map<Integer, Integer> totalPaymentListByMont = databaseHelper.getTotalPaymentByMonth();
+    private void initRecyclerView(DatabaseUtils databaseUtils) {
+        Map<Integer, Integer> totalPaymentListByMont = databaseUtils.getTotalPaymentByMonth();
 
         Log.d(TAG, "initRecyclerView: " + totalPaymentListByMont);
 

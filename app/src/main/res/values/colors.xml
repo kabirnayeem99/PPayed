@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF212121</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="green_700">#ff388e3c</color>
-    <color name="green_500">#ff4caf50</color>
-    <color name="orange_500">#ffffc107</color>
-    <color name="grey_200">#ffbdbdbd</color>
+    <color name="material_black">#FF212121</color>
+    <color name="material_white">#FFFFFFFF</color>
+    <color name="material_dark_green_dark">#ff388e3c</color>
+    <color name="material_green_medium">#ff4caf50</color>
+    <color name="material_orange_light">#ffffc107</color>
+    <color name="material_grey">#ffbdbdbd</color>
 </resources>

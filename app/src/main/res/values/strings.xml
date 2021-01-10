@@ -1,21 +1,24 @@
 <resources>
-    <string name="app_name">PPayed</string>
-    <string name="sample_date">26-Dec-2020</string>
-    <string name="sample_note_title">Maria MSBP</string>
-    <string name="sample_payment">2,200</string>
+    <string name="static_app_name">PPayed</string>
+    <string name="text_sample_date">26-Dec-2020</string>
+    <string name="static_sample_note_title">Maria MSBP</string>
+    <string name="text_sample_payment">2,200</string>
     <string name="hint_work_name">Work Name</string>
     <string name="hint_payment">Payment</string>
     <string name="hint_student_name">Student Name</string>
     <string name="hint_date">Date</string>
-    <string name="sample_month_year_name">January 2020</string>
-    <string name="sample_money_amount">12,000</string>
-    <string name="total_payment_desc">Total Payment</string>
-    <string name="tab_item_works">Works</string>
-    <string name="tab_item_payments">Payments</string>
-    <string name="tab_item_exports">Exports</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="add_new_work">Add new work</string>
-    <string name="export_data">Export data</string>
+    <string name="text_sample_month_year_name">January 2020</string>
+    <string name="text_sample_money_amount">12,000</string>
+    <string name="text_total_payment_desc">Total Payment</string>
+    <string name="label_tab_item_works">Works</string>
+    <string name="label_tab_item_payments">Payments</string>
+    <string name="label_tab_item_exports">Exports</string>
+    <string name="action_add_new_work">Add new work</string>
+    <string name="button_export_data">Export data</string>
+    <string name="developer_name">Naimul Kabir</string>
+    <string name="content_desc_logo">Logo of the app</string>
+    <string name="url_app">https://github.com/kabirnayeem99/PPayed</string>
+    <string name="import_data">Import Data</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>
