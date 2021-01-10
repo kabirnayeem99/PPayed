@@ -23,7 +23,7 @@ import java.util.List;
 
 public class WorksFragment extends Fragment {
 
-    RecyclerView workListRV;
+    RecyclerView rvWorkList;
     WorkAdapter workAdapter;
     List<Work> workList;
     DatabaseUtils databaseUtils;
@@ -54,14 +54,14 @@ public class WorksFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        workListRV = view.findViewById(R.id.rv_work_list_works);
+        rvWorkList = view.findViewById(R.id.rv_work_list_works);
         fabAddNewWork = view.findViewById(R.id.fab_add_new_work_works);
     }
 
     private void initRecyclerView() {
         workList = databaseUtils.getWorkList();
         workAdapter = new WorkAdapter(workList);
-        workListRV.setLayoutManager(new LinearLayoutManager(getActivity()));
-        workListRV.setAdapter(workAdapter);
+        rvWorkList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvWorkList.setAdapter(workAdapter);
     }
 }

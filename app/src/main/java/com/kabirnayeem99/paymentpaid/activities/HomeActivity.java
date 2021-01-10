@@ -14,28 +14,33 @@ import com.kabirnayeem99.paymentpaid.adapters.HomePagerAdapter;
 
 public class HomeActivity extends AppCompatActivity {
 
-    TabLayout tabLayout;
-    TabItem tabItemWorks;
-    TabItem tabItemPayments;
-    TabItem tabItemExports;
-    ViewPager homeViewPager;
+    TabLayout tlMainTab;
+    TabItem tiWorks;
+    TabItem tiPayments;
+    TabItem tiExports;
+    ViewPager vpHome;
     PagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        
         initViews();
 
-        tabLayout.setupWithViewPager(homeViewPager);
+        createTabLayout();
+    }
 
-        pagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        homeViewPager.setAdapter(pagerAdapter);
+    private void createTabLayout() {
+        tlMainTab.setupWithViewPager(vpHome);
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        pagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), tlMainTab.getTabCount());
+        vpHome.setAdapter(pagerAdapter);
+
+        tlMainTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                homeViewPager.setCurrentItem(tab.getPosition());
+                vpHome.setCurrentItem(tab.getPosition());
             }
 
             @Override
@@ -44,16 +49,16 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                
+
             }
         });
     }
 
     private void initViews() {
-        tabLayout = findViewById(R.id.tl_tab_home);
-        tabItemWorks = findViewById(R.id.ti_work_home);
-        tabItemPayments = findViewById(R.id.ti_payments_work);
-        tabItemExports = findViewById(R.id.ti_export_home);
-        homeViewPager = findViewById(R.id.vp_view_pager_home);
+        tlMainTab = findViewById(R.id.tl_tab_home);
+        tiWorks = findViewById(R.id.ti_work_home);
+        tiPayments = findViewById(R.id.ti_payments_work);
+        tiExports = findViewById(R.id.ti_export_home);
+        vpHome = findViewById(R.id.vp_view_pager_home);
     }
 }

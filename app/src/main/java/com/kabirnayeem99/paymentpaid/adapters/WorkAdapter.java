@@ -49,9 +49,9 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
 
         // binds the data for each of the work got from the db to the existing adapter based on the
         // screen time of the lists item.
-        holder.workListItemTitle.setText(workListItemTitle);
-        holder.workListItemDate.setText(workListItemDate);
-        holder.workListItemPayment.setText(CustomUtils.formatNumber(workListItemPayment));
+        holder.tvWorkName.setText(workListItemTitle);
+        holder.tvDate.setText(workListItemDate);
+        holder.tvPayment.setText(CustomUtils.formatNumber(workListItemPayment));
     }
 
     @Override
@@ -62,13 +62,13 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView workListItemTitle, workListItemDate, workListItemPayment;
+        final TextView tvWorkName, tvDate, tvPayment;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            workListItemTitle = itemView.findViewById(R.id.tv_work_name_list_item_work);
-            workListItemDate = itemView.findViewById(R.id.tv_date_list_item_work);
-            workListItemPayment = itemView.findViewById(R.id.tv_payment_amount_list_item_work);
+            tvWorkName = itemView.findViewById(R.id.tv_work_name_list_item_work);
+            tvDate = itemView.findViewById(R.id.tv_date_list_item_work);
+            tvPayment = itemView.findViewById(R.id.tv_payment_amount_list_item_work);
         }
     }
 }

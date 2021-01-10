@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.models.Work;
-import com.kabirnayeem99.paymentpaid.utils.DatabaseUtils;
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
+import com.kabirnayeem99.paymentpaid.utils.DatabaseUtils;
 
 import static java.lang.Integer.parseInt;
 import static java.util.Objects.requireNonNull;
@@ -21,10 +21,10 @@ public class AddNewWorkActivity extends AppCompatActivity {
 
     private static final String TAG = "AddNewWorkActivity";
 
-    TextInputLayout newWorkDialogWorkName;
-    TextInputLayout newWorkDialogWorkPayment;
-    TextInputLayout newWorkDialogWorkStudentName;
-    DatePicker newWorkDialogWorkDate;
+    TextInputLayout tilWorkName;
+    TextInputLayout tilPayment;
+    TextInputLayout tilStudentName;
+    DatePicker dpDate;
     DatabaseUtils databaseUtils;
     Work work;
     String workName;
@@ -40,7 +40,7 @@ public class AddNewWorkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_work);
         initViews();
 
-        newWorkDialogWorkDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth)
+        dpDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth)
                 -> {
             // month is returning a value less than the actual value, so magic number 1 is added
             date = String.format("%s-%s-%s", year, CustomUtils.padMonth(monthOfYear + 1),
@@ -49,10 +49,10 @@ public class AddNewWorkActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        newWorkDialogWorkName = findViewById(R.id.til_work_name_add_new_work);
-        newWorkDialogWorkPayment = findViewById(R.id.til_work_payment_add_new_work);
-        newWorkDialogWorkStudentName = findViewById(R.id.til_student_name_add_new_work);
-        newWorkDialogWorkDate = findViewById(R.id.dp_date_add_new_work);
+        tilWorkName = findViewById(R.id.til_work_name_add_new_work);
+        tilPayment = findViewById(R.id.til_work_payment_add_new_work);
+        tilStudentName = findViewById(R.id.til_student_name_add_new_work);
+        dpDate = findViewById(R.id.dp_date_add_new_work);
     }
 
 
@@ -71,10 +71,10 @@ public class AddNewWorkActivity extends AppCompatActivity {
         // saves added note to the note database
 
         // requireNonNull ensures that the field is guaranteed be non-null.
-        workName = requireNonNull(newWorkDialogWorkName.getEditText()).getText().toString();
-        studentName = requireNonNull(newWorkDialogWorkStudentName.getEditText()).getText().toString();
+        workName = requireNonNull(tilWorkName.getEditText()).getText().toString();
+        studentName = requireNonNull(tilStudentName.getEditText()).getText().toString();
         // parses the integer value from the string
-        payment = parseInt(requireNonNull(newWorkDialogWorkPayment.getEditText()).getText().toString());
+        payment = parseInt(requireNonNull(tilPayment.getEditText()).getText().toString());
 
         work = new Work(workName, date, payment, studentName);
 

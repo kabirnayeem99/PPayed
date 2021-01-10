@@ -15,17 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.adapters.PaymentAdapter;
-import com.kabirnayeem99.paymentpaid.utils.DatabaseUtils;
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
+import com.kabirnayeem99.paymentpaid.utils.DatabaseUtils;
 
 import java.util.Map;
 
 
 public class PaymentsFragment extends Fragment {
     private static final String TAG = "PaymentsFragment";
-    RecyclerView paymentListByMontRecyclerView;
+    RecyclerView rvPaymentListByMonth;
     DatabaseUtils databaseUtils;
-    TextView paymentListTotal;
+    TextView tvPaymentTotal;
 
     @Nullable
     @Override
@@ -40,7 +40,7 @@ public class PaymentsFragment extends Fragment {
         initViews(view);
 
         databaseUtils = new DatabaseUtils(getActivity());
-        paymentListTotal.setText(CustomUtils.formatNumber(databaseUtils.getTotalPaymentByYear()));
+        tvPaymentTotal.setText(CustomUtils.formatNumber(databaseUtils.getTotalPaymentByYear()));
 
         initRecyclerView(databaseUtils);
 
@@ -48,8 +48,8 @@ public class PaymentsFragment extends Fragment {
     }
 
     private void initViews(@NonNull View view) {
-        paymentListByMontRecyclerView = view.findViewById(R.id.rv_payment_list_by_month_payments);
-        paymentListTotal = view.findViewById(R.id.tv_payment_list_total_payments);
+        rvPaymentListByMonth = view.findViewById(R.id.rv_payment_list_by_month_payments);
+        tvPaymentTotal = view.findViewById(R.id.tv_payment_list_total_payments);
     }
 
     private void initRecyclerView(DatabaseUtils databaseUtils) {
@@ -59,8 +59,8 @@ public class PaymentsFragment extends Fragment {
 
         PaymentAdapter paymentAdapter = new PaymentAdapter(totalPaymentListByMont);
 
-        paymentListByMontRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        paymentListByMontRecyclerView.setAdapter(paymentAdapter);
+        rvPaymentListByMonth.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvPaymentListByMonth.setAdapter(paymentAdapter);
     }
 
 }
