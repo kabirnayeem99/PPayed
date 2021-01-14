@@ -2,6 +2,7 @@ package com.kabirnayeem99.paymentpaid.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter;
 
 
 public class WorksFragment extends Fragment {
+    private static final String TAG = "WorksFragment";
 
     RecyclerView rvWorkList;
     WorkAdapter workAdapter;
@@ -57,7 +59,10 @@ public class WorksFragment extends Fragment {
     private void initRecyclerView() {
         workAdapter = new WorkAdapter();
         WorkViewModel workViewModel = ViewModelProviders.of(this).get(WorkViewModel.class);
-        workViewModel.getAllWorks().observe(requireActivity(), works -> workAdapter.setWorkList(works));
+        workViewModel.getAllWorks().observe(requireActivity(), works -> {
+            Log.d(TAG, "initRecyclerView: " + works.toString());
+            workAdapter.setWorkList(works);
+        });
         rvWorkList.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvWorkList.setAdapter(workAdapter);
     }

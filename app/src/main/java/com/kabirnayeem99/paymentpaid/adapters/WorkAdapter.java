@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
-    private  List<Work> workList = new ArrayList<>();
+    private List<Work> workList = new ArrayList<>();
 
 
     @NonNull
@@ -61,6 +61,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
 
     public void setWorkList(List<Work> allWorks) {
         this.workList = allWorks;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
