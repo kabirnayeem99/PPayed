@@ -1,5 +1,7 @@
 package com.kabirnayeem99.paymentpaid.fragments;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.kabirnayeem99.paymentpaid.R;
@@ -19,6 +22,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ExportsFragment extends Fragment {
     private static final String TAG = "ExportsFragment";
@@ -40,45 +45,69 @@ public class ExportsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-// --Commented out by Inspection START (1/9/2021 1:12 PM):
-//    //importing database
-//    private void importDB() {
-//
-//
-//        try {
-//            File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-//            File data = Environment.getDataDirectory();
-//
-//
-//            if (sd.canWrite()) {
-//                String currentDBPath = "//data//" + "PackageName"
-//                        + "//databases//" + "DatabaseName";
-//                String backupDBPath = "/BackupFolder/DatabaseName";
-//                File backupDB = new File(data, currentDBPath);
-//                File currentDB = new File(sd, backupDBPath);
-//
-//                FileChannel src = new FileInputStream(currentDB).getChannel();
-//                FileChannel dst = new FileOutputStream(backupDB).getChannel();
-//
-//                Log.d(TAG, "importDB: " + src);
-//                dst.transferFrom(src, 0, src.size());
-//                src.close();
-//                dst.close();
-//                Toast.makeText(getActivity(), backupDB.toString(),
-//                        Toast.LENGTH_LONG).show();
-//
-//            }
-//        } catch (Exception e) {
-//
-//            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG)
-//                    .show();
-//
-//        }
-//    }
-// --Commented out by Inspection STOP (1/9/2021 1:12 PM)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0 && grantResults.length > 0) {
+            for (int i : grantResults) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(requireActivity(), "You are granted the" + permissions[0], Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onRequestPermissionsResult: " + Arrays.toString(permissions));
+                }
+            }
+        }
+    }
+
+    //importing database
+    private void importDB() {
+        if (checkRevokedReadStoragePermission()) Toast.makeText(requireActivity(),
+                "You should enable the write storage permission",
+                Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(requireActivity(),
+                    "You can import the data",
+                    Toast.LENGTH_SHORT).show();
+
+        try {
+            File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+            File data = Environment.getDataDirectory();
+
+
+            if (sd.canWrite()) {
+                String currentDBPath = "//data//" + "PackageName"
+                        + "//databases//" + "DatabaseName";
+                String backupDBPath = "/BackupFolder/DatabaseName";
+                File backupDB = new File(data, currentDBPath);
+                File currentDB = new File(sd, backupDBPath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+
+                Log.d(TAG, "importDB: " + src);
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+                Toast.makeText(getActivity(), backupDB.toString(),
+                        Toast.LENGTH_LONG).show();
+
+            }
+        } catch (Exception e) {
+
+            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG)
+                    .show();
+
+        }
+    }
+
 
     //exporting database
     private void exportDB() {
+        if (checkRevokedWriteStoragePermission()) {
+            requestForPermission();
+            Toast.makeText(requireActivity(),
+                    "You should enable the write storage permission",
+                    Toast.LENGTH_SHORT).show();
+        }
 
         try {
             File sd;
@@ -115,6 +144,35 @@ public class ExportsFragment extends Fragment {
             Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG)
                     .show();
 
+        }
+    }
+
+    private boolean checkRevokedWriteStoragePermission() {
+        return ActivityCompat.checkSelfPermission(requireActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED;
+    }
+
+    private boolean checkRevokedReadStoragePermission() {
+        return ActivityCompat.checkSelfPermission(requireActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestForPermission() {
+        ArrayList<String> permissionsToRequest = new ArrayList<>();
+        if (checkRevokedWriteStoragePermission()) {
+            permissionsToRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (checkRevokedReadStoragePermission()) {
+            permissionsToRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        String[] array = new String[permissionsToRequest.size()];
+        for (int j = 0; j < permissionsToRequest.size(); j++) {
+            array[j] = permissionsToRequest.get(j);
+        }
+
+        if (!permissionsToRequest.isEmpty()) {
+            ActivityCompat.requestPermissions(requireActivity(), array,
+                    PackageManager.PERMISSION_GRANTED);
         }
     }
 

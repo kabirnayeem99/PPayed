@@ -12,7 +12,7 @@ By using the app and reporting bugs and issues, help me to make the app more use
 This application is developed by Naimul Kabir and released under the GNU GPLv2.
 
 ## Download
-Dowload it from APKPure.
+Download it from APKPure.
 
 [<img src="https://pbs.twimg.com/profile_images/898120104348573696/f58Xv2iz.jpg" align="center"
 width="100"

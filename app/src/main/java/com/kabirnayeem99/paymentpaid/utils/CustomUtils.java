@@ -20,7 +20,7 @@ public class CustomUtils {
 //    }
 // --Commented out by Inspection STOP (1/8/2021 4:36 PM)
 
-    public static boolean checkDate(String date, int month, int year) {
+    public static boolean checkDate(String date, int month) {
         //generated from [https://www.regular-expressions.info/dates.html]
         // tested in [https://regex101.com/]
         String regex = String.format("^(20)\\2\\1([- \\/.])(%s)\\2(0[1-9]|[12][0-9]|3[01])$", month);

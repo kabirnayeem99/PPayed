@@ -6,6 +6,7 @@
       <entry_point TYPE="field" FQNAME="com.kabirnayeem99.paymentpaid.activities.HomeActivity tabItemExports" />
       <entry_point TYPE="field" FQNAME="com.kabirnayeem99.paymentpaid.activities.HomeActivity tabItemPayments" />
       <entry_point TYPE="field" FQNAME="com.kabirnayeem99.paymentpaid.activities.HomeActivity tabItemWorks" />
+      <entry_point TYPE="field" FQNAME="com.kabirnayeem99.paymentpaid.activities.AddNewWorkActivity noteId" />
     </entry_points>
   </component>
   <component name="NullableNotNullManager">

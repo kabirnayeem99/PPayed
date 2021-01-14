@@ -47,7 +47,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         Log.d(TAG, "getPageTitle: " + position);
-        String[] tabTitles = {"Works", "Payments", "Export"};
+        final String[] tabTitles = {"Works", "Payments", "About"};
         return tabTitles[position];
     }
 }
