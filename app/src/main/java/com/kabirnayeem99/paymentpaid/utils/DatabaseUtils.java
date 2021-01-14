@@ -16,16 +16,15 @@ import java.util.Map;
 
 public class DatabaseUtils extends SQLiteOpenHelper {
 
-    public static final String DB_NAME = "payment_paid_db";
     public static final String DB_WORK_TABLE = "works_db_table";
     public static final int DB_VERSION = 2;
     public static final char SINGLE_QUOTE = '"';
     private static final String TAG = "DatabaseHelper";
     private static final String KEY_ID = "id";
     private static final String KEY_STUDENT_NAME = "student_name";
-    private static final String KEY_WORK_NAME = "work_description";
+    private static final String KEY_WORK_NAME = "work_name";
     private static final String KEY_PAYMENT = "payment";
-    private static final String KEY_DATE = "date";
+    private static final String KEY_DATE = "submission_date";
 
 
     public DatabaseUtils(Context context) {

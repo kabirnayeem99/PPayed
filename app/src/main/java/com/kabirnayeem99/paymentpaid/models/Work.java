@@ -1,11 +1,20 @@
 package com.kabirnayeem99.paymentpaid.models;
 
-import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "works_db_table")
 public class Work {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    @ColumnInfo(name = "work_name")
     private String name;
+    @ColumnInfo(name = "submission_date")
     private String date;
+    @ColumnInfo(name = "payment")
     private int payment;
+    @ColumnInfo(name = "student_name")
     private String studentName;
 
     public Work(String name, String date, int payment, String studentName) {
@@ -16,6 +25,10 @@ public class Work {
     }
 
     public Work() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -50,11 +63,11 @@ public class Work {
         this.studentName = studentName;
     }
 
-    @NonNull
     @Override
     public String toString() {
         return "Work{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", date='" + date + '\'' +
                 ", payment=" + payment +
                 ", studentName='" + studentName + '\'' +
