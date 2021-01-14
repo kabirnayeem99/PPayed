@@ -2,6 +2,7 @@ package com.kabirnayeem99.paymentpaid.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "works_db_table")
@@ -24,7 +25,12 @@ public class Work {
         this.studentName = studentName;
     }
 
+    @Ignore
     public Work() {
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {

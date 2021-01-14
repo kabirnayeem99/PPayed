@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.kabirnayeem99.paymentpaid.WorkDatabase;
 import com.kabirnayeem99.paymentpaid.models.Work;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class DatabaseUtils extends SQLiteOpenHelper {
 
 
     public DatabaseUtils(Context context) {
-        super(context, DatabaseUtils.DB_NAME, null, DB_VERSION);
+        super(context, WorkDatabase.DB_NAME, null, DB_VERSION);
     }
 
     @Override

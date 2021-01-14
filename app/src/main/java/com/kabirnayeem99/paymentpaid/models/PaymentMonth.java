@@ -17,6 +17,18 @@ public class PaymentMonth {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setMonthName(String monthName) {
+        this.monthName = monthName;
+    }
+
+    public void setPaymentAmount(int paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
     public String getMonthName() {
         return monthName;
     }

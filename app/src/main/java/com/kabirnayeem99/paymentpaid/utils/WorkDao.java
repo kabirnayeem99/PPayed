@@ -32,5 +32,5 @@ public interface WorkDao {
 
     @Query("SELECT SUM(payment) FROM works_db_table WHERE submission_date LIKE '2021%%'")
         //todo: implement soft coded current year basis total payment
-    int getTotalPaymentByYear();
+    LiveData<Integer> getTotalPaymentByYear();
 }
