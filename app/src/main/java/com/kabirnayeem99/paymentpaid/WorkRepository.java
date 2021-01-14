@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 import com.kabirnayeem99.paymentpaid.utils.WorkDao;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class WorkRepository {
     }
 
     LiveData<Integer> getTotalPaymentByYear() {
-        return workDao.getTotalPaymentByYear();
+        return workDao.getTotalPaymentByYear(Integer.parseInt(CustomUtils.getCurrentYear()));
     }
 
     public static class InsertWorkAsyncTask extends AsyncTask<Work, Void, Void> {

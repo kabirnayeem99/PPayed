@@ -55,14 +55,10 @@ public class PaymentsFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        Map<Integer, Integer> totalPaymentListByMont = new HashMap<>();
-        totalPaymentListByMont.put(0, 1);
-
-        Log.d(TAG, "initRecyclerView: " + totalPaymentListByMont);
 
         PaymentAdapter paymentAdapter = new PaymentAdapter();
-
         rvPaymentListByMonth.setLayoutManager(new LinearLayoutManager(requireActivity()));
+        rvPaymentListByMonth.setHasFixedSize(true);
         rvPaymentListByMonth.setAdapter(paymentAdapter);
     }
 

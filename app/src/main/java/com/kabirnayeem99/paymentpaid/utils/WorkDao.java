@@ -26,11 +26,9 @@ public interface WorkDao {
     @Query(value = "SELECT * FROM works_db_table")
     LiveData<List<Work>> getAllWorks();
 
-    @Query("SELECT SUM(payment) FROM works_db_table WHERE submission_date LIKE '2021-%%-%%'")
-        //todo: implement monthly basis total payment
-    int getTotalPaymentByMonth();
+//    @Query("SELECT account_month, SUM(payment) FROM works_db_table WHERE account_year = :year ORDER BY account_month ")
+//    List<List<Work>> getTotalPaymentByMonth(int year);
 
-    @Query("SELECT SUM(payment) FROM works_db_table WHERE submission_date LIKE '2021%%'")
-        //todo: implement soft coded current year basis total payment
-    LiveData<Integer> getTotalPaymentByYear();
+    @Query("SELECT SUM(payment) FROM works_db_table WHERE account_year = :year ")
+    LiveData<Integer> getTotalPaymentByYear(int year);
 }

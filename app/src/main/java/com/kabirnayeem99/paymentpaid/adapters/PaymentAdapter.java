@@ -18,7 +18,7 @@ import java.util.Map;
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
     private static final String TAG = "PaymentAdapter";
 
-    private final Map<Integer, Integer> paymentListByMonth = new HashMap<>();
+
 
     @NonNull
     @Override
@@ -41,29 +41,16 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         // binds the new data to the view holder without creating new view holder to reduce cpu
         // as well as the memory usage.
 
-        // gets the data from the database, i.e. work title, submission date and payment amount.
-        Integer paymentAmount = paymentListByMonth.get(position);
-        Log.d(TAG, "onBindViewHolder: position of adapter" + position);
-        Log.d(TAG, "onBindViewHolder: \n" + paymentListByMonth.toString());
+
 
         // binds the data for each of the work got from the db to the existing adapter based on the
         // screen time of the lists item.
-        String[] monthArrayList = new String[]{"January", "February", "March", "April", "May",
-                "June", "July", "August", "September", "October", "November", "December"};
 
-        holder.paymentListMonthNameTextView.setText(String.format("%s %s", monthArrayList[position],
-                CustomUtils.getCurrentYear()));
-
-        assert paymentAmount != null;
-        holder.paymentListPaymentAmountTextView.setText(String.format("%s",
-                CustomUtils.formatNumber(paymentAmount.toString())));
     }
 
     @Override
     public int getItemCount() {
-        // the size of the work list
-        Log.d(TAG, "getItemCount: " + paymentListByMonth.size());
-        return paymentListByMonth.size();
+        return 12;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

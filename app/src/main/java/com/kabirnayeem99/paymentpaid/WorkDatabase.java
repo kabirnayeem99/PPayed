@@ -6,11 +6,10 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.kabirnayeem99.paymentpaid.models.PaymentMonth;
 import com.kabirnayeem99.paymentpaid.models.Work;
 import com.kabirnayeem99.paymentpaid.utils.WorkDao;
 
-@Database(entities = {Work.class, PaymentMonth.class}, version = 1, exportSchema = false)
+@Database(entities = {Work.class}, version = 1, exportSchema = false)
 public abstract class WorkDatabase extends RoomDatabase {
     public static final String DB_NAME = "payment_paid_db";
     public static WorkDatabase instance;
