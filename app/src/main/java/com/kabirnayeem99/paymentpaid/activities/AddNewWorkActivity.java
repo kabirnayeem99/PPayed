@@ -4,15 +4,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.kabirnayeem99.paymentpaid.R;
+import com.kabirnayeem99.paymentpaid.WorkViewModel;
 import com.kabirnayeem99.paymentpaid.models.Work;
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
-import com.kabirnayeem99.paymentpaid.utils.DatabaseUtils;
 
 import static java.lang.Integer.parseInt;
 import static java.util.Objects.requireNonNull;
@@ -25,13 +27,14 @@ public class AddNewWorkActivity extends AppCompatActivity {
     TextInputLayout tilPayment;
     TextInputLayout tilStudentName;
     DatePicker dpDate;
-    DatabaseUtils databaseUtils;
     Work work;
     String workName;
     String studentName;
     String date;
     int payment;
     long noteId;
+
+    WorkViewModel workViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -40,6 +43,7 @@ public class AddNewWorkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_work);
         initViews();
 
+        workViewModel = ViewModelProviders.of(AddNewWorkActivity.this).get(WorkViewModel.class);
         dpDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth)
                 -> {
             // month is returning a value less than the actual value, so magic number 1 is added
@@ -57,17 +61,12 @@ public class AddNewWorkActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onPause() {
-        try {
-            noteId = saveToNoteDB();
-        } catch (Exception e) {
-            Log.d(TAG, "onPause: " + e);
-        } finally {
-            super.onPause();
-        }
+    public void onBackPressed() {
+        super.onBackPressed();
+        saveToNoteDB();
     }
 
-    private long saveToNoteDB() {
+    private void saveToNoteDB() {
         // saves added note to the note database
 
         // requireNonNull ensures that the field is guaranteed be non-null.
@@ -80,8 +79,9 @@ public class AddNewWorkActivity extends AppCompatActivity {
 
         Log.d(TAG, "saveToNoteDB: work instance " + work.toString());
 
-        databaseUtils = new DatabaseUtils(this);
+        workViewModel.insert(work);
 
-        return databaseUtils.addToWork(work);
+        Toast.makeText(AddNewWorkActivity.this, "Work is saved", Toast.LENGTH_SHORT).show();
+
     }
 }

@@ -12,14 +12,12 @@ import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.models.Work;
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
-    private final List<Work> workList;
+    private  List<Work> workList = new ArrayList<>();
 
-    public WorkAdapter(List<Work> workList) {
-        this.workList = workList;
-    }
 
     @NonNull
     @Override
@@ -59,6 +57,10 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
 
         // the size of the work list
         return workList.size();
+    }
+
+    public void setWorkList(List<Work> allWorks) {
+        this.workList = allWorks;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

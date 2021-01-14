@@ -23,7 +23,7 @@ public interface WorkDao {
     @Delete
     void delete(Work work);
 
-    @Query("SELECT * FROM works_db_table")
+    @Query(value = "SELECT * FROM works_db_table")
     LiveData<List<Work>> getAllWorks();
 
     @Query("SELECT SUM(payment) FROM works_db_table WHERE submission_date LIKE '2021-%%-%%'")

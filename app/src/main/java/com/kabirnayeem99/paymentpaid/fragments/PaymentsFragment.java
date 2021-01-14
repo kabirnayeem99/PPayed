@@ -10,21 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kabirnayeem99.paymentpaid.R;
+import com.kabirnayeem99.paymentpaid.WorkViewModel;
 import com.kabirnayeem99.paymentpaid.adapters.PaymentAdapter;
-import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
-import com.kabirnayeem99.paymentpaid.utils.DatabaseUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
 public class PaymentsFragment extends Fragment {
     private static final String TAG = "PaymentsFragment";
     RecyclerView rvPaymentListByMonth;
-    DatabaseUtils databaseUtils;
     TextView tvPaymentTotal;
 
     @Nullable
@@ -38,11 +39,18 @@ public class PaymentsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         initViews(view);
+        WorkViewModel workViewModel = ViewModelProviders.of(PaymentsFragment.this).get(WorkViewModel.class);
 
-        databaseUtils = new DatabaseUtils(getActivity());
-        tvPaymentTotal.setText(CustomUtils.formatNumber(databaseUtils.getTotalPaymentByYear()));
 
-        initRecyclerView(databaseUtils);
+        workViewModel.getTotalPaymentByYear().observe(requireActivity(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                tvPaymentTotal.setText(integer);
+
+            }
+        });
+
+        initRecyclerView();
 
         super.onViewCreated(view, savedInstanceState);
     }
@@ -52,14 +60,15 @@ public class PaymentsFragment extends Fragment {
         tvPaymentTotal = view.findViewById(R.id.tv_payment_list_total_payments);
     }
 
-    private void initRecyclerView(DatabaseUtils databaseUtils) {
-        Map<Integer, Integer> totalPaymentListByMont = databaseUtils.getTotalPaymentByMonth();
+    private void initRecyclerView() {
+        Map<Integer, Integer> totalPaymentListByMont = new HashMap<>();
+        totalPaymentListByMont.put(0, 1);
 
         Log.d(TAG, "initRecyclerView: " + totalPaymentListByMont);
 
         PaymentAdapter paymentAdapter = new PaymentAdapter(totalPaymentListByMont);
 
-        rvPaymentListByMonth.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvPaymentListByMonth.setLayoutManager(new LinearLayoutManager(requireActivity()));
         rvPaymentListByMonth.setAdapter(paymentAdapter);
     }
 
