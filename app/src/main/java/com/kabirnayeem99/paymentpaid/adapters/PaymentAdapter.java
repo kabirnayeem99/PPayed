@@ -12,16 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
     private static final String TAG = "PaymentAdapter";
 
-    private final Map<Integer, Integer> paymentListByMonth;
+    private  Map<Integer, Integer> paymentListByMonth = new HashMap<>();
 
-    public PaymentAdapter(Map<Integer, Integer> paymentListByMonth) {
-        this.paymentListByMonth = paymentListByMonth;
-    }
+
+
 
     @NonNull
     @Override
@@ -45,7 +45,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         // as well as the memory usage.
 
         // gets the data from the database, i.e. work title, submission date and payment amount.
-        Integer paymentAmount = paymentListByMonth.get(position + 1);
+        Integer paymentAmount = paymentListByMonth.get(position);
         Log.d(TAG, "onBindViewHolder: position of adapter" + position);
         Log.d(TAG, "onBindViewHolder: \n" + paymentListByMonth.toString());
 

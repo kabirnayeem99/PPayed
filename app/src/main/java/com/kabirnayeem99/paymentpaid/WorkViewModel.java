@@ -22,27 +22,27 @@ public class WorkViewModel extends AndroidViewModel {
         totalPayment = repository.getTotalPaymentByYear();
     }
 
-    void insert(Work work) {
+    public void insert(Work work) {
         repository.insert(work);
     }
 
-    void update(Work work) {
+    public void update(Work work) {
         repository.update(work);
     }
 
-    void delete(Work work) {
+    public void delete(Work work) {
         repository.delete(work);
     }
 
-    LiveData<List<Work>> getAllWorks() {
+    public LiveData<List<Work>> getAllWorks() {
         return allWorks;
     }
 
-    int getTotalPaymentByMonth() {
+    public int getTotalPaymentByMonth() {
         return 0;
     }
 
-    LiveData<Integer> getTotalPaymentByYear() {
+    public LiveData<Integer> getTotalPaymentByYear() {
         return totalPayment;
     }
 }

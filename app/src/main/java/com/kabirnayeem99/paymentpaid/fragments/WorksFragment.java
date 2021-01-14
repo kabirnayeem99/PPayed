@@ -9,24 +9,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kabirnayeem99.paymentpaid.R;
+import com.kabirnayeem99.paymentpaid.WorkViewModel;
 import com.kabirnayeem99.paymentpaid.activities.AddNewWorkActivity;
 import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter;
-import com.kabirnayeem99.paymentpaid.models.Work;
-import com.kabirnayeem99.paymentpaid.utils.DatabaseUtils;
 
-import java.util.List;
 
 public class WorksFragment extends Fragment {
 
     RecyclerView rvWorkList;
     WorkAdapter workAdapter;
-    List<Work> workList;
-    DatabaseUtils databaseUtils;
     FloatingActionButton fabAddNewWork;
 
     public WorksFragment() {
@@ -42,7 +39,6 @@ public class WorksFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initViews(view);
-        databaseUtils = new DatabaseUtils(getActivity());
         initRecyclerView();
 
         fabAddNewWork.setOnClickListener(v -> {
@@ -59,8 +55,9 @@ public class WorksFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        workList = databaseUtils.getWorkList();
-        workAdapter = new WorkAdapter(workList);
+        workAdapter = new WorkAdapter();
+        WorkViewModel workViewModel = ViewModelProviders.of(this).get(WorkViewModel.class);
+        workViewModel.getAllWorks().observe(requireActivity(), works -> workAdapter.setWorkList(works));
         rvWorkList.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvWorkList.setAdapter(workAdapter);
     }
