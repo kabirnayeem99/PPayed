@@ -33,7 +33,7 @@ public class WorkRepository {
     }
 
     LiveData<List<Work>> getAllWorks() {
-        return workDao.getAllWorks();
+        return allWorks;
     }
 
     int getTotalPaymentByMonth() {

@@ -18,10 +18,7 @@ import java.util.Map;
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
     private static final String TAG = "PaymentAdapter";
 
-    private  Map<Integer, Integer> paymentListByMonth = new HashMap<>();
-
-
-
+    private final Map<Integer, Integer> paymentListByMonth = new HashMap<>();
 
     @NonNull
     @Override

@@ -41,7 +41,8 @@ public class PaymentsFragment extends Fragment {
         WorkViewModel workViewModel = ViewModelProviders.of(requireActivity()).get(WorkViewModel.class);
 
 
-        workViewModel.getTotalPaymentByYear().observe(requireActivity(), integer -> tvPaymentTotal.setText(String.valueOf(integer == null ? 0 : integer)));
+        workViewModel.getTotalPaymentByYear().observe(requireActivity(),
+                integer -> tvPaymentTotal.setText(String.valueOf(integer == null ? 0 : integer)));
 
         initRecyclerView();
 
