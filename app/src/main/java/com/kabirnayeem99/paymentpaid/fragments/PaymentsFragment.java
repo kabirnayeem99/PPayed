@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,16 +38,10 @@ public class PaymentsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         initViews(view);
-        WorkViewModel workViewModel = ViewModelProviders.of(PaymentsFragment.this).get(WorkViewModel.class);
+        WorkViewModel workViewModel = ViewModelProviders.of(requireActivity()).get(WorkViewModel.class);
 
 
-        workViewModel.getTotalPaymentByYear().observe(requireActivity(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                tvPaymentTotal.setText(integer);
-
-            }
-        });
+        workViewModel.getTotalPaymentByYear().observe(requireActivity(), integer -> tvPaymentTotal.setText(String.valueOf(integer == null ? 0 : integer)));
 
         initRecyclerView();
 
@@ -66,7 +59,7 @@ public class PaymentsFragment extends Fragment {
 
         Log.d(TAG, "initRecyclerView: " + totalPaymentListByMont);
 
-        PaymentAdapter paymentAdapter = new PaymentAdapter(totalPaymentListByMont);
+        PaymentAdapter paymentAdapter = new PaymentAdapter();
 
         rvPaymentListByMonth.setLayoutManager(new LinearLayoutManager(requireActivity()));
         rvPaymentListByMonth.setAdapter(paymentAdapter);
