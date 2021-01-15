@@ -1,4 +1,4 @@
-package com.kabirnayeem99.paymentpaid;
+package com.kabirnayeem99.paymentpaid.data.db;
 
 import android.content.Context;
 
@@ -6,8 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.kabirnayeem99.paymentpaid.models.Work;
-import com.kabirnayeem99.paymentpaid.utils.WorkDao;
+import com.kabirnayeem99.paymentpaid.data.db.entities.Work;
 
 @Database(entities = {Work.class}, version = 1, exportSchema = false)
 public abstract class WorkDatabase extends RoomDatabase {

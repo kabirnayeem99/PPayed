@@ -1,13 +1,14 @@
-package com.kabirnayeem99.paymentpaid;
+package com.kabirnayeem99.paymentpaid.data.repositories;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase;
+import com.kabirnayeem99.paymentpaid.data.db.entities.Work;
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
-import com.kabirnayeem99.paymentpaid.utils.WorkDao;
+import com.kabirnayeem99.paymentpaid.data.db.WorkDao;
 
 import java.util.List;
 
@@ -24,27 +25,27 @@ public class WorkRepository {
         this.monthlyPayment = workDao.getTotalPaymentByMonth(CustomUtils.getCurrentYear());
     }
 
-    void insert(Work work) {
+    public void insert(Work work) {
         new InsertWorkAsyncTask(workDao).execute(work);
     }
 
-    void update(Work work) {
+    public void update(Work work) {
         new UpdateWorkAsyncTask(workDao).execute(work);
     }
 
-    void delete(Work work) {
+    public void delete(Work work) {
         new DeleteWorkAsyncTask(workDao).execute(work);
     }
 
-    LiveData<List<Work>> getAllWorks() {
+    public LiveData<List<Work>> getAllWorks() {
         return allWorks;
     }
 
-    LiveData<List<Integer>> getTotalPaymentByMonth() {
+    public LiveData<List<Integer>> getTotalPaymentByMonth() {
         return monthlyPayment;
     }
 
-    LiveData<Integer> getTotalPaymentByYear() {
+    public LiveData<Integer> getTotalPaymentByYear() {
         return workDao.getTotalPaymentByYear(CustomUtils.getCurrentYear());
     }
 

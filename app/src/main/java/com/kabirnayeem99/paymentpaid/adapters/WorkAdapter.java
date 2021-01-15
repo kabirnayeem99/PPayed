@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kabirnayeem99.paymentpaid.R;
-import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.data.db.entities.Work;
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
 import java.util.ArrayList;
