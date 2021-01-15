@@ -44,7 +44,8 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
         if (monthlyPaymentList.size() > 0) {
             holder.paymentListMonthNameTextView.setText(CustomUtils.getCurrentMonthName(position));
-            holder.paymentListPaymentAmountTextView.setText(String.format("%s", monthlyPaymentList.get(position)));
+            holder.paymentListPaymentAmountTextView.setText(
+                    CustomUtils.formatMoney(String.valueOf(monthlyPaymentList.get(position))));
         }
         String monthlyPaymentListString = monthlyPaymentList.toString();
         Log.d(TAG, "onBindViewHolder: " + monthlyPaymentListString);

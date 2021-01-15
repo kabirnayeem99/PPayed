@@ -51,7 +51,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         holder.tvWorkName.setText(workListItemTitle);
         holder.tvDate.setText(workListItemDate);
         holder.tvStudentName.setText(workListItemStudentName);
-        holder.tvPayment.setText(CustomUtils.formatNumber(workListItemPayment));
+        holder.tvPayment.setText(CustomUtils.formatMoney(workListItemPayment));
     }
 
     @Override
