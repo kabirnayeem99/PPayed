@@ -9,17 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kabirnayeem99.paymentpaid.R;
-import com.kabirnayeem99.paymentpaid.ui.WorkViewModel;
 import com.kabirnayeem99.paymentpaid.adapters.PaymentAdapter;
+import com.kabirnayeem99.paymentpaid.ui.WorkViewModel;
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
-
-import java.util.List;
 
 
 public class PaymentsFragment extends Fragment {
@@ -43,15 +40,12 @@ public class PaymentsFragment extends Fragment {
         WorkViewModel workViewModel = ViewModelProviders.of(requireActivity()).get(WorkViewModel.class);
         paymentAdapter = new PaymentAdapter();
 
-        workViewModel.getTotalPaymentByMonth(CustomUtils.getCurrentYear()).observe(requireActivity(), new Observer<List<Integer>>() {
-            @Override
-            public void onChanged(List<Integer> integers) {
-                paymentAdapter.setMonthlyPaymentList(integers);
-            }
-        });
+        workViewModel.getTotalPaymentByMonth(CustomUtils.getCurrentYear()).observe(requireActivity(),
+                integers -> paymentAdapter.setMonthlyPaymentList(integers));
 
         workViewModel.getTotalPaymentByYear().observe(requireActivity(),
-                integer -> tvPaymentTotal.setText(String.valueOf(integer == null ? 0 : integer)));
+                integer -> tvPaymentTotal.setText(String.valueOf(integer == null ? 0 :
+                        CustomUtils.formatMoney(integer.toString()))));
         initRecyclerView();
 
         super.onViewCreated(view, savedInstanceState);

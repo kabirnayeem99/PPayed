@@ -18,18 +18,18 @@ import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
 import java.util.List;
 
-public class ExportsFragment extends Fragment {
+public class AboutFragment extends Fragment {
 
 
 
 
-    public ExportsFragment() {
+    public AboutFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_exports, container, false);
+        return inflater.inflate(R.layout.fragment_about, container, false);
     }
 
     @Override
@@ -39,11 +39,8 @@ public class ExportsFragment extends Fragment {
 
         WorkViewModel workViewModel = ViewModelProviders.of(requireActivity()).get(WorkViewModel.class);
 
-        workViewModel.getTotalPaymentByMonth(CustomUtils.getCurrentYear()).observe(requireActivity(), new Observer<List<Integer>>() {
-            @Override
-            public void onChanged(List<Integer> integers) {
+        workViewModel.getTotalPaymentByMonth(CustomUtils.getCurrentYear()).observe(requireActivity(), integers -> {
 //                new ShowChartAsyncTask().execute(integers);
-            }
         });
 
 

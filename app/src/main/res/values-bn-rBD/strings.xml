@@ -14,10 +14,9 @@
     <string name="label_tab_item_exports">এক্সপোর্ট</string>
     <string name="label_tab_item_payments">পেমেন্ট</string>
     <string name="label_tab_item_works">কাজ</string>
-    <string name="button_export_data">ডাটা এক্সপোর্ট করুন</string>
     <string name="action_add_new_work">নতুন কাজ যুক্ত করুন</string>
     <string name="developer_name">নাইমুল কবির</string>
-    <string name="content_desc_logo">অ্যাপের লোগো</string>
-    <string name="url_app">https://github.com/kabirnayeem99/PPayed</string>
-    <string name="import_data">ইমপোর্ট ডাটা</string>
+    <string name="text_sample_student_name">টুনি বেগম</string>
+    <string name="desc_developer_name">ডেভেলপ করেছেন</string>
+    <string name="desc_manual">সহায়িকা</string>
 </resources>
