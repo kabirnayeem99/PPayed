@@ -9,17 +9,17 @@ public class Work {
     @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo(name = "work_name")
-    private String name;
+    private final String name;
     @ColumnInfo(name = "submission_date")
-    private String date;
+    private final String date;
     @ColumnInfo(name = "account_month")
-    private int month;
+    private final int month;
     @ColumnInfo(name = "account_year")
-    private int year;
+    private final int year;
     @ColumnInfo(name = "payment")
-    private int payment;
+    private final int payment;
     @ColumnInfo(name = "student_name")
-    private String studentName;
+    private final String studentName;
 
     public Work(String name, String date, int month, int year, int payment, String studentName) {
         this.name = name;
@@ -29,8 +29,6 @@ public class Work {
         this.payment = payment;
         this.studentName = studentName;
     }
-
-
 
     public int getId() {
         return id;

@@ -14,11 +14,14 @@ import java.util.List;
 public class WorkRepository {
     private final WorkDao workDao;
     private final LiveData<List<Work>> allWorks;
+    private final LiveData<List<Integer>> monthlyPayment;
+
 
     public WorkRepository(Application application) {
         WorkDatabase workDatabase = WorkDatabase.getInstance(application);
         this.workDao = workDatabase.workDao();
         this.allWorks = workDao.getAllWorks();
+        this.monthlyPayment = workDao.getTotalPaymentByMonth(CustomUtils.getCurrentYear());
     }
 
     void insert(Work work) {
@@ -37,12 +40,12 @@ public class WorkRepository {
         return allWorks;
     }
 
-    int getTotalPaymentByMonth() {
-        return 0;
+    LiveData<List<Integer>> getTotalPaymentByMonth() {
+        return monthlyPayment;
     }
 
     LiveData<Integer> getTotalPaymentByYear() {
-        return workDao.getTotalPaymentByYear(Integer.parseInt(CustomUtils.getCurrentYear()));
+        return workDao.getTotalPaymentByYear(CustomUtils.getCurrentYear());
     }
 
     public static class InsertWorkAsyncTask extends AsyncTask<Work, Void, Void> {

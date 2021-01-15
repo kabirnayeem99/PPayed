@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
     private static final String TAG = "PaymentAdapter";
 
 
+    List<Integer> monthlyPaymentList = new ArrayList<>();
 
     @NonNull
     @Override
@@ -41,16 +42,22 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         // binds the new data to the view holder without creating new view holder to reduce cpu
         // as well as the memory usage.
 
-
-
-        // binds the data for each of the work got from the db to the existing adapter based on the
-        // screen time of the lists item.
-
+        if (monthlyPaymentList.size() > 0) {
+            holder.paymentListMonthNameTextView.setText(CustomUtils.getCurrentMonthName(position));
+            holder.paymentListPaymentAmountTextView.setText(String.format("%s", monthlyPaymentList.get(position)));
+        }
+        String monthlyPaymentListString = monthlyPaymentList.toString();
+        Log.d(TAG, "onBindViewHolder: " + monthlyPaymentListString);
     }
 
     @Override
     public int getItemCount() {
-        return 12;
+        return monthlyPaymentList.size();
+    }
+
+    public void setMonthlyPaymentList(List<Integer> integers) {
+        this.monthlyPaymentList = integers;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
