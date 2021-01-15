@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.kabirnayeem99.paymentpaid.ui.fragments.ExportsFragment;
+import com.kabirnayeem99.paymentpaid.ui.fragments.AboutFragment;
 import com.kabirnayeem99.paymentpaid.ui.fragments.PaymentsFragment;
 import com.kabirnayeem99.paymentpaid.ui.fragments.WorksFragment;
 
@@ -32,7 +32,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new PaymentsFragment();
             case 2:
-                return new ExportsFragment();
+                return new AboutFragment();
         }
         return new WorksFragment();
     }

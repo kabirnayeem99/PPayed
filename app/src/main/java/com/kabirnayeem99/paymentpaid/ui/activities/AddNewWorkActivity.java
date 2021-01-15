@@ -2,7 +2,6 @@ package com.kabirnayeem99.paymentpaid.ui.activities;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -12,11 +11,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.kabirnayeem99.paymentpaid.R;
-import com.kabirnayeem99.paymentpaid.ui.WorkViewModel;
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work;
+import com.kabirnayeem99.paymentpaid.ui.WorkViewModel;
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
-import static java.lang.Integer.parseInt;
 import static java.util.Objects.requireNonNull;
 
 public class AddNewWorkActivity extends AppCompatActivity {
@@ -31,7 +29,7 @@ public class AddNewWorkActivity extends AppCompatActivity {
     String workName;
     String studentName;
     String date;
-    int payment;
+    String paymentString;
     int month;
     int year;
 
@@ -75,16 +73,16 @@ public class AddNewWorkActivity extends AppCompatActivity {
         // requireNonNull ensures that the field is guaranteed be non-null.
         workName = requireNonNull(tilWorkName.getEditText()).getText().toString();
         studentName = requireNonNull(tilStudentName.getEditText()).getText().toString();
-        // parses the integer value from the string
-        payment = parseInt(requireNonNull(tilPayment.getEditText()).getText().toString());
 
-        work = new Work(workName, date, month, year, payment, studentName);
+        paymentString = requireNonNull(tilPayment.getEditText()).getText().toString();
 
-        Log.d(TAG, "saveToNoteDB: work instance " + work.toString());
-
-        workViewModel.insert(work);
-
-        Toast.makeText(AddNewWorkActivity.this, "Work is saved", Toast.LENGTH_SHORT).show();
+        if (!workName.trim().isEmpty() && !paymentString.trim().isEmpty() && !studentName.trim().isEmpty() && !date.trim().isEmpty()) {
+            work = new Work(workName, date, month, year, Integer.parseInt(paymentString), studentName);
+            workViewModel.insert(work);
+            Toast.makeText(AddNewWorkActivity.this, "Work is saved", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Work was not saved as you left the filed empty", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

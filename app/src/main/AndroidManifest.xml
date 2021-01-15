@@ -9,7 +9,6 @@
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
-        tools:replace="android:label"
         android:label="@string/static_app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.PaymentPaid">

@@ -20,6 +20,8 @@
     <string name="url_app">https://github.com/kabirnayeem99/PPayed</string>
     <string name="import_data">Import Data</string>
     <string name="text_sample_student_name">Maria Sultana</string>
+    <string name="desc_developer_name">Developed By</string>
+    <string name="desc_manual">Manual</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>
