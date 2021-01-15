@@ -39,11 +39,8 @@ public class AboutFragment extends Fragment {
 
         WorkViewModel workViewModel = ViewModelProviders.of(requireActivity()).get(WorkViewModel.class);
 
-        workViewModel.getTotalPaymentByMonth(CustomUtils.getCurrentYear()).observe(requireActivity(), new Observer<List<Integer>>() {
-            @Override
-            public void onChanged(List<Integer> integers) {
+        workViewModel.getTotalPaymentByMonth(CustomUtils.getCurrentYear()).observe(requireActivity(), integers -> {
 //                new ShowChartAsyncTask().execute(integers);
-            }
         });
 
 

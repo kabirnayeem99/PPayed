@@ -14,11 +14,7 @@
     <string name="label_tab_item_payments">Payments</string>
     <string name="label_tab_item_exports">Exports</string>
     <string name="action_add_new_work">Add new work</string>
-    <string name="button_export_data">Export data</string>
     <string name="developer_name">Naimul Kabir</string>
-    <string name="content_desc_logo">Logo of the app</string>
-    <string name="url_app">https://github.com/kabirnayeem99/PPayed</string>
-    <string name="import_data">Import Data</string>
     <string name="text_sample_student_name">Maria Sultana</string>
     <string name="desc_developer_name">Developed By</string>
     <string name="desc_manual">Manual</string>

@@ -43,12 +43,7 @@ public class PaymentsFragment extends Fragment {
         WorkViewModel workViewModel = ViewModelProviders.of(requireActivity()).get(WorkViewModel.class);
         paymentAdapter = new PaymentAdapter();
 
-        workViewModel.getTotalPaymentByMonth(CustomUtils.getCurrentYear()).observe(requireActivity(), new Observer<List<Integer>>() {
-            @Override
-            public void onChanged(List<Integer> integers) {
-                paymentAdapter.setMonthlyPaymentList(integers);
-            }
-        });
+        workViewModel.getTotalPaymentByMonth(CustomUtils.getCurrentYear()).observe(requireActivity(), integers -> paymentAdapter.setMonthlyPaymentList(integers));
 
         workViewModel.getTotalPaymentByYear().observe(requireActivity(),
                 integer -> tvPaymentTotal.setText(String.valueOf(integer == null ? 0 : integer)));
