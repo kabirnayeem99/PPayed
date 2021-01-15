@@ -19,6 +19,7 @@
     <string name="content_desc_logo">Logo of the app</string>
     <string name="url_app">https://github.com/kabirnayeem99/PPayed</string>
     <string name="import_data">Import Data</string>
+    <string name="text_sample_student_name">Maria Sultana</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

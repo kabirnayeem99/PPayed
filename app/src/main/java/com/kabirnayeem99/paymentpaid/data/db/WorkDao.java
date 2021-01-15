@@ -1,4 +1,4 @@
-package com.kabirnayeem99.paymentpaid.utils;
+package com.kabirnayeem99.paymentpaid.data.db;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.data.db.entities.Work;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.kabirnayeem99.paymentpaid;
+package com.kabirnayeem99.paymentpaid.ui;
 
 import android.app.Application;
 
@@ -6,7 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.data.db.entities.Work;
+import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository;
 
 import java.util.List;
 

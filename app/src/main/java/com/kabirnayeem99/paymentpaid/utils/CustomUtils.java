@@ -38,15 +38,15 @@ public class CustomUtils {
         return output.toString();
     }
 
-    public static String formatNumber(String number) {
+    public static String formatMoney(String number) {
         if (number.length() <= 3) {
-            return number;
+            return String.format("৳%s", number);
         } else {
             double amount = Double.parseDouble(number);
             DecimalFormat formatter = new DecimalFormat("#,###");
             number = formatter.format(amount);
         }
-        return number;
+        return  String.format("৳%s", number);
     }
 
     public static Integer getCurrentYear() {

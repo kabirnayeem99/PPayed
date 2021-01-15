@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.kabirnayeem99.paymentpaid.fragments.ExportsFragment;
-import com.kabirnayeem99.paymentpaid.fragments.PaymentsFragment;
-import com.kabirnayeem99.paymentpaid.fragments.WorksFragment;
+import com.kabirnayeem99.paymentpaid.ui.fragments.ExportsFragment;
+import com.kabirnayeem99.paymentpaid.ui.fragments.PaymentsFragment;
+import com.kabirnayeem99.paymentpaid.ui.fragments.WorksFragment;
 
 public class HomePagerAdapter extends FragmentStatePagerAdapter {
     private static final String TAG = "HomePagerAdapter";

@@ -1,4 +1,4 @@
-package com.kabirnayeem99.paymentpaid.models;
+package com.kabirnayeem99.paymentpaid.data.db.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

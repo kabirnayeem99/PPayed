@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kabirnayeem99.paymentpaid.R;
-import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.data.db.entities.Work;
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
 import java.util.ArrayList;
@@ -43,13 +43,15 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         // gets the data from the database, i.e. work title, submission date and payment amount.
         String workListItemTitle = workList.get(position).getName();
         String workListItemDate = workList.get(position).getDate();
+        String workListItemStudentName = workList.get(position).getStudentName();
         String workListItemPayment = String.format("%s", workList.get(position).getPayment());
 
         // binds the data for each of the work got from the db to the existing adapter based on the
         // screen time of the lists item.
         holder.tvWorkName.setText(workListItemTitle);
         holder.tvDate.setText(workListItemDate);
-        holder.tvPayment.setText(CustomUtils.formatNumber(workListItemPayment));
+        holder.tvStudentName.setText(workListItemStudentName);
+        holder.tvPayment.setText(CustomUtils.formatMoney(workListItemPayment));
     }
 
     @Override
@@ -65,13 +67,14 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView tvWorkName, tvDate, tvPayment;
+        final TextView tvWorkName, tvDate, tvPayment, tvStudentName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvWorkName = itemView.findViewById(R.id.tv_work_name_list_item_work);
             tvDate = itemView.findViewById(R.id.tv_date_list_item_work);
             tvPayment = itemView.findViewById(R.id.tv_payment_amount_list_item_work);
+            tvStudentName = itemView.findViewById(R.id.tv_student_name_list_item_work);
         }
     }
 }

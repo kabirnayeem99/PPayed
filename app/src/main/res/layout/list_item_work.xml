@@ -22,28 +22,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/static_sample_note_title"
-                android:textColor="@color/material_grey"
+                android:textColor="@color/material_white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_student_name_list_item_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_work_name_list_item_work"
+                android:text="@string/text_sample_student_name"
+                android:textColor="@color/material_white"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_date_list_item_work"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_work_name_list_item_work"
+                android:layout_below="@+id/tv_student_name_list_item_work"
                 android:text="@string/text_sample_date"
-                android:textColor="@color/material_grey"
-                android:textSize="12sp" />
+                android:textColor="@color/material_white"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_payment_amount_list_item_work"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_date_list_item_work"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:text="@string/text_sample_payment"
-                android:textColor="@color/material_grey"
-                android:textSize="12sp" />
+                android:textColor="@color/material_white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-
 </RelativeLayout>
