@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.kabirnayeem99.paymentpaid.models.Work;
+import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 import com.kabirnayeem99.paymentpaid.utils.WorkDao;
 
 import java.util.List;
@@ -13,11 +14,14 @@ import java.util.List;
 public class WorkRepository {
     private final WorkDao workDao;
     private final LiveData<List<Work>> allWorks;
+    private final LiveData<List<Integer>> monthlyPayment;
+
 
     public WorkRepository(Application application) {
         WorkDatabase workDatabase = WorkDatabase.getInstance(application);
         this.workDao = workDatabase.workDao();
         this.allWorks = workDao.getAllWorks();
+        this.monthlyPayment = workDao.getTotalPaymentByMonth(CustomUtils.getCurrentYear());
     }
 
     void insert(Work work) {
@@ -33,15 +37,15 @@ public class WorkRepository {
     }
 
     LiveData<List<Work>> getAllWorks() {
-        return workDao.getAllWorks();
+        return allWorks;
     }
 
-    int getTotalPaymentByMonth() {
-        return 0;
+    LiveData<List<Integer>> getTotalPaymentByMonth() {
+        return monthlyPayment;
     }
 
     LiveData<Integer> getTotalPaymentByYear() {
-        return workDao.getTotalPaymentByYear();
+        return workDao.getTotalPaymentByYear(CustomUtils.getCurrentYear());
     }
 
     public static class InsertWorkAsyncTask extends AsyncTask<Work, Void, Void> {

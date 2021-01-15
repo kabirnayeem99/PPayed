@@ -3,6 +3,7 @@ package com.kabirnayeem99.paymentpaid.utils;
 import android.util.Log;
 
 import java.text.DecimalFormat;
+import java.time.Month;
 import java.util.Calendar;
 
 public class CustomUtils {
@@ -48,7 +49,12 @@ public class CustomUtils {
         return number;
     }
 
-    public static String getCurrentYear() {
-        return String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+    public static Integer getCurrentYear() {
+        return Calendar.getInstance().get(Calendar.YEAR);
+    }
+
+    public static String getCurrentMonthName(int position) {
+        Month[] month = Month.values();
+        return month[position].toString();
     }
 }

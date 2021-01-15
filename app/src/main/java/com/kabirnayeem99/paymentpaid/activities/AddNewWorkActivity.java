@@ -32,7 +32,8 @@ public class AddNewWorkActivity extends AppCompatActivity {
     String studentName;
     String date;
     int payment;
-    long noteId;
+    int month;
+    int year;
 
     WorkViewModel workViewModel;
 
@@ -46,6 +47,8 @@ public class AddNewWorkActivity extends AppCompatActivity {
         workViewModel = ViewModelProviders.of(AddNewWorkActivity.this).get(WorkViewModel.class);
         dpDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth)
                 -> {
+            this.year = year;
+            this.month = monthOfYear + 1;
             // month is returning a value less than the actual value, so magic number 1 is added
             date = String.format("%s-%s-%s", year, CustomUtils.padMonth(monthOfYear + 1),
                     CustomUtils.padMonth(dayOfMonth));
@@ -75,7 +78,7 @@ public class AddNewWorkActivity extends AppCompatActivity {
         // parses the integer value from the string
         payment = parseInt(requireNonNull(tilPayment.getEditText()).getText().toString());
 
-        work = new Work(workName, date, payment, studentName);
+        work = new Work(workName, date, month, year, payment, studentName);
 
         Log.d(TAG, "saveToNoteDB: work instance " + work.toString());
 

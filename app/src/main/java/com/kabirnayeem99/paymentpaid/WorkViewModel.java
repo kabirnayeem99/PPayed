@@ -14,12 +14,15 @@ public class WorkViewModel extends AndroidViewModel {
     private final WorkRepository repository;
     private final LiveData<List<Work>> allWorks;
     private final LiveData<Integer> totalPayment;
+    private final LiveData<List<Integer>> monthlyPayment;
+
 
     public WorkViewModel(@NonNull Application application) {
         super(application);
         repository = new WorkRepository(application);
         allWorks = repository.getAllWorks();
         totalPayment = repository.getTotalPaymentByYear();
+        monthlyPayment = repository.getTotalPaymentByMonth();
     }
 
     public void insert(Work work) {
@@ -38,8 +41,8 @@ public class WorkViewModel extends AndroidViewModel {
         return allWorks;
     }
 
-    public int getTotalPaymentByMonth() {
-        return 0;
+    public LiveData<List<Integer>> getTotalPaymentByMonth(int currentYear) {
+        return monthlyPayment;
     }
 
     public LiveData<Integer> getTotalPaymentByYear() {

@@ -1,32 +1,33 @@
 package com.kabirnayeem99.paymentpaid.fragments;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
 import com.kabirnayeem99.paymentpaid.R;
+import com.kabirnayeem99.paymentpaid.WorkViewModel;
+import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class ExportsFragment extends Fragment {
-    private static final String TAG = "ExportsFragment";
+
+
 
 
     public ExportsFragment() {
@@ -40,9 +41,22 @@ public class ExportsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Button exportButton = view.findViewById(R.id.export_button);
+
+
+
+        WorkViewModel workViewModel = ViewModelProviders.of(requireActivity()).get(WorkViewModel.class);
+
+        workViewModel.getTotalPaymentByMonth(CustomUtils.getCurrentYear()).observe(requireActivity(), new Observer<List<Integer>>() {
+            @Override
+            public void onChanged(List<Integer> integers) {
+//                new ShowChartAsyncTask().execute(integers);
+            }
+        });
+
+
         super.onViewCreated(view, savedInstanceState);
     }
+
 
 
 
