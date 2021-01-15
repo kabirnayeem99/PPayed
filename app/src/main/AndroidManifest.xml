@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
     package="com.kabirnayeem99.paymentpaid">
 
 
@@ -7,6 +9,7 @@
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
+        tools:replace="android:label"
         android:label="@string/static_app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.PaymentPaid">
@@ -24,11 +27,11 @@
         <activity
             android:name=".activities.AddNewWorkActivity"
             android:label="@string/action_add_new_work">
-
         </activity>
 
         <meta-data
             android:name="preloaded_fonts"
+
             android:resource="@array/preloaded_fonts" />
     </application>
 

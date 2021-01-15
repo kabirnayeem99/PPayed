@@ -53,4 +53,7 @@ dependencies {
     implementation "androidx.room:room-runtime:2.2.6"
     annotationProcessor "androidx.room:room-compiler:2.2.6"
 
+    // AnyChart - data visualization library
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+
 }
