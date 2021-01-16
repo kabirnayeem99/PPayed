@@ -18,6 +18,17 @@
     <string name="text_sample_student_name">Maria Sultana</string>
     <string name="desc_developer_name">Developed By</string>
     <string name="desc_manual">Manual</string>
-    <!-- Strings used for fragments for navigation -->
+    <string name="app_description">PPayed is your payment management app for your contract-based works.</string>
+    <string name="version_detail">Version 2.0 Stable </string>
+    <string name="version">v2.0-stable</string>
+    <string name="report_issue">Report issue</string>
+    <string name="report_issue_here">Report the issue here</string>
+    <string name="issue_url">https://github.com/kabirnayeem99/PPayed/issues/new/choose</string>
+    <string name="about">"PPayed is a FOSS app to manage your payments in contract-based works. "</string>
+    <string name="changelog">Changelog</string>
+    <string name="changes_url">https://github.com/kabirnayeem99/PPayed/releases</string>
+    <string name="send_email">Send email</string>
+    <string name="email_address">kabirnayeem.99@gmail.com</string>
+    <string name="question_concerning_ppayed">Questions about PPayed</string>
 
 </resources>
