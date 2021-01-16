@@ -46,7 +46,7 @@ public class CustomUtils {
             DecimalFormat formatter = new DecimalFormat("#,###");
             number = formatter.format(amount);
         }
-        return  String.format("৳%s", number);
+        return String.format("৳%s", number);
     }
 
     public static Integer getCurrentYear() {
@@ -56,5 +56,14 @@ public class CustomUtils {
     public static String getCurrentMonthName(int position) {
         Month[] month = Month.values();
         return month[position].toString();
+    }
+
+    public static int getCurrentMonth() {
+        return Calendar.getInstance().get(Calendar.MONTH);
+    }
+
+
+    public static int getCurrentDay() {
+        return Calendar.getInstance().get(Calendar.DATE);
     }
 }

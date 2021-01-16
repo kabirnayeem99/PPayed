@@ -19,4 +19,16 @@
     <string name="text_sample_student_name">টুনি বেগম</string>
     <string name="desc_developer_name">ডেভেলপ করেছেন</string>
     <string name="desc_manual">সহায়িকা</string>
+    <string name="app_description">"পিপেইড আপনার কন্ট্রাক্ট কাজের জন্য পেমেন্ট ব্যবস্থাপনা অ্যাপলিকেশন। "</string>
+    <string name="version_detail">সংস্করণ ২.০ স্টবেল</string>
+    <string name="version">২.০-স্টেবল</string>
+    <string name="report_issue">ইশু রিপোর্ট করুন</string>
+    <string name="report_issue_here">ইশু এখানে রিপোর্ট করুন</string>
+    <string name="issue_url">https://github.com/kabirnayeem99/PPayed/issues/new/choose</string>
+    <string name="about">"পিপেইড আপনার কন্ট্রাক্ট কাজের বেতনভাতার হিশাব রাখার একটি উন্মুক্ত অ্য়াপলিকশেন। "</string>
+    <string name="changelog">পরিবর্তনসমূহ</string>
+    <string name="changes_url">https://github.com/kabirnayeem99/PPayed/releases</string>
+    <string name="send_email">ইমেইল পাঠান</string>
+    <string name="email_address">kabirnayeem.99@gmail.com</string>
+    <string name="question_concerning_ppayed">পিপেইড সম্পর্কিত প্রশ্ন</string>
 </resources>

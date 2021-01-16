@@ -6,19 +6,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kabirnayeem99.paymentpaid.R;
-import com.kabirnayeem99.paymentpaid.ui.WorkViewModel;
-import com.kabirnayeem99.paymentpaid.ui.activities.AddNewWorkActivity;
 import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter;
+import com.kabirnayeem99.paymentpaid.data.db.entities.Work;
+import com.kabirnayeem99.paymentpaid.ui.WorkViewModel;
+import com.kabirnayeem99.paymentpaid.ui.activities.WorkDetailsActivity;
 
 
 public class WorksFragment extends Fragment {
@@ -44,7 +47,7 @@ public class WorksFragment extends Fragment {
         initRecyclerView();
 
         fabAddNewWork.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), AddNewWorkActivity.class);
+            Intent intent = new Intent(getActivity(), WorkDetailsActivity.class);
             startActivity(intent);
         });
 
@@ -61,9 +64,35 @@ public class WorksFragment extends Fragment {
         WorkViewModel workViewModel = ViewModelProviders.of(this).get(WorkViewModel.class);
         workViewModel.getAllWorks().observe(requireActivity(), works -> {
             Log.d(TAG, "initRecyclerView: " + works.toString());
-            workAdapter.setWorkList(works);
+            workAdapter.submitList(works);
         });
         rvWorkList.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvWorkList.setAdapter(workAdapter);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                workViewModel.delete(workAdapter.getWorkByPosition(viewHolder.getAdapterPosition()));
+                Toast.makeText(requireActivity(), "This note has been deleted", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(rvWorkList);
+
+        workAdapter.setOnClickListener(new WorkAdapter.OnClickListener() {
+            @Override
+            public void onItemClick(Work work) {
+                Intent intent = new Intent(requireActivity(), WorkDetailsActivity.class);
+                intent.putExtra(WorkDetailsActivity.EXTRA_ID, work.getId());
+                intent.putExtra(WorkDetailsActivity.EXTRA_WORK_NAME, work.getName());
+                intent.putExtra(WorkDetailsActivity.EXTRA_STUDENT_NAME, work.getStudentName());
+                intent.putExtra(WorkDetailsActivity.EXTRA_DATE, work.getDate());
+                intent.putExtra(WorkDetailsActivity.EXTRA_PAYMENT, work.getPayment());
+                startActivity(intent);
+            }
+        });
     }
 }
