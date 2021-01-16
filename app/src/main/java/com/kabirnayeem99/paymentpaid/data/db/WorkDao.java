@@ -23,6 +23,7 @@ public interface WorkDao {
     @Delete
     void delete(Work work);
 
+
     @Query(value = "SELECT * FROM works_db_table ORDER BY submission_date DESC")
     LiveData<List<Work>> getAllWorks();
 
