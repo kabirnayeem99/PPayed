@@ -66,6 +66,10 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
+    public Work getWorkByPosition(int position) {
+        return workList.get(position);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView tvWorkName, tvDate, tvPayment, tvStudentName;
 
