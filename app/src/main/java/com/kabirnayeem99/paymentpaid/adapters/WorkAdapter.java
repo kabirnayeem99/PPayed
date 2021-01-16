@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kabirnayeem99.paymentpaid.R;
@@ -15,10 +17,23 @@ import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
-    private List<Work> workList = new ArrayList<>();
+public class WorkAdapter extends ListAdapter<Work, WorkAdapter.ViewHolder> {
+    public static DiffUtil.ItemCallback<Work> DIFF_CALLBACK = new DiffUtil.ItemCallback<Work>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Work oldItem, @NonNull Work newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Work oldItem, @NonNull Work newItem) {
+            return oldItem.getName().equals(newItem.getName());
+        }
+    };
     private OnClickListener listener;
 
+    public WorkAdapter() {
+        super(DIFF_CALLBACK);
+    }
 
     @NonNull
     @Override
@@ -42,10 +57,10 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         // as well as the memory usage.
 
         // gets the data from the database, i.e. work title, submission date and payment amount.
-        String workListItemTitle = workList.get(position).getName();
-        String workListItemDate = workList.get(position).getDate();
-        String workListItemStudentName = workList.get(position).getStudentName();
-        String workListItemPayment = String.format("%s", workList.get(position).getPayment());
+        String workListItemTitle = getItem(position).getName();
+        String workListItemDate = getItem(position).getDate();
+        String workListItemStudentName = getItem(position).getStudentName();
+        String workListItemPayment = String.format("%s", getItem(position).getPayment());
 
         // binds the data for each of the work got from the db to the existing adapter based on the
         // screen time of the lists item.
@@ -55,20 +70,12 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         holder.tvPayment.setText(CustomUtils.formatMoney(workListItemPayment));
     }
 
-    @Override
-    public int getItemCount() {
 
-        // the size of the work list
-        return workList.size();
-    }
 
-    public void setWorkList(List<Work> allWorks) {
-        this.workList = allWorks;
-        notifyDataSetChanged();
-    }
+
 
     public Work getWorkByPosition(int position) {
-        return workList.get(position);
+        return getItem(position);
     }
 
     public void setOnClickListener(OnClickListener listener) {
@@ -92,7 +99,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(workList.get(getAdapterPosition()));
+                    listener.onItemClick(getItem(getAdapterPosition()));
                 }
             });
         }

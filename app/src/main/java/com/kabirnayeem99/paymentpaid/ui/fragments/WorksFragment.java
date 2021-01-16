@@ -64,7 +64,7 @@ public class WorksFragment extends Fragment {
         WorkViewModel workViewModel = ViewModelProviders.of(this).get(WorkViewModel.class);
         workViewModel.getAllWorks().observe(requireActivity(), works -> {
             Log.d(TAG, "initRecyclerView: " + works.toString());
-            workAdapter.setWorkList(works);
+            workAdapter.submitList(works);
         });
         rvWorkList.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvWorkList.setAdapter(workAdapter);

@@ -8,12 +8,12 @@ android {
 
     defaultConfig {
         applicationId "com.kabirnayeem99.paymentpaid"
-        minSdkVersion 26
+        minSdkVersion 23
         targetSdkVersion 30
-        versionName '1.1'
+        versionName '2.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        versionNameSuffix '-beta 3'
+        versionNameSuffix '-beta1'
     }
 
     buildTypes {
