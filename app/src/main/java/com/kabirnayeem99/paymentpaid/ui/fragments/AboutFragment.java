@@ -24,7 +24,6 @@ public class AboutFragment extends MaterialAboutFragment {
 
         MaterialAboutCard.Builder miscCardBuilder = new MaterialAboutCard.Builder();
         buildMisc(context, miscCardBuilder);
-        new CreateAboutClassAsyncTask().execute(miscCardBuilder);
         MaterialAboutCard.Builder appCardBuilder = new MaterialAboutCard.Builder();
         buildApp(context, appCardBuilder);
         MaterialAboutCard.Builder authorCardBuilder = new MaterialAboutCard.Builder();
@@ -73,12 +72,4 @@ public class AboutFragment extends MaterialAboutFragment {
         ;
     }
 
-    private class CreateAboutClassAsyncTask extends AsyncTask<MaterialAboutCard.Builder, Void, Void> {
-
-
-        @Override
-        protected Void doInBackground(MaterialAboutCard.Builder... builders) {
-            return null;
-        }
-    }
 }
