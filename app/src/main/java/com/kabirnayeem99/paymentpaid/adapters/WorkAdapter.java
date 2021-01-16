@@ -17,6 +17,7 @@ import java.util.List;
 
 public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
     private List<Work> workList = new ArrayList<>();
+    private OnClickListener listener;
 
 
     @NonNull
@@ -70,7 +71,15 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         return workList.get(position);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public void setOnClickListener(OnClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnClickListener {
+        void onItemClick(Work work);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         final TextView tvWorkName, tvDate, tvPayment, tvStudentName;
 
         public ViewHolder(@NonNull View itemView) {
@@ -79,6 +88,13 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
             tvDate = itemView.findViewById(R.id.tv_date_list_item_work);
             tvPayment = itemView.findViewById(R.id.tv_payment_amount_list_item_work);
             tvStudentName = itemView.findViewById(R.id.tv_student_name_list_item_work);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(workList.get(getAdapterPosition()));
+                }
+            });
         }
     }
 }

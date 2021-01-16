@@ -19,8 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter;
+import com.kabirnayeem99.paymentpaid.data.db.entities.Work;
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel;
-import com.kabirnayeem99.paymentpaid.ui.activities.AddNewWorkActivity;
+import com.kabirnayeem99.paymentpaid.ui.activities.WorkDetailsActivity;
 
 
 public class WorksFragment extends Fragment {
@@ -46,7 +47,7 @@ public class WorksFragment extends Fragment {
         initRecyclerView();
 
         fabAddNewWork.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), AddNewWorkActivity.class);
+            Intent intent = new Intent(getActivity(), WorkDetailsActivity.class);
             startActivity(intent);
         });
 
@@ -68,7 +69,7 @@ public class WorksFragment extends Fragment {
         rvWorkList.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvWorkList.setAdapter(workAdapter);
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT ) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -80,5 +81,18 @@ public class WorksFragment extends Fragment {
                 Toast.makeText(requireActivity(), "This note has been deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(rvWorkList);
+
+        workAdapter.setOnClickListener(new WorkAdapter.OnClickListener() {
+            @Override
+            public void onItemClick(Work work) {
+                Intent intent = new Intent(requireActivity(), WorkDetailsActivity.class);
+                intent.putExtra(WorkDetailsActivity.EXTRA_ID, work.getId());
+                intent.putExtra(WorkDetailsActivity.EXTRA_WORK_NAME, work.getName());
+                intent.putExtra(WorkDetailsActivity.EXTRA_STUDENT_NAME, work.getStudentName());
+                intent.putExtra(WorkDetailsActivity.EXTRA_DATE, work.getDate());
+                intent.putExtra(WorkDetailsActivity.EXTRA_PAYMENT, work.getPayment());
+                startActivity(intent);
+            }
+        });
     }
 }

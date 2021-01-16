@@ -23,7 +23,7 @@
 
 
         <activity
-            android:name=".ui.activities.AddNewWorkActivity"
+            android:name=".ui.activities.WorkDetailsActivity"
             android:label="@string/action_add_new_work">
         </activity>
 

@@ -1,7 +1,9 @@
 package com.kabirnayeem99.paymentpaid.ui.activities;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -17,10 +19,14 @@ import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
 import static java.util.Objects.requireNonNull;
 
-public class AddNewWorkActivity extends AppCompatActivity {
+public class WorkDetailsActivity extends AppCompatActivity {
 
-    private static final String TAG = "AddNewWorkActivity";
-
+    public static final String EXTRA_ID = "com.kabirnayeem99.paymentpaid.ui.activities.EXTRA_ID";
+    public static final String EXTRA_WORK_NAME = "com.kabirnayeem99.paymentpaid.ui.activities.EXTRA_WORK_NAME";
+    public static final String EXTRA_PAYMENT = "com.kabirnayeem99.paymentpaid.ui.activities.EXTRA_PAYMENT";
+    public static final String EXTRA_STUDENT_NAME = "com.kabirnayeem99.paymentpaid.ui.activities.EXTRA_STUDENT_NAME";
+    public static final String EXTRA_DATE = "com.kabirnayeem99.paymentpaid.ui.activities.EXTRA_DATE";
+    private static final String TAG = "WorkDetailsActivity";
     TextInputLayout tilWorkName;
     TextInputLayout tilPayment;
     TextInputLayout tilStudentName;
@@ -28,11 +34,12 @@ public class AddNewWorkActivity extends AppCompatActivity {
     Work work;
     String workName;
     String studentName;
-    String date;
+    String date = "2021-12-12";
     String paymentString;
     int month;
     int year;
-
+    Intent intent;
+    int id = -1;
     WorkViewModel workViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -42,7 +49,12 @@ public class AddNewWorkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_work);
         initViews();
 
-        workViewModel = ViewModelProviders.of(AddNewWorkActivity.this).get(WorkViewModel.class);
+        workViewModel = ViewModelProviders.of(WorkDetailsActivity.this).get(WorkViewModel.class);
+
+        // set default date value to today
+//        dpDate.updateDate(CustomUtils.getCurrentYear(), CustomUtils.getCurrentMonth(), CustomUtils.getCurrentDay());
+
+        assert dpDate != null;
         dpDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth)
                 -> {
             this.year = year;
@@ -51,6 +63,23 @@ public class AddNewWorkActivity extends AppCompatActivity {
             date = String.format("%s-%s-%s", year, CustomUtils.padMonth(monthOfYear + 1),
                     CustomUtils.padMonth(dayOfMonth));
         });
+
+        // manipulate views
+
+        intent = getIntent();
+        Log.d(TAG, "saveToNoteDB: " + intent.hasExtra(EXTRA_ID));
+        if (intent.hasExtra(EXTRA_ID)) {
+            requireNonNull(tilWorkName.getEditText()).setText(intent.getStringExtra(EXTRA_WORK_NAME));
+            tilWorkName.getEditText().setText(intent.getStringExtra(EXTRA_WORK_NAME));
+            requireNonNull(tilPayment.getEditText()).setText(String.valueOf(intent.getIntExtra(EXTRA_PAYMENT, 0)));
+            requireNonNull(tilStudentName.getEditText()).setText(intent.getStringExtra(EXTRA_STUDENT_NAME).toString());
+            String date = intent.getStringExtra(EXTRA_DATE);
+            Log.d(TAG, "saveToNoteDB: " + date.length());
+            if (date.length() == 8) {
+                date = String.format("%s-%s-%s", Integer.parseInt(date.substring(0, 4)), CustomUtils.padMonth(Integer.parseInt(date.substring(5, 6)) + 1),
+                        CustomUtils.padMonth(Integer.parseInt(date.substring(7, 8))));
+            }
+        }
     }
 
     private void initViews() {
@@ -70,18 +99,29 @@ public class AddNewWorkActivity extends AppCompatActivity {
     private void saveToNoteDB() {
         // saves added note to the note database
 
+
         // requireNonNull ensures that the field is guaranteed be non-null.
         workName = requireNonNull(tilWorkName.getEditText()).getText().toString();
         studentName = requireNonNull(tilStudentName.getEditText()).getText().toString();
-
         paymentString = requireNonNull(tilPayment.getEditText()).getText().toString();
+
 
         if (!workName.trim().isEmpty() && !paymentString.trim().isEmpty() && !studentName.trim().isEmpty() && !date.trim().isEmpty()) {
             work = new Work(workName, date, month, year, Integer.parseInt(paymentString), studentName);
-            workViewModel.insert(work);
-            Toast.makeText(AddNewWorkActivity.this, "Work is saved", Toast.LENGTH_SHORT).show();
+            id = intent.getIntExtra(EXTRA_ID, -1);
+            Log.d(TAG, "saveToNoteDB: " + id);
+
+            if (id == -1) {
+                Toast.makeText(this, "Work can't be update", Toast.LENGTH_SHORT).show();
+                workViewModel.insert(work);
+                Toast.makeText(WorkDetailsActivity.this, "Work is saved", Toast.LENGTH_SHORT).show();
+            } else {
+                work.setId(id);
+                workViewModel.update(work);
+            }
+
         } else {
-            Toast.makeText(this, "Work was not saved as you left the filed empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Work was not saved", Toast.LENGTH_SHORT).show();
         }
 
     }
