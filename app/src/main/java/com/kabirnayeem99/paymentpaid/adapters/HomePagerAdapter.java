@@ -28,7 +28,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
         Log.d(TAG, "getItem: " + position);
         switch (position) {
             case 0:
-                return new WorksFragment.getInstance();
+                return  WorksFragment.getInstance();
             case 1:
                 return new PaymentsFragment();
             case 2:
