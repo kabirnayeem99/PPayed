@@ -25,6 +25,9 @@ public class PaymentsFragment extends Fragment {
     TextView tvPaymentTotal;
     PaymentAdapter paymentAdapter;
 
+    public static PaymentsFragment getInstance() {
+        return new PaymentsFragment();
+    }
 
     @Nullable
     @Override

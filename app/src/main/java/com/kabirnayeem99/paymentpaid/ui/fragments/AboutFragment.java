@@ -4,7 +4,6 @@ package com.kabirnayeem99.paymentpaid.ui.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 
 import androidx.core.content.ContextCompat;
 
@@ -17,6 +16,9 @@ import com.kabirnayeem99.paymentpaid.R;
 
 public class AboutFragment extends MaterialAboutFragment {
 
+    public static AboutFragment getInstance() {
+        return new AboutFragment();
+    }
 
     @Override
     protected MaterialAboutList getMaterialAboutList(Context activityContext) {

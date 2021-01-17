@@ -25,16 +25,15 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        Log.d(TAG, "getItem: " + position);
         switch (position) {
             case 0:
-                return  WorksFragment.getInstance();
+                return WorksFragment.getInstance();
             case 1:
-                return new PaymentsFragment();
+                return PaymentsFragment.getInstance();
             case 2:
-                return new AboutFragment();
+                return  AboutFragment.getInstance();
         }
-        return new WorksFragment();
+        return WorksFragment.getInstance();
     }
 
     @Override
@@ -46,7 +45,6 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        Log.d(TAG, "getPageTitle: " + position);
         final String[] tabTitles = {"Works", "Payments", "About"};
         return tabTitles[position];
     }

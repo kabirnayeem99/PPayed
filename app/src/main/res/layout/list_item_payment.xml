@@ -15,6 +15,7 @@
         android:layout_margin="14dp"
         android:text="@string/text_sample_month_year_name"
         android:textAlignment="center"
+        android:textColor="@color/material_white"
         android:textStyle="bold" />
 
     <TextView
@@ -24,6 +25,7 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="14dp"
         android:text="@string/text_sample_money_amount"
+        android:textColor="@color/material_white"
         android:textStyle="bold" />
 
 </RelativeLayout>
