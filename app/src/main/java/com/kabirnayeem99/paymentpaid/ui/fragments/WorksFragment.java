@@ -31,7 +31,9 @@ public class WorksFragment extends Fragment {
     WorkAdapter workAdapter;
     FloatingActionButton fabAddNewWork;
 
-    public WorksFragment() {
+
+    public static WorksFragment getInstance() {
+        return new WorksFragment();
     }
 
 
@@ -49,6 +51,7 @@ public class WorksFragment extends Fragment {
         fabAddNewWork.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), WorkDetailsActivity.class);
             startActivity(intent);
+
         });
 
         super.onViewCreated(view, savedInstanceState);
@@ -95,4 +98,6 @@ public class WorksFragment extends Fragment {
             }
         });
     }
+
+
 }
