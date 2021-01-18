@@ -14,9 +14,6 @@ import com.kabirnayeem99.paymentpaid.R;
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work;
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class WorkAdapter extends ListAdapter<Work, WorkAdapter.ViewHolder> {
     public static final DiffUtil.ItemCallback<Work> DIFF_CALLBACK = new DiffUtil.ItemCallback<Work>() {
         @Override
@@ -26,7 +23,9 @@ public class WorkAdapter extends ListAdapter<Work, WorkAdapter.ViewHolder> {
 
         @Override
         public boolean areContentsTheSame(@NonNull Work oldItem, @NonNull Work newItem) {
-            return oldItem.getName().equals(newItem.getName());
+            return oldItem.getName().equals(newItem.getName()) &&
+                    oldItem.getPayment() == (newItem.getPayment()) &&
+                    oldItem.getDate().equals(newItem.getDate());
         }
     };
     private OnClickListener listener;
@@ -69,10 +68,6 @@ public class WorkAdapter extends ListAdapter<Work, WorkAdapter.ViewHolder> {
         holder.tvStudentName.setText(workListItemStudentName);
         holder.tvPayment.setText(CustomUtils.formatMoney(workListItemPayment));
     }
-
-
-
-
 
     public Work getWorkByPosition(int position) {
         return getItem(position);
