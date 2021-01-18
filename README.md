@@ -7,10 +7,8 @@
 <p align="center">
   <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">
     <img src="https://github.com/kabirnayeem99/PPayed/workflows/Build%20Status/badge.svg">
-    
   </a>
-</p>
-<p align="center">
+
   <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">
     <img src="https://github.com/kabirnayeem99/PPayed/workflows/CodeQL/badge.svg">
     
@@ -49,6 +47,11 @@ width="200"
 width="200"
     hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/add_new_note_screen.png)
 
+## Built with
+
+- [Android Studio & SDK Tools](https://developer.android.com/studio/) - Fastest tools for building apps on every type of Android device.
+- [Android Jetpack](https://developer.android.com/jetpack) - Libraries to help developers follow best practices, reduce boilerplate code, and write code that works consistently across Android versions and devices.
+- [Material About Library](https://github.com/daniel-stoneuk/material-about-library) - Makes it easy to create a beautiful about screen.
 
 ## Contributing
 
