@@ -40,12 +40,15 @@ The android app lets you:
 [<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/work_screen.png" align="center"
 width="200"
     hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/work_screen.png)
-    [<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/payment_screen.png" align="center"
+[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/payment_screen.png" align="center"
 width="200"
     hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/payment_screen.png)
-[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/add_new_note_screen.png" align="center"
+[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/add_new_work_screen.png" align="center"
 width="200"
-    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/add_new_note_screen.png)
+    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/add_new_work_screen.png)
+[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/about_screen.png" align="center"
+width="200"
+    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/about_screen.png)
 
 ## Built with
 
