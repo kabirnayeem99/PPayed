@@ -34,10 +34,12 @@ public class WorkDetailsActivity extends AppCompatActivity {
     Work work;
     String workName;
     String studentName;
-    String date = "2021-12-12";
+    String date = String.format("%s-%s-%s", CustomUtils.getCurrentYear(),
+            CustomUtils.padMonth(CustomUtils.getCurrentMonth() + 1),
+            CustomUtils.padMonth(CustomUtils.getCurrentDay()));
     String paymentString;
-    int month;
-    int year;
+    int month = CustomUtils.getCurrentMonth() + 1;
+    int year = CustomUtils.getCurrentYear();
     Intent intent;
     int id = -1;
     WorkViewModel workViewModel;
@@ -51,9 +53,7 @@ public class WorkDetailsActivity extends AppCompatActivity {
 
         workViewModel = ViewModelProviders.of(WorkDetailsActivity.this).get(WorkViewModel.class);
 
-        // set default date value to today
-//        dpDate.updateDate(CustomUtils.getCurrentYear(), CustomUtils.getCurrentMonth(), CustomUtils.getCurrentDay());
-
+        Log.d(TAG, "onCreate: default date" + date);
         assert dpDate != null;
         dpDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth)
                 -> {
@@ -67,14 +67,12 @@ public class WorkDetailsActivity extends AppCompatActivity {
         // manipulate views
 
         intent = getIntent();
-        Log.d(TAG, "saveToNoteDB: " + intent.hasExtra(EXTRA_ID));
         if (intent.hasExtra(EXTRA_ID)) {
             requireNonNull(tilWorkName.getEditText()).setText(intent.getStringExtra(EXTRA_WORK_NAME));
             tilWorkName.getEditText().setText(intent.getStringExtra(EXTRA_WORK_NAME));
             requireNonNull(tilPayment.getEditText()).setText(String.valueOf(intent.getIntExtra(EXTRA_PAYMENT, 0)));
             requireNonNull(tilStudentName.getEditText()).setText(intent.getStringExtra(EXTRA_STUDENT_NAME).toString());
             String date = intent.getStringExtra(EXTRA_DATE);
-            Log.d(TAG, "saveToNoteDB: " + date.length());
             if (date.length() == 8) {
                 date = String.format("%s-%s-%s", Integer.parseInt(date.substring(0, 4)), CustomUtils.padMonth(Integer.parseInt(date.substring(5, 6)) + 1),
                         CustomUtils.padMonth(Integer.parseInt(date.substring(7, 8))));
@@ -88,7 +86,6 @@ public class WorkDetailsActivity extends AppCompatActivity {
         tilStudentName = findViewById(R.id.til_student_name_add_new_work);
         dpDate = findViewById(R.id.dp_date_add_new_work);
     }
-
 
 
     @Override
@@ -110,8 +107,6 @@ public class WorkDetailsActivity extends AppCompatActivity {
         if (!workName.trim().isEmpty() && !paymentString.trim().isEmpty() && !studentName.trim().isEmpty() && !date.trim().isEmpty()) {
             work = new Work(workName, date, month, year, Integer.parseInt(paymentString), studentName);
             id = intent.getIntExtra(EXTRA_ID, -1);
-            Log.d(TAG, "saveToNoteDB: " + id);
-
             if (id == -1) {
                 Toast.makeText(this, "Work can't be update", Toast.LENGTH_SHORT).show();
                 workViewModel.insert(work);

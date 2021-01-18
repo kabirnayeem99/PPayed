@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkAdapter extends ListAdapter<Work, WorkAdapter.ViewHolder> {
-    public static DiffUtil.ItemCallback<Work> DIFF_CALLBACK = new DiffUtil.ItemCallback<Work>() {
+    public static final DiffUtil.ItemCallback<Work> DIFF_CALLBACK = new DiffUtil.ItemCallback<Work>() {
         @Override
         public boolean areItemsTheSame(@NonNull Work oldItem, @NonNull Work newItem) {
             return oldItem.getId() == newItem.getId();
