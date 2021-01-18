@@ -13,7 +13,6 @@ import com.kabirnayeem99.paymentpaid.ui.fragments.PaymentsFragment;
 import com.kabirnayeem99.paymentpaid.ui.fragments.WorksFragment;
 
 public class HomePagerAdapter extends FragmentStatePagerAdapter {
-    private static final String TAG = "HomePagerAdapter";
 
     private final int numberOfTabs;
 

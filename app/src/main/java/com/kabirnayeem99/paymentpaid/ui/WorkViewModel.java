@@ -42,7 +42,7 @@ public class WorkViewModel extends AndroidViewModel {
         return allWorks;
     }
 
-    public LiveData<List<Integer>> getTotalPaymentByMonth(int currentYear) {
+    public LiveData<List<Integer>> getTotalPaymentByMonth() {
         return monthlyPayment;
     }
 

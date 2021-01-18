@@ -14,11 +14,8 @@
     <string name="label_tab_item_payments">Payments</string>
     <string name="label_tab_item_exports">Exports</string>
     <string name="action_add_new_work">Add new work</string>
-    <string name="developer_name">Naimul Kabir</string>
     <string name="text_sample_student_name">Maria Sultana</string>
     <string name="desc_developer_name">Developed By</string>
-    <string name="desc_manual">Manual</string>
-    <string name="app_description">PPayed is your payment management app for your contract-based works.</string>
     <string name="version_detail">Version 2.0 Stable </string>
     <string name="version">v2.0-stable</string>
     <string name="report_issue">Report issue</string>

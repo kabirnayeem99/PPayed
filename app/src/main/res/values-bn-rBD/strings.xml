@@ -15,11 +15,8 @@
     <string name="label_tab_item_payments">পেমেন্ট</string>
     <string name="label_tab_item_works">কাজ</string>
     <string name="action_add_new_work">নতুন কাজ যুক্ত করুন</string>
-    <string name="developer_name">নাইমুল কবির</string>
     <string name="text_sample_student_name">টুনি বেগম</string>
     <string name="desc_developer_name">ডেভেলপ করেছেন</string>
-    <string name="desc_manual">সহায়িকা</string>
-    <string name="app_description">"পিপেইড আপনার কন্ট্রাক্ট কাজের জন্য পেমেন্ট ব্যবস্থাপনা অ্যাপলিকেশন। "</string>
     <string name="version_detail">সংস্করণ ২.০ স্টবেল</string>
     <string name="version">২.০-স্টেবল</string>
     <string name="report_issue">ইশু রিপোর্ট করুন</string>

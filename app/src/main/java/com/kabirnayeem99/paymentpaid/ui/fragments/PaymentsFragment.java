@@ -20,7 +20,6 @@ import com.kabirnayeem99.paymentpaid.utils.CustomUtils;
 
 
 public class PaymentsFragment extends Fragment {
-    private static final String TAG = "PaymentsFragment";
     RecyclerView rvPaymentListByMonth;
     TextView tvPaymentTotal;
     PaymentAdapter paymentAdapter;
@@ -43,7 +42,7 @@ public class PaymentsFragment extends Fragment {
         WorkViewModel workViewModel = ViewModelProviders.of(requireActivity()).get(WorkViewModel.class);
         paymentAdapter = new PaymentAdapter();
 
-        workViewModel.getTotalPaymentByMonth(CustomUtils.getCurrentYear()).observe(requireActivity(),
+        workViewModel.getTotalPaymentByMonth().observe(requireActivity(),
                 integers -> paymentAdapter.setMonthlyPaymentList(integers));
 
         workViewModel.getTotalPaymentByYear().observe(requireActivity(),

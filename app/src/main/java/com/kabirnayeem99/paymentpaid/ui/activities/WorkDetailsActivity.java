@@ -71,12 +71,8 @@ public class WorkDetailsActivity extends AppCompatActivity {
             requireNonNull(tilWorkName.getEditText()).setText(intent.getStringExtra(EXTRA_WORK_NAME));
             tilWorkName.getEditText().setText(intent.getStringExtra(EXTRA_WORK_NAME));
             requireNonNull(tilPayment.getEditText()).setText(String.valueOf(intent.getIntExtra(EXTRA_PAYMENT, 0)));
-            requireNonNull(tilStudentName.getEditText()).setText(intent.getStringExtra(EXTRA_STUDENT_NAME).toString());
+            requireNonNull(tilStudentName.getEditText()).setText(intent.getStringExtra(EXTRA_STUDENT_NAME));
             String date = intent.getStringExtra(EXTRA_DATE);
-            if (date.length() == 8) {
-                date = String.format("%s-%s-%s", Integer.parseInt(date.substring(0, 4)), CustomUtils.padMonth(Integer.parseInt(date.substring(5, 6)) + 1),
-                        CustomUtils.padMonth(Integer.parseInt(date.substring(7, 8))));
-            }
         }
     }
 
