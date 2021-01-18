@@ -57,7 +57,7 @@ width="200"
 
 PPayed app is a free and open source project. Any contributions are welcome. Here are a few ways you can help:
  * [Report bugs and make suggestions.](https://github.com/kabirnayeem99/android_paymentpaid_app/issues)
- * [Translate the app](https://github.com/kabirnayeem99/android_paymentpaid_app/src/main/res).
+ * [Translate the app](https://github.com/kabirnayeem99/PPayed/tree/main/app/src/main/res).
  * Write some code. Please follow the code style used in the project to make a review process faster.
 
 ## License
