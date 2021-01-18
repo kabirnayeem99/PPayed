@@ -1,8 +1,23 @@
-# PPayed - FOSS Payment Manager ![Build Status](https://github.com/kabirnayeem99/PPayed/workflows/Build%20Status/badge.svg) ![CodeQL](https://github.com/kabirnayeem99/PPayed/workflows/CodeQL/badge.svg)
+<p align="center">
+  <img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/icon.png" width="100">
+</p>
+<h1 align="center">PPayed</h1>
+<h3 align="center">FOSS Payment Manager Android Application</h3>
 
-<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/icon.png" align="left"
-width="160" hspace="8" vspace="10">
+<p align="center">
+  <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">
+    <img src="https://github.com/kabirnayeem99/PPayed/workflows/Build%20Status/badge.svg">
+    
+  </a>
+</p>
+<p align="center">
+  <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">
+    <img src="https://github.com/kabirnayeem99/PPayed/workflows/CodeQL/badge.svg">
+    
+  </a>
+</p>
 
+### About the project
 PPayed is your payment management app for your contract-based works.
 
 It is fully open source, and requires little to no permission, even doesn't ask for the internet permission.
@@ -10,14 +25,6 @@ It is fully open source, and requires little to no permission, even doesn't ask 
 By using the app and reporting bugs and issues, help me to make the app more useful for you. 
 
 This application is developed by Naimul Kabir and released under the GNU GPLv2.
-
-## Download
-Download it from APKPure.
-
-[<img src="https://pbs.twimg.com/profile_images/898120104348573696/f58Xv2iz.jpg" align="center"
-width="100"
-    hspace="8" vspace="8">](https://apkpure.com/p/com.kabirnayeem99.paymentpaid)
-
 
 
 ## Features
@@ -47,7 +54,7 @@ width="200"
 
 PPayed app is a free and open source project. Any contributions are welcome. Here are a few ways you can help:
  * [Report bugs and make suggestions.](https://github.com/kabirnayeem99/android_paymentpaid_app/issues)
- * [Translate the app](https://github.com/kabirnayeem99/android_paymentpaid_app/src/main/res) (you don't have to create an account).
+ * [Translate the app](https://github.com/kabirnayeem99/android_paymentpaid_app/src/main/res).
  * Write some code. Please follow the code style used in the project to make a review process faster.
 
 ## License
