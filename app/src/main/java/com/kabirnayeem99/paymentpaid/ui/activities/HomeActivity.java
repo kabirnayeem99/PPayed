@@ -58,5 +58,4 @@ public class HomeActivity extends AppCompatActivity {
         tiPayments = findViewById(R.id.ti_payments_work);
         tiExports = findViewById(R.id.ti_export_home);
         vpHome = findViewById(R.id.vp_view_pager_home);
-    }
-}
+    }}
