@@ -11,7 +11,7 @@ class HomePagerAdapter(fm: FragmentManager, private val numberOfTabs: Int) : Fra
     override fun getItem(position: Int): Fragment {
         when (position) {
             0 -> return WorksFragment()
-            1 -> return PaymentsFragment.getInstance()
+            1 -> return PaymentsFragment()
             2 -> return AboutFragment.getInstance()
         }
         return WorksFragment()

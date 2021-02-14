@@ -8,10 +8,8 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kabirnayeem99.paymentpaid.R
-import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 import kotlinx.android.synthetic.main.list_item_payment.view.*
-import java.util.*
 
 class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
 
@@ -39,12 +37,14 @@ class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        if (differ.currentList.isNotEmpty()) {
-            holder.itemView.apply {
-                tvPaymentMonthListItemPayment.text = CustomUtils.getCurrentMonthName(position)
-                tvPaymentAmountListItemPayment.text = differ.currentList[position].toString()
+        when {
+            differ.currentList.isNotEmpty() -> {
+                holder.itemView.apply {
+                    tvPaymentMonthListItemPayment.text = CustomUtils.getCurrentMonthName(position)
+                    tvPaymentAmountListItemPayment.text = differ.currentList[position].toString()
+                }
+                Log.d(TAG, "onBindViewHolder: ${differ.currentList.toString()}")
             }
-            Log.d(TAG, "onBindViewHolder: ${differ.currentList.toString()}")
         }
     }
 

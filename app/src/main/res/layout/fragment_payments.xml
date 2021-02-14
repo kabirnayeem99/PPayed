@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/tv_payment_list_total_payments"
+                android:id="@+id/tvTotalPayment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_sample_payment"
@@ -43,7 +43,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_payment_list_by_month_payments"
+            android:id="@+id/rvPaymentListByMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
