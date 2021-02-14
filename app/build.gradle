@@ -1,10 +1,15 @@
 plugins {
     id 'com.android.application'
 }
+apply plugin: 'kotlin-android'
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
+
 
     defaultConfig {
         applicationId "com.kabirnayeem99.paymentpaid"
@@ -55,5 +60,11 @@ dependencies {
 
     // Material About Library (https://github.com/daniel-stoneuk/material-about-library)
     implementation 'com.github.daniel-stoneuk:material-about-library:3.1.2'
+    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+}
+repositories {
+    mavenCentral()
 }
