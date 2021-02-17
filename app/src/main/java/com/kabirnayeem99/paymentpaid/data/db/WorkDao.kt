@@ -16,7 +16,7 @@ interface WorkDao {
     fun delete(work: Work)
 
     @get:Query(value = "SELECT * FROM works_db_table ORDER BY submission_date DESC")
-    val allWorks: LiveData<List<Work>>
+    val getAllWorks: LiveData<List<Work>>
 
     @Query("SELECT IFNULL(SUM(w.payment), 0) FROM (SELECT 1 month UNION ALL SELECT 2 UNION ALL" +
             " SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 " +

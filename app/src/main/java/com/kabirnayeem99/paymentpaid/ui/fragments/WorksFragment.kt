@@ -34,7 +34,7 @@ class WorksFragment : Fragment(R.layout.fragment_works) {
     private fun initRecyclerView() {
         workAdapter = WorkAdapter()
 
-        workViewModel.allWorks.observe(viewLifecycleOwner, { works: List<Work> ->
+        workViewModel.getAllWorks().observe(viewLifecycleOwner, { works: List<Work> ->
             workAdapter.differ.submitList(works)
         })
 

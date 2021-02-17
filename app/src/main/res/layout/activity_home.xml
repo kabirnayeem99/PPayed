@@ -7,7 +7,7 @@
     tools:context=".ui.activities.HomeActivity">
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vp_view_pager_home"
+        android:id="@+id/vpHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,25 +16,25 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tl_tab_home"
+            android:id="@+id/tlMainTabHome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/ti_work_home"
+                android:id="@+id/tiWorkTabHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:text="@string/label_tab_item_works" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/ti_payments_work"
+                android:id="@+id/tiPaymentsHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_tab_item_payments" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/ti_export_home"
+                android:id="@+id/tiExportHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_tab_item_exports" />

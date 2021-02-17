@@ -28,12 +28,12 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
     }
 
     private fun manipulateData() {
-        workViewModel.totalPaymentByMonth.observe(viewLifecycleOwner,
+        workViewModel.getTotalPaymentByMonth().observe(viewLifecycleOwner,
                 { payments: List<Int?> ->
                     paymentAdapter.differ.submitList(payments)
                 })
 
-        workViewModel.totalPaymentByYear.observe(viewLifecycleOwner,
+        workViewModel.getTotalPaymentByYear().observe(viewLifecycleOwner,
                 { payment: Int ->
                     tvTotalPayment.text = payment.toString()
                 })
