@@ -1,6 +1,7 @@
 package com.kabirnayeem99.paymentpaid.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -14,6 +15,9 @@ import com.kabirnayeem99.paymentpaid.utils.Resource
 import kotlinx.android.synthetic.main.fragment_payments.*
 
 class PaymentsFragment : Fragment(R.layout.fragment_payments) {
+
+    private val TAG = "PaymentsFragment"
+
     private lateinit var paymentAdapter: PaymentAdapter
     private lateinit var workViewModel: WorkViewModel
 
@@ -31,14 +35,14 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
     }
 
     private fun manipulateData() {
+
+        Log.d(TAG, "manipulateData: the manipulationg data started")
+
         workViewModel.getTotalPaymentsByMonth().observe(viewLifecycleOwner,
                 { paymentList ->
-                    when (paymentList.isEmpty()) {
-                        true -> showLoading()
-                        false -> {
-                            hideLoading()
-                            paymentAdapter.differ.submitList(paymentList)
-                        }
+                    Log.d(TAG, "manipulateData: $paymentList")
+                    paymentList?.let {
+                        paymentAdapter.differ.submitList(paymentList)
                     }
                 })
 
@@ -50,20 +54,6 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
                 })
     }
 
-    private fun showLoading() {
-        progressBarPayment.visibility = View.VISIBLE
-        paymentDataShown.visibility = View.INVISIBLE
-    }
-
-    private fun hideLoading() {
-        progressBarPayment.visibility = View.INVISIBLE
-        paymentDataShown.visibility = View.VISIBLE
-    }
-
-    private fun showError() {
-        errorImage.visibility = View.VISIBLE
-    }
-
 
     private fun initRecyclerView() {
 
@@ -72,7 +62,6 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
         rvPaymentListByMonth.apply {
             adapter = paymentAdapter
             layoutManager = LinearLayoutManager(activity)
-            rvPaymentListByMonth!!.setHasFixedSize(true)
         }
     }
 
