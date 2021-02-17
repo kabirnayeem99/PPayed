@@ -5,16 +5,17 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.kabirnayeem99.paymentpaid.ui.fragments.AboutFragment
 import com.kabirnayeem99.paymentpaid.ui.fragments.PaymentsFragment
-import com.kabirnayeem99.paymentpaid.ui.fragments.WorksFragment
+import com.kabirnayeem99.paymentpaid.ui.fragments.WorkFragment
 
-class HomePagerAdapter(fm: FragmentManager, private val numberOfTabs: Int) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class HomePagerAdapter(fm: FragmentManager, private val numberOfTabs: Int)
+    : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getItem(position: Int): Fragment {
         when (position) {
-            0 -> return WorksFragment()
+            0 -> return WorkFragment()
             1 -> return PaymentsFragment()
-            2 -> return AboutFragment.getInstance()
+            2 -> return AboutFragment()
         }
-        return WorksFragment()
+        return WorkFragment()
     }
 
     override fun getCount(): Int {

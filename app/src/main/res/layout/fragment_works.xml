@@ -4,6 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <RelativeLayout
+        android:id="@+id/errorImageWork"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_name" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarWork"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarSize="20dp"
+        android:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvWorkListWorks"
         android:layout_width="match_parent"

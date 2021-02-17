@@ -1,9 +1,11 @@
 package com.kabirnayeem99.paymentpaid.data.repositories
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
+import com.kabirnayeem99.paymentpaid.utils.Resource
 
 class WorkRepository(val db: WorkDatabase) {
 
@@ -20,13 +22,13 @@ class WorkRepository(val db: WorkDatabase) {
             db.getWorkDao().delete(work)
 
 
-    suspend fun getTotalPaymentByYear(): LiveData<Int> =
+    suspend fun getTotalPaymentByYear(): Int =
             db.getWorkDao().getTotalPaymentByYear(CustomUtils.currentYear)
 
 
-    suspend fun getAllWorks(): LiveData<List<Work>> =
+    suspend fun getAllWorks(): List<Work> =
             db.getWorkDao().getAllWorks()
 
-    suspend fun getTotalPaymentByMonth(year: Int): LiveData<List<Int>> =
-            db.getWorkDao().getTotalPaymentByMonth(year)
+    suspend fun getTotalPaymentByMonth(): List<Int> =
+            db.getWorkDao().getTotalPaymentByMonth()
 }
