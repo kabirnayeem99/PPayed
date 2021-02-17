@@ -1,11 +1,8 @@
 package com.kabirnayeem99.paymentpaid.data.repositories
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
-import com.kabirnayeem99.paymentpaid.utils.Resource
 
 class WorkRepository(val db: WorkDatabase) {
 
@@ -30,5 +27,5 @@ class WorkRepository(val db: WorkDatabase) {
             db.getWorkDao().getAllWorks()
 
     suspend fun getTotalPaymentByMonth(): List<Int> =
-            db.getWorkDao().getTotalPaymentByMonth()
+            db.getWorkDao().getTotalPaymentByMonth(CustomUtils.currentYear)
 }

@@ -5,18 +5,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter
 import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
-import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModelProviderFactory
 import com.kabirnayeem99.paymentpaid.ui.activities.WorkDetailsActivity
 import com.kabirnayeem99.paymentpaid.utils.Resource
-import kotlinx.android.synthetic.main.fragment_payments.*
 import kotlinx.android.synthetic.main.fragment_works.*
 
 class WorkFragment : Fragment(R.layout.fragment_works) {
@@ -72,7 +69,5 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
         errorImageWork.visibility = View.VISIBLE
     }
 
-    companion object {
-        private const val TAG = "WorksFragment"
-    }
+    companion object
 }

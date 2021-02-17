@@ -1,11 +1,7 @@
 package com.kabirnayeem99.paymentpaid.data.db
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
-import com.kabirnayeem99.paymentpaid.utils.CustomUtils
-import com.kabirnayeem99.paymentpaid.utils.Resource
 
 @Dao
 interface WorkDao {
@@ -26,7 +22,7 @@ interface WorkDao {
             "UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL" +
             " SELECT 12) m LEFT JOIN works_db_table w ON w.account_month =  m.month AND " +
             "w.account_year = :year GROUP BY m.month")
-    suspend fun getTotalPaymentByMonth(year: Int = CustomUtils.currentYear): List<Int>
+    suspend fun getTotalPaymentByMonth(year: Int): List<Int>
 
     @Query("SELECT SUM(payment) FROM works_db_table WHERE account_year = :year ")
     suspend fun getTotalPaymentByYear(year: Int): Int

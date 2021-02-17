@@ -21,20 +21,17 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tiWorkTabHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:text="@string/label_tab_item_works" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tiPaymentsHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_tab_item_payments" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tiExportHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_tab_item_exports" />

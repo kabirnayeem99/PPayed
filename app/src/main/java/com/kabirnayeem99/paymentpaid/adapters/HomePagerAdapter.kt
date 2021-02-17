@@ -22,7 +22,7 @@ class HomePagerAdapter(fm: FragmentManager, private val numberOfTabs: Int)
         return numberOfTabs
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         val tabTitles = arrayOf("Works", "Payments", "About")
         return tabTitles[position]
     }

@@ -43,7 +43,7 @@ class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
                     tvPaymentMonthListItemPayment.text = CustomUtils.getCurrentMonthName(position)
                     tvPaymentAmountListItemPayment.text = differ.currentList[position].toString()
                 }
-                Log.d(TAG, "onBindViewHolder: ${differ.currentList.toString()}")
+                Log.d(TAG, "onBindViewHolder: ${differ.currentList}")
             }
         }
     }

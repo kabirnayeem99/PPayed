@@ -11,7 +11,7 @@ import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import kotlinx.android.synthetic.main.list_item_work.view.*
 
 class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     private var differCallBack: DiffUtil.ItemCallback<Work> = object : DiffUtil.ItemCallback<Work>() {
         override fun areItemsTheSame(oldItem: Work, newItem: Work): Boolean {
@@ -45,7 +45,7 @@ class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
             tvWorkNameListItemWork.text = workListItemTitle
             tvStudentNameListItemWork.text = workListItemStudentName
             tvPaymentAmountListItemWork.text = workListItemPayment
-            tvDateListItemWork.text = workListItemDate
+            tvDateListItemWork.text = workListItemDate.toString()
         }
     }
 

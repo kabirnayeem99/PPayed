@@ -1,6 +1,5 @@
 package com.kabirnayeem99.paymentpaid.ui
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,12 +26,12 @@ class WorkViewModel(private val repository: WorkRepository) : ViewModel() {
         repository.delete(work)
     }
 
-    fun getTotalPaymentByYear() = viewModelScope.launch {
+    private fun getTotalPaymentByYear() = viewModelScope.launch {
         totalPaymentByYear.postValue(Resource.Success(repository.getTotalPaymentByYear()))
     }
 
 
-    suspend fun getTotalPaymentByMonth() = viewModelScope.launch {
+    private  fun getTotalPaymentByMonth() = viewModelScope.launch {
 
         totalPaymentByMonth.postValue(Resource.Loading())
 
@@ -51,7 +50,7 @@ class WorkViewModel(private val repository: WorkRepository) : ViewModel() {
         return Resource.Success(response)
     }
 
-    suspend fun getAllWorks() = viewModelScope.launch {
+    private  fun getAllWorks() = viewModelScope.launch {
 
         allWorks.postValue(Resource.Loading())
 
@@ -59,6 +58,12 @@ class WorkViewModel(private val repository: WorkRepository) : ViewModel() {
         allWorks.postValue(Resource.Success(repository.getAllWorks()))
 
 
+    }
+
+    init {
+        getTotalPaymentByYear()
+        getTotalPaymentByMonth()
+        getAllWorks()
     }
 
 }
