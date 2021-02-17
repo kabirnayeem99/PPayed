@@ -9,24 +9,24 @@ import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 class WorkViewModel(private val repository: WorkRepository) : ViewModel() {
 
 
-    fun insert(work: Work) {
+    suspend fun insert(work: Work) {
         repository.insert(work)
     }
 
-    fun update(work: Work) {
+    suspend fun update(work: Work) {
         repository.update(work)
     }
 
-    fun delete(work: Work) {
+    suspend fun delete(work: Work) {
         repository.delete(work)
     }
 
-    fun getTotalPaymentByYear(): LiveData<Int> =
+    suspend fun getTotalPaymentByYear(): LiveData<Int> =
             repository.getTotalPaymentByYear()
 
-    fun getTotalPaymentByMonth(): LiveData<List<Int>> =
+    suspend fun getTotalPaymentByMonth(): LiveData<List<Int>> =
             repository.getTotalPaymentByMonth(CustomUtils.currentYear)
 
-    fun getAllWorks(): LiveData<List<Work>> =
+    suspend fun getAllWorks(): LiveData<List<Work>> =
             repository.getAllWorks()
 }
