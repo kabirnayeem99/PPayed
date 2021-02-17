@@ -12,11 +12,11 @@ import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 import kotlinx.android.synthetic.main.list_item_payment.view.*
 
 class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
+    private val TAG = "PaymentAdapter"
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     private var diffCallBack = object : DiffUtil.ItemCallback<Int>() {
-
 
         override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
             return oldItem == newItem
@@ -37,19 +37,16 @@ class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        when {
-            differ.currentList.isNotEmpty() -> {
-                holder.itemView.apply {
-                    tvPaymentMonthListItemPayment.text = CustomUtils.getCurrentMonthName(position)
-                    tvPaymentAmountListItemPayment.text = differ.currentList[position].toString()
-                }
-                Log.d(TAG, "onBindViewHolder: ${differ.currentList}")
-            }
+        holder.itemView.apply {
+            tvPaymentMonthListItemPayment.text = CustomUtils.getCurrentMonthName(position)
+            tvPaymentAmountListItemPayment.text = differ.currentList[position].toString()
         }
+
     }
 
 
     override fun getItemCount(): Int {
+        Log.d(TAG, "getItemCount: ${differ.currentList}")
         return differ.currentList.size
     }
 

@@ -34,7 +34,7 @@ class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: WorkAdapter.ViewHolder, position: Int) {
-        var work = differ.currentList[position]
+        val work = differ.currentList[position]
 
         val workListItemTitle = work.name
         val workListItemDate = work.date

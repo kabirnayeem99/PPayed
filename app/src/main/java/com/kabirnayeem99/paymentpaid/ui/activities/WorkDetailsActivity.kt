@@ -54,7 +54,7 @@ class WorkDetailsActivity : AppCompatActivity() {
         val studentName: String = tilStudentName.editText?.text.toString()
         val paymentAmount: String = tilPayment.editText?.text.toString()
 
-        var month = 1
+        var month = 1 + 1
         var year = 2021
         var day = 1
 
