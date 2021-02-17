@@ -10,9 +10,6 @@ import kotlinx.coroutines.launch
 
 class WorkViewModel(private val repository: WorkRepository) : ViewModel() {
 
-    val totalPaymentByYear: MutableLiveData<Resource<Int>> = MutableLiveData()
-    val totalPaymentByMonth: MutableLiveData<Resource<List<Int>>> = MutableLiveData()
-    val allWorks: MutableLiveData<Resource<List<Work>>> = MutableLiveData()
 
     fun insert(work: Work) = viewModelScope.launch {
         repository.insert(work)
@@ -26,44 +23,9 @@ class WorkViewModel(private val repository: WorkRepository) : ViewModel() {
         repository.delete(work)
     }
 
-    private fun getTotalPaymentByYear() = viewModelScope.launch {
-        totalPaymentByYear.postValue(Resource.Success(repository.getTotalPaymentByYear()))
-    }
 
-
-    private  fun getTotalPaymentByMonth() = viewModelScope.launch {
-
-        totalPaymentByMonth.postValue(Resource.Loading())
-
-        val response = repository.getTotalPaymentByMonth()
-
-        totalPaymentByMonth.postValue(handleTotalPaymentByMonth(response))
-
-    }
-
-
-    private fun handleTotalPaymentByMonth(response: List<Int>): Resource<List<Int>> {
-        if (response.isEmpty()) {
-            return Resource.Error("The list was empty")
-        }
-
-        return Resource.Success(response)
-    }
-
-    private  fun getAllWorks() = viewModelScope.launch {
-
-        allWorks.postValue(Resource.Loading())
-
-
-        allWorks.postValue(Resource.Success(repository.getAllWorks()))
-
-
-    }
-
-    init {
-        getTotalPaymentByYear()
-        getTotalPaymentByMonth()
-        getAllWorks()
-    }
+    fun getAllWorks() = repository.getAllWorks()
+    fun getTotalPaymentsByMonth() = repository.getTotalPaymentByMonth()
+    fun getTotalPaymentByYear() = repository.getTotalPaymentByYear()
 
 }

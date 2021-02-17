@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kabirnayeem99.paymentpaid.R
+import com.kabirnayeem99.paymentpaid.adapters.HomePagerAdapter
 import com.kabirnayeem99.paymentpaid.adapters.PaymentAdapter
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
+import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import com.kabirnayeem99.paymentpaid.utils.Resource
 import kotlinx.android.synthetic.main.fragment_payments.*
 
@@ -20,7 +22,7 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
 
         super.onViewCreated(view, savedInstanceState)
 
-        workViewModel = ViewModelProviders.of(requireActivity()).get(WorkViewModel::class.java)
+        workViewModel = (activity as HomeActivity).workViewModel
 
         initRecyclerView()
 
@@ -29,21 +31,22 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
     }
 
     private fun manipulateData() {
-        workViewModel.totalPaymentByMonth.observe(viewLifecycleOwner,
-                { resource ->
-                    when (resource) {
-                        is Resource.Loading -> showLoading()
-                        is Resource.Success -> {
-                            paymentAdapter.differ.submitList(resource.data)
+        workViewModel.getTotalPaymentsByMonth().observe(viewLifecycleOwner,
+                { paymentList ->
+                    when (paymentList.isEmpty()) {
+                        true -> showLoading()
+                        false -> {
                             hideLoading()
+                            paymentAdapter.differ.submitList(paymentList)
                         }
-                        is Resource.Error -> showError()
                     }
                 })
 
-        workViewModel.totalPaymentByYear.observe(viewLifecycleOwner,
-                { resource ->
-                    tvTotalPayment.text = resource.data.toString()
+        workViewModel.getTotalPaymentByYear().observe(viewLifecycleOwner,
+                { totalPayment ->
+                    totalPayment?.let {
+                        tvTotalPayment.text = totalPayment.toString()
+                    }
                 })
     }
 
