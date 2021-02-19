@@ -57,6 +57,11 @@ class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
         }
     }
 
+
+    /**
+     * This method returns the size of the work list
+     * @return int
+     */
     override fun getItemCount(): Int {
         return differ.currentList.size
 

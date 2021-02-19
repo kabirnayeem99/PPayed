@@ -5,6 +5,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
+/**
+ * Represents a work
+ * @property name the name of the work, in a format like student_name-work_name_shortcut
+ * @property date submission day of the work
+ * @property month the month of the work
+ * @property year the year of the work
+ */
+
 @Entity(tableName = "works_db_table")
 data class Work(
         @ColumnInfo(name = "work_name")

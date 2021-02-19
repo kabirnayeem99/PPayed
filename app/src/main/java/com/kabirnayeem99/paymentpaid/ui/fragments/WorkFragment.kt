@@ -73,7 +73,8 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
     }
 
     private fun setUpSwipeToDelete(): ItemTouchHelper.SimpleCallback {
-        val itemTouchCallBack = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+
+        return object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 return false
             }
@@ -85,8 +86,6 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
             }
 
         }
-
-        return itemTouchCallBack
     }
 
 
