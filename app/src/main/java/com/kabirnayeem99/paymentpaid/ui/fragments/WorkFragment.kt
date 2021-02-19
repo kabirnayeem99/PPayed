@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
@@ -57,6 +59,9 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
             adapter = workAdapter
             layoutManager = LinearLayoutManager(activity)
         }
+
+        val itemTouchHelper = ItemTouchHelper(setUpSwipeToDelete())
+        itemTouchHelper.attachToRecyclerView(rvWorkListWorks)
     }
 
     private fun showLoading() {
@@ -65,6 +70,23 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
 
     private fun hideLoading() {
         progressBarWork.visibility = View.INVISIBLE
+    }
+
+    private fun setUpSwipeToDelete(): ItemTouchHelper.SimpleCallback {
+        val itemTouchCallBack = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val currentItemPosition = viewHolder.adapterPosition
+                val currentWork = workAdapter.differ.currentList[currentItemPosition]
+                workViewModel.delete(currentWork)
+            }
+
+        }
+
+        return itemTouchCallBack
     }
 
 

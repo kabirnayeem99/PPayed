@@ -1,11 +1,9 @@
 package com.kabirnayeem99.paymentpaid.ui
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository
-import com.kabirnayeem99.paymentpaid.utils.Resource
 import kotlinx.coroutines.launch
 
 class WorkViewModel(private val repository: WorkRepository) : ViewModel() {
