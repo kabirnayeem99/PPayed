@@ -13,8 +13,8 @@ import com.kabirnayeem99.paymentpaid.ui.activities.WorkDetailsActivity
 import kotlinx.android.synthetic.main.fragment_works.*
 
 class WorkFragment : Fragment(R.layout.fragment_works) {
-    lateinit var workAdapter: WorkAdapter
-    lateinit var workViewModel: WorkViewModel
+    private lateinit var workAdapter: WorkAdapter
+    private lateinit var workViewModel: WorkViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,6 +25,15 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
 
         fabAddNewWorksWorks.setOnClickListener {
             val intent = Intent(activity, WorkDetailsActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        workAdapter.setOnItemClickListener { work ->
+            val intent = Intent(activity, WorkDetailsActivity::class.java)
+            val bundle = Bundle()
+            bundle.putSerializable("work", work)
+            intent.putExtras(bundle)
             startActivity(intent)
         }
     }

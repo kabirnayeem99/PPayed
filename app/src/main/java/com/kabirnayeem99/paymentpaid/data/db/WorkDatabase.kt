@@ -9,7 +9,7 @@ import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 @Database(entities = [Work::class], version = 1, exportSchema = false)
 abstract class WorkDatabase : RoomDatabase() {
 
-     abstract fun getWorkDao(): WorkDao
+    abstract fun getWorkDao(): WorkDao
 
     companion object {
         private const val DB_NAME = "payment_paid_db"

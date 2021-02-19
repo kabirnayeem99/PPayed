@@ -1,5 +1,6 @@
 package com.kabirnayeem99.paymentpaid.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import kotlinx.android.synthetic.main.list_item_work.view.*
 
 class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     private var differCallBack: DiffUtil.ItemCallback<Work> = object : DiffUtil.ItemCallback<Work>() {
@@ -33,24 +35,38 @@ class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
         )
     }
 
+    private var onItemClickListener: ((Work) -> Unit)? = null
+
     override fun onBindViewHolder(holder: WorkAdapter.ViewHolder, position: Int) {
         val work = differ.currentList[position]
 
         val workListItemTitle = work.name
-        val workListItemDate = work.date
+        val workListItemDate = "${work.date}-${work.month}-${work.year}"
+        Log.d(TAG, "onBindViewHolder: $workListItemDate")
         val workListItemStudentName = work.studentName
-        val workListItemPayment: String = work.payment.toString()
+        val workListItemPayment: String = work.payment
 
         holder.itemView.apply {
             tvWorkNameListItemWork.text = workListItemTitle
             tvStudentNameListItemWork.text = workListItemStudentName
             tvPaymentAmountListItemWork.text = workListItemPayment
-            tvDateListItemWork.text = workListItemDate.toString()
+            tvDateListItemWork.text = workListItemDate
+
+            setOnClickListener { onItemClickListener?.let { it(work) } }
+
         }
     }
 
     override fun getItemCount(): Int {
         return differ.currentList.size
 
+    }
+
+    fun setOnItemClickListener(listener: (Work) -> Unit) {
+        onItemClickListener = listener
+    }
+
+    companion object {
+        private const val TAG = "WorkAdapter"
     }
 }

@@ -14,7 +14,7 @@ object CustomUtils {
 
 
     fun padMonth(month: Int): String {
-        val output = StringBuilder(Integer.toString(month))
+        val output = StringBuilder(month.toString())
         if (output.length < 2) {
             output.insert(0, "0")
         }
@@ -22,16 +22,16 @@ object CustomUtils {
         return output.toString()
     }
 
-    fun formatMoney(number: String): String {
-        var number: String = number
-        number = if (number.length <= 3) {
-            return String.format("৳%s", number)
+    fun formatMoney(unformattedMoney: String): String {
+        var formattedMoney: String = unformattedMoney
+        formattedMoney = if (formattedMoney.length <= 3) {
+            return String.format("৳%s", formattedMoney)
         } else {
-            val amount = number.toDouble()
+            val amount = formattedMoney.toDouble()
             val formatter = DecimalFormat("#,###")
             formatter.format(amount)
         }
-        return String.format("৳%s", number)
+        return String.format("৳%s", formattedMoney)
     }
 
     val currentYear: Int

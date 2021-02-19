@@ -12,7 +12,6 @@ import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 import kotlinx.android.synthetic.main.list_item_payment.view.*
 
 class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
-    private val TAG = "PaymentAdapter"
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -39,7 +38,7 @@ class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
 
         holder.itemView.apply {
             tvPaymentMonthListItemPayment.text = CustomUtils.getCurrentMonthName(position)
-            tvPaymentAmountListItemPayment.text = differ.currentList[position].toString()
+            tvPaymentAmountListItemPayment.text = CustomUtils.formatMoney(differ.currentList[position].toString())
         }
 
     }
