@@ -6,13 +6,18 @@ import java.time.Month
 import java.util.*
 
 /***
- * A set of utilities
+ * A set of utilities, that different classes use
  */
 object CustomUtils {
 
     private const val TAG = "Utils"
 
-
+    /**
+     * This method adds a 0 before the month, if the month
+     * is a single digit number, such as 08, 04
+     * @param month which is an [Int]
+     * @return month which is a [String]
+     */
     fun padMonth(month: Int): String {
         val output = StringBuilder(month.toString())
         if (output.length < 2) {
@@ -22,6 +27,12 @@ object CustomUtils {
         return output.toString()
     }
 
+    /**
+     * This method adds a comma, after each three digit
+     * to make this more readable
+     * @param unformattedMoney which is a string of money, such as 20000
+     * @return formattedMoney [String], such as 20,000
+     */
     fun formatMoney(unformattedMoney: String): String {
         var formattedMoney: String = unformattedMoney
         formattedMoney = if (formattedMoney.length <= 3) {
@@ -33,6 +44,7 @@ object CustomUtils {
         }
         return String.format("৳%s", formattedMoney)
     }
+
 
     val currentYear: Int
         get() = Calendar.getInstance()[Calendar.YEAR]

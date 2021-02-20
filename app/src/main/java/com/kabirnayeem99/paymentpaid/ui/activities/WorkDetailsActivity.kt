@@ -11,8 +11,14 @@ import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModelProviderFactory
+import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 import kotlinx.android.synthetic.main.activity_add_new_work.*
 
+
+/**
+ * This Activity is for creating a new work or edit an existing work.
+ * This [WorkDetailsActivity] extends [AppCompatActivity]
+ */
 class WorkDetailsActivity : AppCompatActivity() {
     private lateinit var workViewModel: WorkViewModel
     private lateinit var work: Work
@@ -25,7 +31,6 @@ class WorkDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_new_work)
         setUpUpdateWorkEditing()
         setUpViewModel()
-
     }
 
     /**
@@ -105,9 +110,9 @@ class WorkDetailsActivity : AppCompatActivity() {
         val studentName: String = tilStudentName.editText?.text.toString()
         val paymentAmount: String = tilPayment.editText?.text.toString()
 
-        var month = 1 + 1
-        var year = 2021
-        var day = 1
+        var month = CustomUtils.currentMonth
+        var year = CustomUtils.currentYear
+        var day = CustomUtils.currentDay
 
         dpDate?.let { dpDate ->
             month = dpDate.month
@@ -115,6 +120,10 @@ class WorkDetailsActivity : AppCompatActivity() {
             day = dpDate.dayOfMonth
         }
 
+        /*
+        returns null if any of the field is empty
+        or returns a newly created work object
+         */
         return if (workName.trim().isEmpty()
                 || studentName.trim().isEmpty()
                 || paymentAmount.trim().isEmpty()) {
