@@ -14,6 +14,10 @@ import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_home.*
 
+/**
+ * This Activity is the entry point of the application
+ * and holds three fragment, such as works fragment, payment fragment and about fragment.
+ */
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var pagerAdapter: PagerAdapter
@@ -29,15 +33,22 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * This methods sets up the view model for this activity
+     */
     private fun setUpViewModel() {
         val workRepository = WorkRepository(WorkDatabase(this))
 
         val workViewModelProviderFactory = WorkViewModelProviderFactory(workRepository)
 
-        workViewModel = ViewModelProvider(this, workViewModelProviderFactory).get(WorkViewModel::class.java)
+        workViewModel = ViewModelProvider(this,
+                workViewModelProviderFactory).get(WorkViewModel::class.java)
 
     }
 
+    /**
+     * This method creates a tab layout in the home screen
+     */
     private fun createTabLayout() {
         tlMainTabHome.setupWithViewPager(vpHome)
 

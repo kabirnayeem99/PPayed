@@ -1,11 +1,8 @@
 package com.kabirnayeem99.paymentpaid.ui.activities
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.kabirnayeem99.paymentpaid.R
@@ -22,35 +19,59 @@ class WorkDetailsActivity : AppCompatActivity() {
 
     private var toBeUpdatedWork: Work? = null
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_PaymentPaid)
         setContentView(R.layout.activity_add_new_work)
+        setUpUpdateWorkEditing()
         setUpViewModel()
-
-        val intent: Intent = intent
-
-        val bundle = intent.extras
-
-        toBeUpdatedWork = bundle?.getSerializable("work") as? Work
-
-        toBeUpdatedWork?.id?.let { updateWork(toBeUpdatedWork!!) }
 
     }
 
-    private fun updateWork(workBeingProcessed: Work) {
+    /**
+     * This method checks if any work has been passed down,
+     * if not, it proceeds to fill the text field by calling
+     * the [fillTheFieldIfExistingWork] function
+     */
+    private fun setUpUpdateWorkEditing() {
+        toBeUpdatedWork = getWorkFromIntent()
+        toBeUpdatedWork?.id?.let { fillTheFieldIfExistingWork(toBeUpdatedWork!!) }
+    }
+
+    /**
+     * It gets the work that is passed down from the work list
+     */
+    private fun getWorkFromIntent(): Work? {
+        val intent: Intent = intent
+
+        val bundle = intent.extras
+        return bundle?.getSerializable("work") as? Work
+
+    }
+
+    /**
+     * This function fills the text fields if this work is a work
+     * to be updated
+     * @param workBeingProcessed which is a work object
+     */
+    private fun fillTheFieldIfExistingWork(workBeingProcessed: Work) {
         tilWorkName.editText?.setText(workBeingProcessed.name)
         tilStudentName.editText?.setText(workBeingProcessed.studentName)
         tilPayment.editText?.setText(workBeingProcessed.payment)
         dpDate.updateDate(workBeingProcessed.year, workBeingProcessed.month, workBeingProcessed.date)
     }
 
+    /**
+     * overrides on back press function
+     * with the back function, it checks if the work is a new work
+     * or a work that already is exists
+     * if new work it proceeds to insert it into the database
+     * if existing work it proceeds to update the work in the database
+     */
     override fun onBackPressed() {
 
-        createWork()?.let { work ->
+        createOrUpdateWork()?.let { work ->
             if (toBeUpdatedWork?.id != null) {
-                Log.d(TAG, "onBackPressed: ${toBeUpdatedWork.toString()}")
                 workViewModel.update(work)
             } else {
                 workViewModel.insert(work)
@@ -58,12 +79,14 @@ class WorkDetailsActivity : AppCompatActivity() {
         }
         Toast.makeText(this, "Your work wasn't saved.", Toast.LENGTH_SHORT).show()
         super.onBackPressed()
-
     }
 
 
+    /**
+     * This methods sets up the view model for this activity
+     */
     private fun setUpViewModel() {
-        val workRepository = WorkRepository(WorkDatabase(this))
+        val workRepository = WorkRepository(WorkDatabase(this@WorkDetailsActivity))
 
         val workViewModelProviderFactory = WorkViewModelProviderFactory(workRepository)
 
@@ -72,7 +95,12 @@ class WorkDetailsActivity : AppCompatActivity() {
         ).get(WorkViewModel::class.java)
     }
 
-    private fun createWork(): Work? {
+    /**
+     * It creates a new work or updates a work, based on the work type passed down
+     * from the previous activity
+     * @return Work? which can be null, if it fails to create work object
+     */
+    private fun createOrUpdateWork(): Work? {
         val workName: String = tilWorkName.editText?.text.toString()
         val studentName: String = tilStudentName.editText?.text.toString()
         val paymentAmount: String = tilPayment.editText?.text.toString()
@@ -101,10 +129,6 @@ class WorkDetailsActivity : AppCompatActivity() {
             work
         }
 
-    }
-
-    companion object {
-        private const val TAG = "WorkDetailsActivity"
     }
 
 }
