@@ -22,6 +22,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_PaymentPaid)
         setContentView(R.layout.activity_home)
         createTabLayout()
         setUpViewModel()

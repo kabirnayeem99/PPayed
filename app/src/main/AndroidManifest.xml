@@ -10,7 +10,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/static_app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PaymentPaid">
+        android:theme="@style/SplashScreen">
 
         <activity
             android:name=".ui.activities.HomeActivity"
@@ -24,8 +24,7 @@
 
         <activity
             android:name=".ui.activities.WorkDetailsActivity"
-            android:label="@string/action_add_new_work">
-        </activity>
+            android:label="@string/action_add_new_work"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
