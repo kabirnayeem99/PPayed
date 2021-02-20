@@ -12,6 +12,11 @@ abstract class WorkDatabase : RoomDatabase() {
     abstract fun getWorkDao(): WorkDao
 
     companion object {
+
+        /*
+        the singleton pattern is a software design pattern
+        that restricts the instantiation of a class to one "single" instance.
+         */
         private const val DB_NAME = "payment_paid_db"
 
         @Volatile

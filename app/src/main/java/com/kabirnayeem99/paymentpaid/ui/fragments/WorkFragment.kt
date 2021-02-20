@@ -20,22 +20,39 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        workViewModel = (activity as HomeActivity).workViewModel
-
+        setUpViewModel()
         initRecyclerView()
+        addNewWorkListener()
+        updateWorkListener()
+    }
 
-        fabAddNewWorksWorks.setOnClickListener {
-            val intent = Intent(activity, WorkDetailsActivity::class.java)
-            startActivity(intent)
-        }
+    /**
+     * Sets up the [WorkViewModel] for this [WorkFragment]
+     */
+    private fun setUpViewModel() {
+        workViewModel = (activity as HomeActivity).workViewModel
+    }
 
-
+    /**
+     * This method, if a work in the list is pressed, will open a work editing activity
+     */
+    private fun updateWorkListener() {
         workAdapter.setOnItemClickListener { work ->
             val intent = Intent(activity, WorkDetailsActivity::class.java)
             val bundle = Bundle()
             bundle.putSerializable("work", work)
             intent.putExtras(bundle)
+            startActivity(intent)
+        }
+    }
+
+    /**
+     * This method, if floating action button is clicked
+     * open a activity to add new work
+     */
+    private fun addNewWorkListener() {
+        fabAddNewWorksWorks.setOnClickListener {
+            val intent = Intent(activity, WorkDetailsActivity::class.java)
             startActivity(intent)
         }
     }
@@ -72,6 +89,10 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
         progressBarWork.visibility = View.INVISIBLE
     }
 
+    /**
+     * This method implements swiping right to delete a work
+     * it extends the [ItemTouchHelper.SimpleCallback] method
+     */
     private fun setUpSwipeToDelete(): ItemTouchHelper.SimpleCallback {
 
         return object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
