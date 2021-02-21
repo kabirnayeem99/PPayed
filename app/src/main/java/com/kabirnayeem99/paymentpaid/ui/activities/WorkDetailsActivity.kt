@@ -81,8 +81,8 @@ class WorkDetailsActivity : AppCompatActivity() {
             } else {
                 workViewModel.insert(work)
             }
+            Toast.makeText(this, "Your work was saved.", Toast.LENGTH_SHORT).show()
         }
-        Toast.makeText(this, "Your work wasn't saved.", Toast.LENGTH_SHORT).show()
         super.onBackPressed()
     }
 
