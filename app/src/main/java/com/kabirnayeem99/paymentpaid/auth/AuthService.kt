@@ -12,13 +12,11 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class AuthService {
-    suspend fun registerUser(email: String, password: String, auth: FirebaseAuth): Resource<FirebaseAuth> {
-        return try {
+    suspend fun registerUser(email: String, password: String, auth: FirebaseAuth) {
+        try {
             auth.createUserWithEmailAndPassword(email, password).await()
-            Resource.Success(auth)
         } catch (e: Exception) {
             Log.d(TAG, "onCreate: ${e.message}")
-            Resource.Error(e.message ?: "Error", auth)
         }
 
     }

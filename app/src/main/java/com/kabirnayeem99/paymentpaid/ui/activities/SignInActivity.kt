@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
+import com.kabirnayeem99.paymentpaid.auth.AuthRepository
 import com.kabirnayeem99.paymentpaid.auth.AuthService
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.coroutines.CoroutineScope
@@ -20,13 +21,13 @@ const val TAG = "SignInActivity"
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var authService: AuthService
+    private lateinit var repo: AuthRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
         handleAuthentication()
-        authService = AuthService()
+        repo = AuthRepository()
 
         auth.signOut()
 
@@ -59,7 +60,6 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun handleWithoutLogin() {
-        Log.d(TAG, "handleWithoutLogin: without logging ing")
         btnWithoutLogin.setOnClickListener {
             pbSigningIn.visibility = View.VISIBLE
             moveToMainActivity()
@@ -68,14 +68,16 @@ class SignInActivity : AppCompatActivity() {
 
     private fun handleRegistration() {
         btnRegister.setOnClickListener {
+
             val email: String = etEmailAddress.text.toString()
             val password: String = etPassword.text.toString()
+
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     withContext(Dispatchers.Main) {
                         pbSigningIn.visibility = View.VISIBLE
                     }
-                    authService.registerUser(email, password, auth)
+                    repo.registerUser(email, password, auth)
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
                         Toast.makeText(this@SignInActivity, "${e.message}",
@@ -99,7 +101,7 @@ class SignInActivity : AppCompatActivity() {
                     withContext(Dispatchers.Main) {
                         pbSigningIn.visibility = View.VISIBLE
                     }
-                    authService.loginUser(email, password, auth)
+                    repo.loginUser(email, password, auth)
                     withContext(Dispatchers.Main) {
                         moveToMainActivity()
                     }
