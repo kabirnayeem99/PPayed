@@ -42,8 +42,10 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setUpLoggedOutListener() {
         logInRegisterViewModel.getLoggedOutLiveData().observe(this, Observer { isLoggedOut ->
-            Toast.makeText(this, "You are logged out", Toast.LENGTH_SHORT).show()
-            moveToSignInActivity()
+            if (isLoggedOut) {
+                Toast.makeText(this, "You are logged out", Toast.LENGTH_SHORT).show()
+                moveToSignInActivity()
+            }
         })
     }
 
@@ -67,7 +69,7 @@ class HomeActivity : AppCompatActivity() {
 
         val logInRegisterViewModelFactory = LogInRegisterViewModelProviderFactory(application)
 
-        val logInRegisterViewModel = ViewModelProvider(this,
+        logInRegisterViewModel = ViewModelProvider(this,
                 logInRegisterViewModelFactory).get(LogInRegisterViewModel::class.java)
 
     }
