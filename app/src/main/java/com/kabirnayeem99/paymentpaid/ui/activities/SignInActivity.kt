@@ -1,40 +1,91 @@
 package com.kabirnayeem99.paymentpaid.ui.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
-import com.kabirnayeem99.paymentpaid.auth.AuthRepository
-import com.kabirnayeem99.paymentpaid.auth.AuthService
+import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModel
+import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_sign_in.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 const val TAG = "SignInActivity"
 
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var repo: AuthRepository
+    private lateinit var logInRegisterViewModel: LogInRegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
-        handleAuthentication()
-        repo = AuthRepository()
 
-        auth.signOut()
+        setUpViewModel()
 
-        if (auth.currentUser != null) {
-            moveToMainActivity()
+
+    }
+
+    private fun setUpViewModel() {
+        val logInRegisterViewModelFactory = LogInRegisterViewModelProviderFactory(application)
+
+        logInRegisterViewModel = ViewModelProvider(this,
+                logInRegisterViewModelFactory).get(LogInRegisterViewModel::class.java)
+
+        logInRegisterViewModel.getUserLiveData().observe(this, Observer { firebaseUser ->
+            firebaseUser?.let {
+                moveToMainActivity()
+            }
+        })
+    }
+
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+        showLogInRegisterForm()
+        setUpRegistrationListener()
+        setUpLoginListener()
+        setUpNoLoginListener()
+        return super.onCreateView(name, context, attrs)
+    }
+
+    private fun setUpNoLoginListener() {
+        moveToMainActivity()
+    }
+
+    private fun setUpLoginListener() {
+
+        btnLogIn.setOnClickListener {
+            val email: String = etEmailAddress.text.toString()
+            val password: String = etPassword.text.toString()
+            try {
+                logInRegisterViewModel.login(email, password)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Can't Login. ${e.message}",
+                        Toast.LENGTH_SHORT).show()
+            }
         }
+    }
 
+    private fun setUpRegistrationListener() {
+        btnRegister.setOnClickListener {
+            val email: String = etEmailAddress.text.toString()
+            val password: String = etPassword.text.toString()
+            try {
+                logInRegisterViewModel.register(email, password)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Can't Register. ${e.message}",
+                        Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showLogInRegisterForm() {
+        appLogoSplash.visibility = View.GONE
+        logInRegisterPart.visibility = View.VISIBLE
     }
 
     private fun moveToMainActivity() {
@@ -50,68 +101,5 @@ class SignInActivity : AppCompatActivity() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         this.finish()
-    }
-
-    private fun handleAuthentication() {
-        auth = FirebaseAuth.getInstance()
-        handleLogin()
-        handleRegistration()
-        handleWithoutLogin()
-    }
-
-    private fun handleWithoutLogin() {
-        btnWithoutLogin.setOnClickListener {
-            pbSigningIn.visibility = View.VISIBLE
-            moveToMainActivity()
-        }
-    }
-
-    private fun handleRegistration() {
-        btnRegister.setOnClickListener {
-
-            val email: String = etEmailAddress.text.toString()
-            val password: String = etPassword.text.toString()
-
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    withContext(Dispatchers.Main) {
-                        pbSigningIn.visibility = View.VISIBLE
-                    }
-                    repo.registerUser(email, password, auth)
-                } catch (e: Exception) {
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(this@SignInActivity, "${e.message}",
-                                Toast.LENGTH_SHORT).show()
-                    }
-                    withContext(Dispatchers.Main) {
-                        pbSigningIn.visibility = View.GONE
-                    }
-                }
-            }
-        }
-    }
-
-    private fun handleLogin() {
-        btnLogIn.setOnClickListener {
-            val email: String = etEmailAddress.text.toString()
-            val password: String = etPassword.text.toString()
-            try {
-
-                CoroutineScope(Dispatchers.IO).launch {
-                    withContext(Dispatchers.Main) {
-                        pbSigningIn.visibility = View.VISIBLE
-                    }
-                    repo.loginUser(email, password, auth)
-                    withContext(Dispatchers.Main) {
-                        moveToMainActivity()
-                    }
-                }
-            } catch (e: Exception) {
-                Log.d(TAG, "onCreate: ${e.message}")
-                Toast.makeText(this@SignInActivity,
-                        "${e.message}", Toast.LENGTH_SHORT).show()
-                pbSigningIn.visibility = View.GONE
-            }
-        }
     }
 }

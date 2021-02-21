@@ -1,10 +1,7 @@
 package com.kabirnayeem99.paymentpaid.data.remote_repo
 
 import androidx.lifecycle.LiveData
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 
 class FirebaseService {
@@ -19,7 +16,9 @@ class FirebaseService {
     }
 
 
-    fun getTotalPaymentByMonth(year: Int): LiveData<List<Int>> {}
+    fun getTotalPaymentByMonth(year: Int): LiveData<List<Int>> {
+        return getTotalPaymentByMonth(2021)
+    }
 
     fun getTotalPaymentByYear(year: Int): LiveData<Int> {}
 

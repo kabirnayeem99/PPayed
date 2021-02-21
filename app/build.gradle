@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId "com.kabirnayeem99.paymentpaid"
-        minSdkVersion 23
+        minSdkVersion 28
         targetSdkVersion 30
         versionName '2.0'
 

@@ -14,7 +14,7 @@ import com.kabirnayeem99.paymentpaid.utils.CustomUtils
  * Using repositories is a recommended best practice for code separation and architecture.
  * @param db of [WorkDatabase] type
  */
-class WorkRepository(val db: WorkDatabase, private val remoteDb: FirebaseService) {
+class WorkRepository(val db: WorkDatabase, private val remoteDb: FirebaseService? = null) {
 
     val auth = FirebaseAuth.getInstance()
 

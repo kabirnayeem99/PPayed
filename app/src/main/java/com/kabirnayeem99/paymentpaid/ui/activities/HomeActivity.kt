@@ -1,7 +1,10 @@
 package com.kabirnayeem99.paymentpaid.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.PagerAdapter
 import com.google.android.material.tabs.TabLayout
@@ -10,6 +13,8 @@ import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.adapters.HomePagerAdapter
 import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
 import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository
+import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModel
+import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModelProviderFactory
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_home.*
@@ -23,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var pagerAdapter: PagerAdapter
 
     lateinit var workViewModel: WorkViewModel
+    lateinit var logInRegisterViewModel: LogInRegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +36,21 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         createTabLayout()
         setUpViewModel()
+        setUpLoggedOutListener()
 
+    }
+
+    private fun setUpLoggedOutListener() {
+        logInRegisterViewModel.getLoggedOutLiveData().observe(this, Observer { isLoggedOut ->
+            Toast.makeText(this, "You are logged out", Toast.LENGTH_SHORT).show()
+            moveToSignInActivity()
+        })
+    }
+
+    private fun moveToSignInActivity() {
+        val intent = Intent(this, SignInActivity::class.java)
+        startActivity(intent)
+        this.finish()
     }
 
     /**
@@ -44,7 +64,14 @@ class HomeActivity : AppCompatActivity() {
         workViewModel = ViewModelProvider(this,
                 workViewModelProviderFactory).get(WorkViewModel::class.java)
 
+
+        val logInRegisterViewModelFactory = LogInRegisterViewModelProviderFactory(application)
+
+        val logInRegisterViewModel = ViewModelProvider(this,
+                logInRegisterViewModelFactory).get(LogInRegisterViewModel::class.java)
+
     }
+
 
     /**
      * This method creates a tab layout in the home screen
