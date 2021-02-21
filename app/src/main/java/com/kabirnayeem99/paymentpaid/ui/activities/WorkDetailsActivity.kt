@@ -4,11 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository
+import com.kabirnayeem99.paymentpaid.enums.AccountStatus
+import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModel
+import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModelProviderFactory
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModelProviderFactory
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
@@ -91,13 +95,33 @@ class WorkDetailsActivity : AppCompatActivity() {
      * This methods sets up the view model for this activity
      */
     private fun setUpViewModel() {
-        val workRepository = WorkRepository(WorkDatabase(this@WorkDetailsActivity))
+        lateinit var logInRegisterViewModel: LogInRegisterViewModel
+        val logInRegisterViewModelFactory = LogInRegisterViewModelProviderFactory(application)
 
-        val workViewModelProviderFactory = WorkViewModelProviderFactory(workRepository)
+        logInRegisterViewModel = ViewModelProvider(this,
+                logInRegisterViewModelFactory).get(LogInRegisterViewModel::class.java)
 
-        workViewModel = ViewModelProvider(
-                this, workViewModelProviderFactory
-        ).get(WorkViewModel::class.java)
+        when (logInRegisterViewModel.getOfflineStatus()) {
+            true -> {
+                val workRepository = WorkRepository(WorkDatabase(this@WorkDetailsActivity), AccountStatus.OFFLINE)
+
+                val workViewModelProviderFactory = WorkViewModelProviderFactory(workRepository)
+
+                workViewModel = ViewModelProvider(
+                        this, workViewModelProviderFactory
+                ).get(WorkViewModel::class.java)
+            }
+            false -> {
+                val workRepository = WorkRepository(WorkDatabase(this@WorkDetailsActivity), AccountStatus.ONLINE)
+
+                val workViewModelProviderFactory = WorkViewModelProviderFactory(workRepository)
+
+                workViewModel = ViewModelProvider(
+                        this, workViewModelProviderFactory
+                ).get(WorkViewModel::class.java)
+            }
+        }
+
     }
 
     /**

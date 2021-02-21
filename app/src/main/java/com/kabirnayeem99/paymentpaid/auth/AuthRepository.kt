@@ -10,15 +10,15 @@ import com.google.firebase.auth.FirebaseUser
 
 
 class AuthRepository(private val application: Application) {
-    var authService = AuthService()
-
 
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private var userLiveData: MutableLiveData<FirebaseUser> = MutableLiveData()
     private var loggedOutLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private var isOffline: Boolean = true
 
     init {
         if (firebaseAuth.currentUser != null) {
+            isOffline = false
             userLiveData.postValue(firebaseAuth.currentUser)
             loggedOutLiveData.postValue(false)
         }
@@ -31,6 +31,14 @@ class AuthRepository(private val application: Application) {
 
     fun getLoggedOutLiveData(): MutableLiveData<Boolean> {
         return loggedOutLiveData
+    }
+
+    fun getOfflineStatus(): Boolean {
+        return isOffline
+    }
+
+    fun noLogin() {
+        isOffline = true
     }
 
 

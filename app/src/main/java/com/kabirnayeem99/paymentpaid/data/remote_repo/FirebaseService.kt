@@ -11,15 +11,14 @@ class FirebaseService {
 
     suspend fun delete(work: Work) {}
 
-    fun getAllWorks(): LiveData<List<Work>> {
-
-    }
-
-
-    fun getTotalPaymentByMonth(year: Int): LiveData<List<Int>> {
-        return getTotalPaymentByMonth(2021)
-    }
-
-    fun getTotalPaymentByYear(year: Int): LiveData<Int> {}
+//    fun getAllWorks(): LiveData<List<Work>> {
+//
+//    }
+//
+//
+//    fun getTotalPaymentByMonth(year: Int): LiveData<List<Int>> {
+//    }
+//
+//    fun getTotalPaymentByYear(year: Int): LiveData<Int> {}
 
 }
