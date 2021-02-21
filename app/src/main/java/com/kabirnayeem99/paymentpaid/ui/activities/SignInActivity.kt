@@ -25,10 +25,13 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
-
+        auth = FirebaseAuth.getInstance()
+        auth.signOut()
         setUpViewModel()
-
-
+        showLogInRegisterForm()
+        setUpRegistrationListener()
+        setUpLoginListener()
+        setUpNoLoginListener()
     }
 
     private fun setUpViewModel() {
@@ -37,28 +40,33 @@ class SignInActivity : AppCompatActivity() {
         logInRegisterViewModel = ViewModelProvider(this,
                 logInRegisterViewModelFactory).get(LogInRegisterViewModel::class.java)
 
-        logInRegisterViewModel.getUserLiveData().observe(this, Observer { firebaseUser ->
-            firebaseUser?.let {
+        logInRegisterViewModel.getUserLiveData().observe(this, { firebaseUser ->
+            if (firebaseUser != null) {
+                pbSigningIn.visibility = View.GONE
+                Toast.makeText(this,
+                        "You are signed in with ${firebaseUser.email}",
+                        Toast.LENGTH_LONG).show()
                 moveToMainActivity()
             }
         })
+
     }
 
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        showLogInRegisterForm()
-        setUpRegistrationListener()
-        setUpLoginListener()
-        setUpNoLoginListener()
-        return super.onCreateView(name, context, attrs)
-    }
 
     private fun setUpNoLoginListener() {
-        moveToMainActivity()
+        btnWithoutLogin.setOnClickListener {
+            moveToMainActivity()
+            Toast.makeText(this,
+                    "You signed in without any online syncing support.",
+                    Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun setUpLoginListener() {
 
         btnLogIn.setOnClickListener {
+            pbSigningIn.visibility = View.VISIBLE
+
             val email: String = etEmailAddress.text.toString()
             val password: String = etPassword.text.toString()
             try {
@@ -66,12 +74,15 @@ class SignInActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Toast.makeText(this, "Can't Login. ${e.message}",
                         Toast.LENGTH_SHORT).show()
+                pbSigningIn.visibility = View.GONE
+
             }
         }
     }
 
     private fun setUpRegistrationListener() {
         btnRegister.setOnClickListener {
+            pbSigningIn.visibility = View.VISIBLE
             val email: String = etEmailAddress.text.toString()
             val password: String = etPassword.text.toString()
             try {
@@ -79,6 +90,7 @@ class SignInActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Toast.makeText(this, "Can't Register. ${e.message}",
                         Toast.LENGTH_SHORT).show()
+                pbSigningIn.visibility = View.GONE
             }
         }
     }
@@ -86,18 +98,10 @@ class SignInActivity : AppCompatActivity() {
     private fun showLogInRegisterForm() {
         appLogoSplash.visibility = View.GONE
         logInRegisterPart.visibility = View.VISIBLE
+        pbSigningIn.visibility = View.GONE
     }
 
     private fun moveToMainActivity() {
-        if (auth.currentUser != null) {
-            Toast.makeText(this,
-                    "You are signed in with ${auth.currentUser!!.email}",
-                    Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(this,
-                    "You signed in without any online syncing support.",
-                    Toast.LENGTH_LONG).show()
-        }
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         this.finish()
