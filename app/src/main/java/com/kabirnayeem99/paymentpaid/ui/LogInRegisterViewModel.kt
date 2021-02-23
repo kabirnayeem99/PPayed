@@ -1,11 +1,8 @@
 package com.kabirnayeem99.paymentpaid.ui
 
 import android.app.Application
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.auth.api.Auth
 import com.google.firebase.auth.FirebaseUser
 import com.kabirnayeem99.paymentpaid.auth.AuthRepository
 

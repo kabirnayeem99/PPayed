@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/workNavMenu"
+        android:title="@string/label_tab_item_works" />
+
+    <item
+        android:id="@+id/paymentNavMenu"
+        android:title="@string/label_tab_item_payments" />
+
+    <item
+        android:id="@+id/aboutNavMenu"
+        android:title="@string/label_tab_item_about" />
+
+</menu>
