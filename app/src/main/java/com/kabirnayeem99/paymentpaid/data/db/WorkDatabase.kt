@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
+import com.kabirnayeem99.paymentpaid.utils.Constants
 
 @Database(entities = [Work::class], version = 1, exportSchema = false)
 abstract class WorkDatabase : RoomDatabase() {
@@ -17,7 +18,6 @@ abstract class WorkDatabase : RoomDatabase() {
         the singleton pattern is a software design pattern
         that restricts the instantiation of a class to one "single" instance.
          */
-        private const val DB_NAME = "payment_paid_db"
 
         @Volatile
         private var instance: WorkDatabase? = null
@@ -32,7 +32,7 @@ abstract class WorkDatabase : RoomDatabase() {
                 Room.databaseBuilder(
                         context.applicationContext,
                         WorkDatabase::class.java,
-                        DB_NAME
+                        Constants.DB_NAME
                 ).build()
 
     }

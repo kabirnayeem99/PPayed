@@ -2,10 +2,8 @@ package com.kabirnayeem99.paymentpaid.data.repositories
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
-import com.kabirnayeem99.paymentpaid.data.remote_repo.FirebaseService
 import com.kabirnayeem99.paymentpaid.enums.AccountStatus
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 

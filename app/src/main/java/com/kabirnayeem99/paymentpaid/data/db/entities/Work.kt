@@ -3,6 +3,7 @@ package com.kabirnayeem99.paymentpaid.data.db.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.kabirnayeem99.paymentpaid.utils.Constants
 import java.io.Serializable
 
 /**
@@ -13,7 +14,7 @@ import java.io.Serializable
  * @property year the year of the work
  */
 
-@Entity(tableName = "works_db_table")
+@Entity(tableName = Constants.DB_TABLE)
 data class Work(
         @ColumnInfo(name = "work_name")
         val name: String,
