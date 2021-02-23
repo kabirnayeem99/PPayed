@@ -1,11 +1,29 @@
 package com.kabirnayeem99.paymentpaid.data.remote_repo
 
 import androidx.lifecycle.LiveData
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
+import com.kabirnayeem99.paymentpaid.utils.Constants
+import kotlinx.coroutines.tasks.await
 
 class FirebaseService {
-    suspend fun insert(work: Work) {}
+
+    var workCollectionReference = Firebase.firestore
+            .collection(
+                    Constants.DB_NAME
+            )
+            .document(
+                    FirebaseAuth.getInstance().currentUser.toString()
+            ).collection(
+                    Constants.DB_TABLE
+            )
+
+    suspend fun insert(work: Work) {
+        workCollectionReference.add(work).await()
+    }
 
     suspend fun update(work: Work) {}
 
