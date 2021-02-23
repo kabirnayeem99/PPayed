@@ -5,4 +5,5 @@
     <color name="material_dark_green_dark">#ff388e3c</color>
     <color name="material_green_medium">#ff4caf50</color>
     <color name="material_orange_light">#ffffc107</color>
+    <color name="material_grey">#8DA18B</color>
 </resources>

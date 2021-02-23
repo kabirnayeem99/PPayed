@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_black"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".ui.activities.SignInActivity">
@@ -12,15 +11,16 @@
 
     <ImageView
         android:id="@+id/appLogoSplash"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/icon"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/pbSigningIn"
+        app:layout_constraintBottom_toTopOf="@+id/logInRegisterPart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <LinearLayout
         android:id="@+id/logInRegisterPart"
@@ -29,27 +29,45 @@
         android:orientation="vertical"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_message"
-            android:textColor="@color/material_white"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_message"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/pbSigningIn"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_gravity="end"
+                android:layout_marginStart="30sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:text="@string/please_login_to_your_account"
-            android:textColor="@color/material_white"
             android:textSize="17sp" />
 
         <EditText
@@ -58,17 +76,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
-            android:hint="Email Address"
+            android:hint="@string/hint_email_address"
             android:paddingTop="16dp"
             android:paddingBottom="10dp"
-            android:textColor="@color/material_white"
-            android:textColorHint="@color/material_white"
             android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/material_white" />
+            android:background="@color/material_grey" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -80,11 +96,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Password"
+                android:hint="@string/hint_password"
                 android:paddingTop="16dp"
                 android:paddingBottom="10dp"
-                android:textColor="@color/material_white"
-                android:textColorHint="@color/material_white"
                 android:textSize="16sp" />
 
             <TextView
@@ -94,15 +108,14 @@
                 android:layout_alignParentEnd="true"
                 android:paddingTop="16dp"
                 android:paddingBottom="10dp"
-                android:text="Forgot?"
-                android:textColor="@color/material_white"
+                android:text="@string/btn_label_forgot"
                 android:textSize="16sp" />
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/material_white" />
+            android:background="@color/material_grey" />
 
         <TextView
             android:id="@+id/btnLogIn"
@@ -112,8 +125,7 @@
             android:background="@drawable/white_border_color"
             android:gravity="center"
             android:padding="16dp"
-            android:text="LOGIN"
-            android:textColor="@color/material_white"
+            android:text="@string/btn_label_login"
             android:textStyle="bold" />
 
         <TextView
@@ -123,8 +135,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="REGISTER NOW"
-            android:textColor="@color/material_white"
+            android:text="@string/btn_label_register_now"
             android:textStyle="bold" />
 
 
@@ -136,22 +147,11 @@
             android:background="@drawable/circular_borderbutton"
             android:gravity="center"
             android:padding="16dp"
-            android:text="WITHOUT LOGIN"
+            android:text="@string/btn_label_without_login"
             android:textColor="@color/material_white"
             android:textStyle="bold" />
 
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/pbSigningIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20sp"
-        android:layout_marginBottom="80dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
