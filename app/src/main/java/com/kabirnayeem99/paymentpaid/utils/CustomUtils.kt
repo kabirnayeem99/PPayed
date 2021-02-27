@@ -1,6 +1,8 @@
 package com.kabirnayeem99.paymentpaid.utils
 
+import android.graphics.Color
 import android.util.Log
+import com.github.mikephil.charting.utils.ColorTemplate
 import java.text.DecimalFormat
 import java.time.Month
 import java.util.*
@@ -63,4 +65,18 @@ object CustomUtils {
         get() = Calendar.getInstance()[Calendar.MONTH]
     val currentDay: Int
         get() = Calendar.getInstance()[Calendar.DATE]
+
+    fun getRandomColor(): Int {
+        val rnd = Random()
+        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+    }
+
+    fun getColorsFromTemplate(): MutableList<Int> {
+        val colorInts = ColorTemplate.MATERIAL_COLORS
+        val colorMutableList: MutableList<Int> = ArrayList(colorInts.size)
+        for (i in colorInts) {
+            colorMutableList.add(i)
+        }
+        return colorMutableList
+    }
 }

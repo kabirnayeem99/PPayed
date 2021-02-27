@@ -2,6 +2,7 @@ package com.kabirnayeem99.paymentpaid.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -139,7 +140,8 @@ class WorkDetailsActivity : AppCompatActivity() {
         var day = CustomUtils.currentDay
 
         dpDate?.let { dpDate ->
-            month = dpDate.month
+            month = dpDate.month + 1
+            Log.d(TAG, "createOrUpdateWork: month $month")
             year = dpDate.year
             day = dpDate.dayOfMonth
         }

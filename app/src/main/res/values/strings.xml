@@ -46,5 +46,15 @@
 
     <string name="welcome_message">PPayed!!</string>
     <string name="please_login_to_your_account">Please Login To Have Online Syncing</string>
+    <string name="hint_email_address">Email Adress</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_label_forgot">Forget Password</string>
+    <string name="btn_label_login">LOGIN</string>
+    <string name="btn_label_register_now">REGISTER NOW</string>
+    <string name="btn_label_without_login">NO LOGIN</string>
+    <string name="label_tab_item_about">About</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
+    <string name="label_tab_item_analytics">Analytics</string>
 
 </resources>

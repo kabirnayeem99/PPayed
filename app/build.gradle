@@ -45,7 +45,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:22.1.0'
     implementation 'com.google.firebase:firebase-auth-ktx:20.0.2'
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
@@ -75,6 +75,10 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
+
+    // MPAndroidChart (https://github.com/PhilJay/MPAndroidChart)
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 
 }
 repositories {

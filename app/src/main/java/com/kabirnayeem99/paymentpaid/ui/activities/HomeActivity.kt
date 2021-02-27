@@ -18,6 +18,7 @@ import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModelProviderFactory
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModelProviderFactory
 import com.kabirnayeem99.paymentpaid.ui.fragments.AboutFragment
+import com.kabirnayeem99.paymentpaid.ui.fragments.AnalyticsFragment
 import com.kabirnayeem99.paymentpaid.ui.fragments.PaymentsFragment
 import com.kabirnayeem99.paymentpaid.ui.fragments.WorkFragment
 import kotlinx.android.synthetic.main.activity_home.*
@@ -29,9 +30,9 @@ import kotlinx.android.synthetic.main.activity_home.*
  */
 class HomeActivity : AppCompatActivity() {
 
-    //    private lateinit var pagerAdapter: PagerAdapter
     private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var workFragment: WorkFragment
+    private lateinit var analyticsFragment: AnalyticsFragment
     private lateinit var paymentsFragment: PaymentsFragment
     private lateinit var aboutFragment: AboutFragment
     lateinit var workViewModel: WorkViewModel
@@ -53,9 +54,10 @@ class HomeActivity : AppCompatActivity() {
         workFragment = WorkFragment()
         paymentsFragment = PaymentsFragment()
         aboutFragment = AboutFragment()
+        analyticsFragment = AnalyticsFragment()
     }
 
-    fun closeDrawer() {
+    private fun closeDrawer() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         }
@@ -76,15 +78,15 @@ class HomeActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.workNavMenu -> {
                     makeCurrentFragment(workFragment)
-                    Toast.makeText(this, "Clicked on work", Toast.LENGTH_SHORT).show()
                 }
                 R.id.paymentNavMenu -> {
                     makeCurrentFragment(paymentsFragment)
-                    Toast.makeText(this, "Clicked on work", Toast.LENGTH_SHORT).show()
+                }
+                R.id.analyticsNavMenu -> {
+                    makeCurrentFragment(analyticsFragment)
                 }
                 R.id.aboutNavMenu -> {
                     makeCurrentFragment(aboutFragment)
-                    Toast.makeText(this, "Clicked on work", Toast.LENGTH_SHORT).show()
                 }
             }
             true
