@@ -4,14 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository
-import com.kabirnayeem99.paymentpaid.enums.AccountStatus
 import kotlinx.coroutines.launch
 
 
 /**
  * WorkViewModel is a object that models the GUI application
  * The data and functionality, such as, [insert], [getAllWorks]
- * provided by this object can be used by the views, such as [TextEdit], [TextView].
+ * provided by this object can be used by the views, such as TextEdit, TextView.
  *
  * This Work View Model encapsulate the
  * behavior and the data of everything the application <h1>PPayed</h1> does.

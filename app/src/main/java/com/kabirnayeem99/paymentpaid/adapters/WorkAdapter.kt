@@ -1,6 +1,5 @@
 package com.kabirnayeem99.paymentpaid.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,7 +86,5 @@ class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
         onItemClickListener = listener
     }
 
-    companion object {
-        private const val TAG = "WorkAdapter"
-    }
+    companion object
 }

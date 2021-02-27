@@ -1,6 +1,7 @@
 package com.kabirnayeem99.paymentpaid.data.repositories
 
 import android.util.Log
+import androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior.getTag
 import androidx.lifecycle.LiveData
 import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
@@ -14,8 +15,7 @@ import com.kabirnayeem99.paymentpaid.utils.CustomUtils
  * Using repositories is a recommended best practice for code separation and architecture.
  * @param db of [WorkDatabase] type
  */
-class WorkRepository(val db: WorkDatabase, private val accountStatus: AccountStatus) {
-    private val TAG = "WorkRepository"
+class WorkRepository(private val db: WorkDatabase, private val accountStatus: AccountStatus) {
 
     /**
      * This is a repository method, which insert a new work to the database
@@ -28,7 +28,7 @@ class WorkRepository(val db: WorkDatabase, private val accountStatus: AccountSta
         } else if (accountStatus == AccountStatus.ONLINE) {
             //todo: implements
             db.getWorkDao().insert(work)
-            Log.d(TAG, "insert: this is an online insertation")
+            Log.d("WorkRepository", "insert: this is an online insertation")
         }
     }
 

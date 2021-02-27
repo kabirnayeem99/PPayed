@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.fragment_payments.*
 
 class PaymentsFragment : Fragment(R.layout.fragment_payments) {
 
-    private val TAG = "PaymentsFragment"
 
     private lateinit var paymentAdapter: PaymentAdapter
     private lateinit var workViewModel: WorkViewModel
@@ -33,11 +32,11 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
 
     private fun manipulateData() {
 
-        Log.d(TAG, "manipulateData: the manipulationg data started")
+        Log.d(tag, "manipulateData: the manipulationg data started")
 
         workViewModel.getTotalPaymentsByMonth().observe(viewLifecycleOwner,
                 { paymentList ->
-                    Log.d(TAG, "manipulateData: $paymentList")
+                    Log.d(tag, "manipulateData: $paymentList")
                     paymentList?.let {
                         paymentAdapter.differ.submitList(paymentList)
                     }

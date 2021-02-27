@@ -11,7 +11,6 @@
     <string name="text_sample_month_year_name">জানুয়ারি ২০২০</string>
     <string name="text_sample_money_amount">১২,০০০</string>
     <string name="text_total_payment_desc">"সর্বমোট বেতন "</string>
-    <string name="label_tab_item_exports">এক্সপোর্ট</string>
     <string name="label_tab_item_payments">পেমেন্ট</string>
     <string name="label_tab_item_works">কাজ</string>
     <string name="action_add_new_work">নতুন কাজ যুক্ত করুন</string>
@@ -28,4 +27,16 @@
     <string name="send_email">ইমেইল পাঠান</string>
     <string name="email_address">kabirnayeem.99@gmail.com</string>
     <string name="question_concerning_ppayed">পিপেইড সম্পর্কিত প্রশ্ন</string>
+    <string name="label_tab_item_analytics">অ্যানালিটিক্স</string>
+    <string name="close_drawer">ড্রয়ার বন্ধ করুন</string>
+    <string name="open_drawer">ড্রয়ার খুলুন</string>
+    <string name="label_tab_item_about">সম্পর্কে</string>
+    <string name="hint_email_address">ইমেল ঠিকানা</string>
+    <string name="hint_password">পাসওয়ার্ড</string>
+    <string name="btn_label_forgot">পাসওয়ার্ড ভুলে গেছেন</string>
+    <string name="btn_label_login">লগইন</string>
+    <string name="btn_label_register_now">রেজিস্টার করুন</string>
+    <string name="btn_label_without_login">লগইন ছাড়া</string>
+    <string name="welcome_message">পিপেইড!!!</string>
+    <string name="please_login_to_your_account">অনলাইন সিঙ্কিঙের জন্য লগইন করুন</string>
 </resources>

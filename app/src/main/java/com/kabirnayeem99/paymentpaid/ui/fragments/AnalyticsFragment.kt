@@ -5,14 +5,11 @@ import android.view.View
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.utils.ColorTemplate
 import com.kabirnayeem99.paymentpaid.R
-import com.kabirnayeem99.paymentpaid.enums.Months
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 import kotlinx.android.synthetic.main.fragment_analytics.*
-import kotlin.collections.ArrayList
 
 
 class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
@@ -48,7 +45,6 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
 
     private fun implementDataSeries(paymentList: List<Int>) {
 
-        val months = Months.values()
 
         val barEntries = ArrayList<BarEntry>()
         val pieEntries = ArrayList<PieEntry>()
@@ -92,18 +88,7 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
         progressBarAnalytics.visibility = View.INVISIBLE
     }
 
-    private fun getColors(): ArrayList<Int> {
-        val colors = ArrayList<Int>()
-        colors.add(CustomUtils.getRandomColor())
-        colors.add(CustomUtils.getRandomColor())
-        colors.add(CustomUtils.getRandomColor())
-        colors.add(CustomUtils.getRandomColor())
-        colors.add(CustomUtils.getRandomColor())
 
-        return colors
-    }
 
-    companion object {
-        private const val TAG = "AnalyticsFragment"
-    }
+    companion object
 }

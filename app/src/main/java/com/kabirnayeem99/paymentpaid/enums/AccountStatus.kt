@@ -1,6 +1,6 @@
 package com.kabirnayeem99.paymentpaid.enums
 
-public enum class AccountStatus {
+enum class AccountStatus {
     OFFLINE,
     ONLINE,
 }

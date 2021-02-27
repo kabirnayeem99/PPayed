@@ -31,11 +31,4 @@
     </style>
 
 
-    <style name="SplashScreen" parent="Theme.MaterialComponents.Light.NoActionBar">
-
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-        <item name="android:statusBarColor">@color/material_black</item>
-
-    </style>
-
 </resources>

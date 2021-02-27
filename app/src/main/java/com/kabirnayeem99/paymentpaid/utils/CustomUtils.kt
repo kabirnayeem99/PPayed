@@ -66,11 +66,6 @@ object CustomUtils {
     val currentDay: Int
         get() = Calendar.getInstance()[Calendar.DATE]
 
-    fun getRandomColor(): Int {
-        val rnd = Random()
-        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
-    }
-
     fun getColorsFromTemplate(): MutableList<Int> {
         val colorInts = ColorTemplate.MATERIAL_COLORS
         val colorMutableList: MutableList<Int> = ArrayList(colorInts.size)

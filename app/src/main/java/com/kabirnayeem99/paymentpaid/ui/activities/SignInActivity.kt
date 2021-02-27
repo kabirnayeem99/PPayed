@@ -84,7 +84,6 @@ class SignInActivity : AppCompatActivity() {
     /**
      * This method starts the registration listener
      * Where if the registration button is clicked
-     * Registration [logInRegisterViewModel.register] starts
      */
     private fun setUpRegistrationListener() {
         btnRegister.setOnClickListener {
