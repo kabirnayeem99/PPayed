@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
+import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.*
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
@@ -66,12 +67,23 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
         barChart.data = barData
         pieChart.data = pieData
 
-        barDataSet.valueTextColor = getColor(requireContext(), R.color.material_white)
+
+
+        barDataSet.valueTextColor = getColor(requireContext(), R.color.material_grey)
         barDataSet.color = getColor(requireContext(), R.color.material_dark_green_dark)
         barDataSet.colors = CustomUtils.getColorsFromTemplate()
-        pieDataSet.valueTextColor = getColor(requireContext(), R.color.material_white)
+        pieDataSet.valueTextColor = getColor(requireContext(), R.color.material_grey)
         pieDataSet.color = getColor(requireContext(), R.color.material_dark_green_dark)
         pieDataSet.colors = CustomUtils.getColorsFromTemplate()
+        pieChart.isEnabled = false
+        val description = Description()
+        description.text = "Payment Charts"
+        description.let {
+            pieChart.description = it
+            barChart.description = it
+        }
+
+
 
 
         barChart.animateY(1000)
@@ -87,7 +99,6 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
     private fun hideLoading() {
         progressBarAnalytics.visibility = View.INVISIBLE
     }
-
 
 
     companion object

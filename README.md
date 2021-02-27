@@ -37,6 +37,9 @@ The android app lets you:
 
 ## Screenshots
 
+[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/login_screen.png" align="center"
+width="200"
+    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/login_screen.png)
 [<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/work_screen.png" align="center"
 width="200"
     hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/work_screen.png)
@@ -49,12 +52,17 @@ width="200"
 [<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/about_screen.png" align="center"
 width="200"
     hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/about_screen.png)
+[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/analytics_screen.png" align="center"
+width="200"
+    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/analytics_screen.png)
 
 ## Built with
 
 - [Android Studio & SDK Tools](https://developer.android.com/studio/) - Fastest tools for building apps on every type of Android device.
 - [Android Jetpack](https://developer.android.com/jetpack) - Libraries to help developers follow best practices, reduce boilerplate code, and write code that works consistently across Android versions and devices.
 - [Material About Library](https://github.com/daniel-stoneuk/material-about-library) - Makes it easy to create a beautiful about screen.
+- [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
+
 
 ## Contributing
 
