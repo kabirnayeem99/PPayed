@@ -40,6 +40,9 @@ The android app lets you:
 [<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/login_screen.png" align="center"
 width="200"
     hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/login_screen.png)
+[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/bar.png" align="center"
+width="200"
+    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/bar.png)
 [<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/work_screen.png" align="center"
 width="200"
     hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/work_screen.png)
