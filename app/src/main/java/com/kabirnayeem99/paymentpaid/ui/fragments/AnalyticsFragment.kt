@@ -7,10 +7,15 @@ import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.*
 import com.kabirnayeem99.paymentpaid.R
+import com.kabirnayeem99.paymentpaid.data.chart.ChartUtils
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 import kotlinx.android.synthetic.main.fragment_analytics.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
@@ -21,7 +26,6 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
         super.onViewCreated(view, savedInstanceState)
         setUpViewModel()
         initGraph()
-
     }
 
     /**
@@ -46,48 +50,22 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
 
     private fun implementDataSeries(paymentList: List<Int>) {
 
+        CoroutineScope(Dispatchers.IO).launch {
 
-        val barEntries = ArrayList<BarEntry>()
-        val pieEntries = ArrayList<PieEntry>()
+            val barData = ChartUtils.getBarData(paymentList, requireContext())
+            val pieData = ChartUtils.getPieData(paymentList, requireContext())
 
-        var position = 0f
-        paymentList.forEach {
-            barEntries.add(BarEntry(position, it.toFloat()))
-            if (it > 0) {
-                pieEntries.add(PieEntry(it.toFloat(), CustomUtils.getCurrentMonthName(position.toInt())))
+            withContext(Dispatchers.Main) {
+                barChart.let {
+                    it.data = barData
+                    it.animateY(1000)
+                }
+                pieChart.let {
+                    it.data = pieData
+                    it.animateY(1000)
+                }
             }
-            position += 1f
         }
-
-        val barDataSet = BarDataSet(barEntries, "Payments")
-        val pieDataSet = PieDataSet(pieEntries, "payments")
-
-        val barData = BarData(barDataSet)
-        val pieData = PieData(pieDataSet)
-        barChart.data = barData
-        pieChart.data = pieData
-
-
-
-        barDataSet.valueTextColor = getColor(requireContext(), R.color.material_grey)
-        barDataSet.color = getColor(requireContext(), R.color.material_dark_green_dark)
-        barDataSet.colors = CustomUtils.getColorsFromTemplate()
-        pieDataSet.valueTextColor = getColor(requireContext(), R.color.material_grey)
-        pieDataSet.color = getColor(requireContext(), R.color.material_dark_green_dark)
-        pieDataSet.colors = CustomUtils.getColorsFromTemplate()
-        pieChart.isEnabled = false
-        val description = Description()
-        description.text = "Payment Charts"
-        description.let {
-            pieChart.description = it
-            barChart.description = it
-        }
-
-
-
-
-        barChart.animateY(1000)
-        pieChart.animateY(1000)
 
     }
 
@@ -100,6 +78,4 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
         progressBarAnalytics.visibility = View.INVISIBLE
     }
 
-
-    companion object
 }
