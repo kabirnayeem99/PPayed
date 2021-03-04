@@ -56,13 +56,14 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
             val pieData = ChartUtils.getPieData(paymentList, requireContext())
 
             withContext(Dispatchers.Main) {
-                barChart.let {
-                    it.data = barData
-                    it.animateY(1000)
+                barChart.let { bc ->
+                    bc.data = barData
+                    bc.animateY(1000)
                 }
-                pieChart.let {
-                    it.data = pieData
-                    it.animateY(1000)
+
+                pieChart.let { pc ->
+                    pc.data = pieData
+                    pc.animateY(1000)
                 }
             }
         }

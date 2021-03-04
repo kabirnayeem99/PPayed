@@ -11,7 +11,7 @@ import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 import kotlinx.android.synthetic.main.list_item_payment.view.*
 
-class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
+class  PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 

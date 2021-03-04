@@ -33,7 +33,6 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
     private fun manipulateData() {
 
         Log.d(tag, "manipulateData: the manipulationg data started")
-
         workViewModel.getTotalPaymentsByMonth().observe(viewLifecycleOwner,
                 { paymentList ->
                     Log.d(tag, "manipulateData: $paymentList")
