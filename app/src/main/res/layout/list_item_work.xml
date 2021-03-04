@@ -6,7 +6,7 @@
 
     <androidx.cardview.widget.CardView
         style="@style/CustomCardView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         app:cardCornerRadius="10dp">
