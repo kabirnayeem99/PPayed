@@ -79,6 +79,9 @@ dependencies {
     // MPAndroidChart (https://github.com/PhilJay/MPAndroidChart)
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    // RecyclerView Animators (https://github.com/wasabeef/recyclerview-animators)
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
+
 
 }
 repositories {

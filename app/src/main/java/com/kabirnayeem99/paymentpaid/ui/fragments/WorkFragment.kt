@@ -12,6 +12,7 @@ import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import com.kabirnayeem99.paymentpaid.ui.activities.WorkDetailsActivity
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import kotlinx.android.synthetic.main.fragment_works.*
 
 class WorkFragment : Fragment(R.layout.fragment_works) {
@@ -62,6 +63,8 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
     private fun initRecyclerView() {
         workAdapter = WorkAdapter()
 
+//        val slideInLeftAnimatorAdapter = SlideInLeftAnimatorAdapter(workAdapter, rvWorkListWorks)
+
         workViewModel.getAllWorks().observe(viewLifecycleOwner, { workList ->
             when (workList == null) {
                 true -> showLoading()
@@ -75,6 +78,7 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
         rvWorkListWorks.apply {
             adapter = workAdapter
             layoutManager = LinearLayoutManager(activity)
+            itemAnimator = SlideInLeftAnimator()
         }
 
         val itemTouchHelper = ItemTouchHelper(setUpSwipeToDelete())
