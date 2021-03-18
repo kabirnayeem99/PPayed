@@ -4,12 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kabirnayeem99.paymentpaid.R
-import kotlinx.android.synthetic.main.activity_splash.*
 import java.util.*
 
 
 class SplashActivity : AppCompatActivity() {
-    lateinit var timer: Timer
+    private lateinit var timer: Timer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)

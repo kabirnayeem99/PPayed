@@ -1,6 +1,5 @@
 package com.kabirnayeem99.paymentpaid.utils
 
-import android.graphics.Color
 import android.util.Log
 import com.github.mikephil.charting.utils.ColorTemplate
 import java.text.DecimalFormat

@@ -2,15 +2,11 @@ package com.kabirnayeem99.paymentpaid.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
-import com.github.mikephil.charting.components.Description
-import com.github.mikephil.charting.data.*
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.chart.ChartUtils
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
-import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 import kotlinx.android.synthetic.main.fragment_analytics.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.kabirnayeem99.paymentpaid">
 
     <application
@@ -29,7 +28,7 @@
         </activity>
         <activity
             android:name=".ui.activities.HomeActivity"
-            android:label="@string/static_app_name"></activity>
+            android:label="@string/static_app_name" />
         <activity
             android:name=".ui.activities.WorkDetailsActivity"
             android:label="@string/action_add_new_work" />
