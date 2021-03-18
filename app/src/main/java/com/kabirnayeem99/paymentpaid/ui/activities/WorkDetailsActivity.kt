@@ -31,11 +31,11 @@ class WorkDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.Theme_PaymentPaid)
         setContentView(R.layout.activity_add_new_work)
         setUpUpdateWorkEditing()
         setUpViewModel()
     }
+
 
     /**
      * This method checks if any work has been passed down,

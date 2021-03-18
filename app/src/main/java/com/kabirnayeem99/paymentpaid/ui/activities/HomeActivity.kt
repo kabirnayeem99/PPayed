@@ -2,6 +2,7 @@ package com.kabirnayeem99.paymentpaid.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.transition.Slide
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -49,6 +50,7 @@ class HomeActivity : AppCompatActivity() {
         setUpViewModel()
         setUpLoggedOutListener()
     }
+
 
     private fun initFragments() {
         workFragment = WorkFragment()
@@ -98,12 +100,14 @@ class HomeActivity : AppCompatActivity() {
      * @param fragment of [Fragment] type
      */
     private fun makeCurrentFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragmentPlaceholder, fragment)
-            commit()
-        }.also {
-            closeDrawer()
-        }
+        supportFragmentManager
+                .beginTransaction()
+                // adds animation from https://github.com/yendangn/Fragment-Transaction-Animation
+                .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
+                .replace(R.id.flFragmentPlaceholder, fragment)
+                .commit().also {
+                    closeDrawer()
+                }
     }
 
     private fun setUpFragmentNavigation() {

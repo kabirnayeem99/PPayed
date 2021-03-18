@@ -45,6 +45,7 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
             bundle.putSerializable("work", work)
             intent.putExtras(bundle)
             startActivity(intent)
+//            Bungee.swipeLeft(context)
         }
     }
 
@@ -63,7 +64,6 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
     private fun initRecyclerView() {
         workAdapter = WorkAdapter()
 
-//        val slideInLeftAnimatorAdapter = SlideInLeftAnimatorAdapter(workAdapter, rvWorkListWorks)
 
         workViewModel.getAllWorks().observe(viewLifecycleOwner, { workList ->
             when (workList == null) {

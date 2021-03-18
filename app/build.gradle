@@ -82,6 +82,9 @@ dependencies {
     // RecyclerView Animators (https://github.com/wasabeef/recyclerview-animators)
     implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
 
+//    // Bungee (https://github.com/Binary-Finery/Bungee)
+//    implementation 'com.github.Binary-Finery:Bungee:3.0'
+
 
 }
 repositories {
