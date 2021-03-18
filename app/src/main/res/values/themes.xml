@@ -31,4 +31,11 @@
     </style>
 
 
+    <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="backgroundColor">@color/brand_green</item>
+    </style>
+
 </resources>

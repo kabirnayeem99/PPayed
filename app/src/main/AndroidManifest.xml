@@ -9,6 +9,16 @@
         android:label="@string/static_app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.PaymentPaid">
+        <activity
+            android:name=".ui.activities.SplashActivity"
+            android:theme="@style/SplashScreen">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.activities.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,8 +28,7 @@
         </activity>
         <activity
             android:name=".ui.activities.HomeActivity"
-            android:label="@string/static_app_name">
-        </activity>
+            android:label="@string/static_app_name"></activity>
         <activity
             android:name=".ui.activities.WorkDetailsActivity"
             android:label="@string/action_add_new_work" />
