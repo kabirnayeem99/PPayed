@@ -78,7 +78,7 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
         rvWorkListWorks.apply {
             adapter = workAdapter
             layoutManager = LinearLayoutManager(activity)
-            itemAnimator = SlideInLeftAnimator()
+//            itemAnimator = SlideInLeftAnimator()
         }
 
         val itemTouchHelper = ItemTouchHelper(setUpSwipeToDelete())

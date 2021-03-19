@@ -54,12 +54,11 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
     private fun initRecyclerView() {
 
         paymentAdapter = PaymentAdapter()
-//        val slideInLeftAnimatorAdapter = SlideInLeftAnimatorAdapter(paymentAdapter, rvPaymentListByMonth)
 
         rvPaymentListByMonth.apply {
             adapter = paymentAdapter
             layoutManager = LinearLayoutManager(activity)
-            itemAnimator = SlideInLeftAnimator()
+//            itemAnimator = SlideInLeftAnimator()
         }
     }
 
