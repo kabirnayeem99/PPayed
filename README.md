@@ -65,6 +65,7 @@ width="200"
 - [Android Jetpack](https://developer.android.com/jetpack) - Libraries to help developers follow best practices, reduce boilerplate code, and write code that works consistently across Android versions and devices.
 - [Material About Library](https://github.com/daniel-stoneuk/material-about-library) - Makes it easy to create a beautiful about screen.
 - [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart) - A powerful & easy to use chart library for Android
+- [RecyclerView Animators](https://github.com/wasabeef/recyclerview-animators) - A library to easily create RecyclerView with animations.
 
 
 ## Contributing
