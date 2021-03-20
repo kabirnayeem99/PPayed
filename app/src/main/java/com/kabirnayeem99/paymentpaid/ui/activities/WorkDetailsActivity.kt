@@ -1,5 +1,6 @@
 package com.kabirnayeem99.paymentpaid.ui.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,7 @@ import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModelProviderFactory
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 import kotlinx.android.synthetic.main.activity_add_new_work.*
+import spencerstudios.com.bungeelib.Bungee
 
 
 /**
@@ -88,8 +90,12 @@ class WorkDetailsActivity : AppCompatActivity() {
             Toast.makeText(this, "Your work was saved.", Toast.LENGTH_SHORT).show()
         }
         super.onBackPressed()
+//        (this as Activity).overridePendingTransition(R.anim.slide_out_right, R.anim.fade_exit)
     }
 
+    override fun overridePendingTransition(enterAnim: Int, exitAnim: Int) {
+        super.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
 
     /**
      * This methods sets up the view model for this activity

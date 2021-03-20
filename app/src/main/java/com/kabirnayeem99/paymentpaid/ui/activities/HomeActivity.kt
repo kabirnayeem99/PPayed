@@ -99,19 +99,25 @@ class HomeActivity : AppCompatActivity() {
      * @param fragment of [Fragment] type
      */
     private fun makeCurrentFragment(fragment: Fragment) {
+        closeDrawer()
         supportFragmentManager
                 .beginTransaction()
                 // adds animation from https://github.com/yendangn/Fragment-Transaction-Animation
                 .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
                 .replace(R.id.flFragmentPlaceholder, fragment)
-                .commit().also {
-                    closeDrawer()
-                }
+                .commit()
+    }
+
+
+    override fun overridePendingTransition(enterAnim: Int, exitAnim: Int) {
+        super.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private fun setUpFragmentNavigation() {
-        makeCurrentFragment(workFragment)
-
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.flFragmentPlaceholder, WorkFragment())
+                .commit()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

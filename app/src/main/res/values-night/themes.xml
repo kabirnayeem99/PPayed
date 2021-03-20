@@ -10,9 +10,16 @@
         <item name="colorSecondaryVariant">@color/material_orange_light</item>
         <item name="colorOnSecondary">@color/material_black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?android:colorBackground</item>
         <!-- Customize your theme here. -->
-        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+        <item name="android:navigationBarColor">?android:colorBackground</item>
+        <item name="backgroundColor">@color/material_black</item>
+
+
+        <!-- for menu item in nav drawer -->
+        <item name="colorNavigationItem">@color/menu_item_color_state</item>
+        <item name="colorNavigationItemSelected">@color/material_white</item>
+        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
     </style>
 
     <style name="CustomCardView" parent="CardView.Dark">
@@ -24,13 +31,13 @@
         <item name="cardBackgroundColor">@color/material_dark_green_dark</item>
     </style>
 
-
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
-        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
-        <item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>
-        <item name="android:activityCloseExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityOpenEnterAnimation">@anim/enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/pop_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/pop_exit</item>
     </style>
+
 
     <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="windowNoTitle">true</item>
@@ -38,5 +45,11 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+
+    <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
+        <item name="itemIconTint">?attr/colorNavigationItem</item>
+        <item name="itemTextColor">?attr/colorNavigationItem</item>
+        <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
+    </style>
 
 </resources>

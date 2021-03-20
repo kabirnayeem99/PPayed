@@ -27,6 +27,10 @@ class SignInActivity : AppCompatActivity() {
         setUpNoLoginListener()
     }
 
+    override fun overridePendingTransition(enterAnim: Int, exitAnim: Int) {
+        super.overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit)
+    }
+
     /**
      * This method sets up [LogInRegisterViewModel] for the [SignInActivity]
      */

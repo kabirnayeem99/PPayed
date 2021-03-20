@@ -21,6 +21,10 @@ class SplashActivity : AppCompatActivity() {
         }, 900)
     }
 
+    override fun overridePendingTransition(enterAnim: Int, exitAnim: Int) {
+        super.overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit)
+    }
+
     override fun onPause() {
         super.onPause()
         timer.cancel()

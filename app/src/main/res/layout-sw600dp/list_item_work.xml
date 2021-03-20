@@ -8,8 +8,8 @@
         style="@style/CustomCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"

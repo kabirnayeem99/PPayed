@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.kabirnayeem99.paymentpaid">
 
     <application
@@ -8,7 +9,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/static_app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PaymentPaid">
+        android:theme="@style/Theme.PaymentPaid"
+        tools:replace="android:label">
         <activity
             android:name=".ui.activities.SplashActivity"
             android:theme="@style/SplashScreen">

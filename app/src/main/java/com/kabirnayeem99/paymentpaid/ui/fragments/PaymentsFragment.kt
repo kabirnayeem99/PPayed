@@ -9,8 +9,8 @@ import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.adapters.PaymentAdapter
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
-import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import kotlinx.android.synthetic.main.fragment_payments.*
+import kotlinx.android.synthetic.main.fragment_payments.view.*
 
 class PaymentsFragment : Fragment(R.layout.fragment_payments) {
 
@@ -58,7 +58,6 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
         rvPaymentListByMonth.apply {
             adapter = paymentAdapter
             layoutManager = LinearLayoutManager(activity)
-//            itemAnimator = SlideInLeftAnimator()
         }
     }
 

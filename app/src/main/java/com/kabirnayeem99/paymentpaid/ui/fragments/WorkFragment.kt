@@ -1,5 +1,6 @@
 package com.kabirnayeem99.paymentpaid.ui.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -12,8 +13,8 @@ import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import com.kabirnayeem99.paymentpaid.ui.activities.WorkDetailsActivity
-import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import kotlinx.android.synthetic.main.fragment_works.*
+import spencerstudios.com.bungeelib.Bungee
 
 class WorkFragment : Fragment(R.layout.fragment_works) {
     private lateinit var workAdapter: WorkAdapter
@@ -45,7 +46,6 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
             bundle.putSerializable("work", work)
             intent.putExtras(bundle)
             startActivity(intent)
-//            Bungee.swipeLeft(context)
         }
     }
 
