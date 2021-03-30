@@ -4,17 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.itextpdf.text.Document
-import com.itextpdf.text.Paragraph
-import com.itextpdf.text.pdf.PdfWriter
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
-import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository
 import com.kabirnayeem99.paymentpaid.enums.AccountStatus
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
@@ -99,7 +92,7 @@ class FilesActivity : AppCompatActivity() {
                             "Work name: ${work.name}\n" +
                             "Student name: ${work.studentName}\n" +
                             "Payment: ${work.payment}\n" +
-                            "Date: ${work.date}-${work.month}-${work.year}\n" +
+                            "Date: ${work.day}-${work.month}-${work.year}\n" +
                             "________________________________________________\n"
                     string += tempStr
                 }

@@ -1,7 +1,10 @@
 package com.kabirnayeem99.paymentpaid.ui
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kabirnayeem99.paymentpaid.data.db.entities.User
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository
 import kotlinx.coroutines.launch
@@ -16,6 +19,11 @@ import kotlinx.coroutines.launch
  * behavior and the data of everything the application <h1>PPayed</h1> does.
  */
 class WorkViewModel(private val repository: WorkRepository) : ViewModel() {
+
+    private val _userProfile = MutableLiveData<User>()
+    val userProfile: LiveData<User> = _userProfile
+    private val _works = MutableLiveData<List<Work>>()
+    val works: LiveData<List<Work>> = _works
 
     /**
      * Inserts a new work in the database

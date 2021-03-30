@@ -1,6 +1,5 @@
 package com.kabirnayeem99.paymentpaid.ui.activities
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,7 +17,6 @@ import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModelProviderFactory
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 import kotlinx.android.synthetic.main.activity_add_new_work.*
-import spencerstudios.com.bungeelib.Bungee
 
 
 /**
@@ -69,7 +67,7 @@ class WorkDetailsActivity : AppCompatActivity() {
         tilWorkName.editText?.setText(workBeingProcessed.name)
         tilStudentName.editText?.setText(workBeingProcessed.studentName)
         tilPayment.editText?.setText(workBeingProcessed.payment)
-        dpDate.updateDate(workBeingProcessed.year, workBeingProcessed.month, workBeingProcessed.date)
+        dpDate.updateDate(workBeingProcessed.year, workBeingProcessed.month, workBeingProcessed.day)
     }
 
     /**

@@ -2,19 +2,14 @@ package com.kabirnayeem99.paymentpaid.ui.fragments
 
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Environment
-import android.provider.MediaStore
-import android.provider.Settings
 import android.util.Log
 import android.view.View
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -26,6 +21,7 @@ import com.gkemon.XMLtoPDF.model.FailureResponse
 import com.gkemon.XMLtoPDF.model.SuccessResponse
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter
+import com.kabirnayeem99.paymentpaid.ui.FirestoreViewModel
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import com.kabirnayeem99.paymentpaid.ui.activities.WorkDetailsActivity
@@ -35,7 +31,7 @@ import kotlin.properties.Delegates
 
 class WorkFragment : Fragment(R.layout.fragment_works) {
     private lateinit var workAdapter: WorkAdapter
-    private lateinit var workViewModel: WorkViewModel
+    private lateinit var firestoreViewModel: FirestoreViewModel
 
     companion object {
         private const val TAG = "WorkFragment"
@@ -110,7 +106,7 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
      * Sets up the [WorkViewModel] for this [WorkFragment]
      */
     private fun setUpViewModel() {
-        workViewModel = (activity as HomeActivity).workViewModel
+        firestoreViewModel = (activity as HomeActivity).firestoreViewModel
     }
 
     /**
@@ -120,7 +116,7 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
         workAdapter.setOnItemClickListener { work ->
             val intent = Intent(activity, WorkDetailsActivity::class.java)
             val bundle = Bundle()
-            bundle.putSerializable("work", work)
+            bundle.putParcelable("work", work)
             intent.putExtras(bundle)
             startActivity(intent)
         }
@@ -141,8 +137,7 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
     private fun initRecyclerView() {
         workAdapter = WorkAdapter()
 
-
-        workViewModel.getAllWorks().observe(viewLifecycleOwner, { workList ->
+        firestoreViewModel.getWorkList().observe(viewLifecycleOwner, { workList ->
             when (workList == null) {
                 true -> showLoading()
                 false -> {
@@ -184,7 +179,7 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val currentItemPosition = viewHolder.adapterPosition
                 val currentWork = workAdapter.differ.currentList[currentItemPosition]
-                workViewModel.delete(currentWork)
+                firestoreViewModel.delete(currentWork)
             }
 
         }

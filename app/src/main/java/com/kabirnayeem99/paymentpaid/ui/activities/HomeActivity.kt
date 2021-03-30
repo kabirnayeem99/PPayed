@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -22,27 +21,24 @@ import androidx.core.view.GravityCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.itextpdf.text.Utilities
+import androidx.lifecycle.ViewModelProviders
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository
 import com.kabirnayeem99.paymentpaid.enums.AccountStatus
-import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModel
-import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModelProviderFactory
-import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
-import com.kabirnayeem99.paymentpaid.ui.WorkViewModelProviderFactory
+import com.kabirnayeem99.paymentpaid.ui.*
 import com.kabirnayeem99.paymentpaid.ui.fragments.AboutFragment
 import com.kabirnayeem99.paymentpaid.ui.fragments.AnalyticsFragment
 import com.kabirnayeem99.paymentpaid.ui.fragments.PaymentsFragment
 import com.kabirnayeem99.paymentpaid.ui.fragments.WorkFragment
-import kotlinx.android.synthetic.main.activity_files.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import spencerstudios.com.bungeelib.Bungee
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
@@ -62,6 +58,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var paymentsFragment: PaymentsFragment
     private lateinit var aboutFragment: AboutFragment
     lateinit var workViewModel: WorkViewModel
+    lateinit var firestoreViewModel: FirestoreViewModel
     private lateinit var logInRegisterViewModel: LogInRegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,7 +88,6 @@ class HomeActivity : AppCompatActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
         menuInflater.inflate(R.menu.menu_export, menu)
         return true
     }
@@ -200,15 +196,13 @@ class HomeActivity : AppCompatActivity() {
             accountStatus = AccountStatus.OFFLINE
             val workRepository = WorkRepository(WorkDatabase(this), accountStatus)
             val workViewModelProviderFactory = WorkViewModelProviderFactory(workRepository)
-            workViewModel = ViewModelProvider(this,
-                    workViewModelProviderFactory).get(WorkViewModel::class.java)
+            firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
         } else {
 
             accountStatus = AccountStatus.ONLINE
             val workRepository = WorkRepository(WorkDatabase(this), accountStatus)
             val workViewModelProviderFactory = WorkViewModelProviderFactory(workRepository)
-            workViewModel = ViewModelProvider(this,
-                    workViewModelProviderFactory).get(WorkViewModel::class.java)
+            firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
         }
 
     }
@@ -379,7 +373,7 @@ class HomeActivity : AppCompatActivity() {
                                 "Work name: ${work.name}\n" +
                                 "Student name: ${work.studentName}\n" +
                                 "Payment: ${work.payment}\n" +
-                                "Date: ${work.date}-${work.month}-${work.year}\n" +
+                                "Date: ${work.day}-${work.month}-${work.year}\n" +
                                 "________________________________________________\n"
                         string += tempStr
                     }
@@ -407,7 +401,9 @@ class HomeActivity : AppCompatActivity() {
         intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_TITLE, "exported_data_${Calendar.getInstance().get(Calendar.YEAR)}.txt")
 
-        startActivityForResult(intent, CREATE_FILE_REQUEST_CODE)
+        startActivityForResult(intent, CREATE_FILE_REQUEST_CODE).also {
+            Bungee.slideLeft(this)
+        }
     }
 
 }

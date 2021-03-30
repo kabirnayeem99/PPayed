@@ -55,7 +55,7 @@ class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
         val work = differ.currentList[position]
 
         val workListItemTitle = work.name
-        val workListItemDate = "${work.date}-${CustomUtils.padMonth(work.month)}-${work.year}"
+        val workListItemDate = "${work.day}-${CustomUtils.padMonth(work.month)}-${work.year}"
         val workListItemStudentName = work.studentName
         val workListItemPayment: String = work.payment
 
