@@ -69,8 +69,7 @@ class SignInActivity : AppCompatActivity() {
     private fun setUpLoginListener() {
 
         btnLogIn.setOnClickListener {
-            val intent = Intent(this, FilesActivity::class.java)
-            startActivity(intent)
+
 //            pbSigningIn.visibility = View.VISIBLE
 //
 //            val email: String = etEmailAddress.text.toString()

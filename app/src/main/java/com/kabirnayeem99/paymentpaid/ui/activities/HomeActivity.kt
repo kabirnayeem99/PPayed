@@ -5,9 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.ExifInterface
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -19,8 +22,10 @@ import androidx.core.view.GravityCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.itextpdf.text.Utilities
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
+import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository
 import com.kabirnayeem99.paymentpaid.enums.AccountStatus
 import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModel
@@ -31,9 +36,18 @@ import com.kabirnayeem99.paymentpaid.ui.fragments.AboutFragment
 import com.kabirnayeem99.paymentpaid.ui.fragments.AnalyticsFragment
 import com.kabirnayeem99.paymentpaid.ui.fragments.PaymentsFragment
 import com.kabirnayeem99.paymentpaid.ui.fragments.WorkFragment
+import kotlinx.android.synthetic.main.activity_files.*
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
+import java.util.*
 
 
 /**
@@ -57,7 +71,6 @@ class HomeActivity : AppCompatActivity() {
         initFragments()
         setUpFragmentNavigation()
         setUpNavigationDrawer()
-//        createTabLayout()
         setUpViewModel()
         setUpLoggedOutListener()
     }
@@ -74,6 +87,13 @@ class HomeActivity : AppCompatActivity() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.menu_export, menu)
+        return true
     }
 
 
@@ -133,6 +153,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (item.itemId == R.id.menuExport) {
+            createFile()
+            return true
+        }
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true
         }
@@ -237,6 +262,19 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        //Write the file content
+        if (requestCode == CREATE_FILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    withContext(Dispatchers.Main) {
+                        writeFileContent(data.data)
+
+                    }
+                }
+            }
+
+        }
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == OPEN_FILE_REQUEST_CODE) {
                 data?.data?.also { documentUri ->
@@ -296,12 +334,80 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+
     companion object {
         private const val PERMISSION_READ_EXTERNAL_STORAGE = 5
         private const val MEDIA_LOCATION_PERMISSION_REQUEST_CODE = 3
-        private const val OPEN_FILE_REQUEST_CODE = 1
+        private const val OPEN_FILE_REQUEST_CODE = 6
+        private const val CREATE_FILE_REQUEST_CODE = 1
         private const val OPEN_FOLDER_REQUEST_CODE = 2
         private const val CHOOSE_FILE = 4
+    }
+
+
+    private suspend fun writeFileContent(uri: Uri?) {
+        try {
+            val file = uri?.let { this.contentResolver.openFileDescriptor(it, "w") }
+
+
+
+            file?.let {
+                val fileOutputStream = FileOutputStream(
+                        it.fileDescriptor
+                )
+
+
+//                //dfd
+//                val document = Document()
+//                PdfWriter.getInstance(document, FileOutputStream("${etFileName.text}.pdf"))
+//                document.open()
+//                document.add(Paragraph("${etContent.text}"))
+//                document.close()
+//                //dfd
+
+                var string = ""
+                var workList: List<Work> = listOf()
+
+                if (this::workViewModel.isInitialized) {
+
+                    workList = workViewModel.getAllWorksSync().first()
+                }
+                if (workList.isNotEmpty()) {
+                    for (work in workList) {
+
+                        val tempStr = "________________________________________________\n" +
+                                "Work name: ${work.name}\n" +
+                                "Student name: ${work.studentName}\n" +
+                                "Payment: ${work.payment}\n" +
+                                "Date: ${work.date}-${work.month}-${work.year}\n" +
+                                "________________________________________________\n"
+                        string += tempStr
+                    }
+                }
+
+                fileOutputStream.write(string.toByteArray())
+
+
+                fileOutputStream.close()
+                it.close()
+            }
+
+        } catch (e: FileNotFoundException) {
+            //print logs
+        } catch (e: IOException) {
+            //print logs
+        }
+
+    }
+
+    private fun createFile() {
+        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TITLE, "exported_data_${Calendar.getInstance().get(Calendar.YEAR)}.txt")
+
+        startActivityForResult(intent, CREATE_FILE_REQUEST_CODE)
     }
 
 }
