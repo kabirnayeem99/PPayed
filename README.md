@@ -67,6 +67,9 @@ width="200"
 - [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart) - A powerful & easy to use chart library for Android
 - [RecyclerView Animators](https://github.com/wasabeef/recyclerview-animators) - A library to easily create RecyclerView with animations.
 
+## TODO
+* Remove room completely
+* Remove previous viewmodels
 
 ## Contributing
 
