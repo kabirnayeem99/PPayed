@@ -1,40 +1,50 @@
 package com.kabirnayeem99.paymentpaid.data.db.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.kabirnayeem99.paymentpaid.utils.Constants
-import java.io.Serializable
+import android.os.Parcelable
+import android.util.Log
+import com.google.firebase.firestore.DocumentSnapshot
+import kotlinx.android.parcel.Parcelize
+import java.lang.Exception
 
 /**
  * Represents a work
  * @property name the name of the work, in a format like student_name-work_name_shortcut
- * @property date submission day of the work
+ * @property day submission day of the work
  * @property month the month of the work
  * @property year the year of the work
  */
-
-@Entity(tableName = Constants.DB_TABLE)
+@Parcelize
 data class Work(
-        @ColumnInfo(name = "work_name")
+        val documentId: String,
         val name: String,
-
-        @ColumnInfo(name = "submission_date")
-        val date: Int,
-
-        @ColumnInfo(name = "account_month")
-        val month: Int,
-
-        @ColumnInfo(name = "account_year")
-        val year: Int,
-
-        @ColumnInfo(name = "payment")
-        val payment: String,
-
-        @ColumnInfo(name = "student_name")
+        val day: Long,
+        val month: Long,
+        val year: Long,
+        val payment: Long,
         val studentName: String
-) : Serializable {
+) : Parcelable {
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Int? = null
+    companion object {
+        private const val TAG = "Work"
+        fun DocumentSnapshot.toWork(): Work? {
+            try {
+                val name = getString("name")!!
+                val day = getLong("day")!!
+                val month = getLong("month")!!
+                val year = getLong("year")!!
+                val payment = getLong("payment")!!
+                val studentName = getString("student_name")!!
+
+                return Work(id, name, day, month, year, payment, studentName)
+            } catch (e: Exception) {
+
+                Log.e(TAG, "toWork: error converting work $e")
+                //todo: implement crash analytics later
+//                FirebaseCrashlytics.getInstance().log("Error converting user profile")
+//                FirebaseCrashlytics.getInstance().setCustomKey("userId", id)
+//                FirebaseCrashlytics.getInstance().recordException(e)
+                return null
+            }
+        }
+    }
 }
