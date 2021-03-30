@@ -6,6 +6,7 @@ import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.enums.AccountStatus
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
+import kotlinx.coroutines.flow.Flow
 
 
 /**
@@ -86,6 +87,10 @@ class WorkRepository(private val db: WorkDatabase, private val accountStatus: Ac
 //        }
         return db.getWorkDao().getAllWorks()
 
+    }
+
+    fun getAllWorksSync(): Flow<List<Work>> {
+        return db.getWorkDao().getAllWorksSync()
     }
 
 

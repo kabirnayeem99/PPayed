@@ -57,4 +57,6 @@ class WorkViewModel(private val repository: WorkRepository) : ViewModel() {
      */
     fun getTotalPaymentByYear() = repository.getTotalPaymentByYear()
 
+    fun getAllWorksSync() = repository.getAllWorksSync()
+
 }

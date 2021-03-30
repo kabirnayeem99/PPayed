@@ -1,24 +1,45 @@
 package com.kabirnayeem99.paymentpaid.ui.fragments
 
-import android.app.Activity
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
+import android.provider.Settings
+import android.util.Log
 import android.view.View
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gkemon.XMLtoPDF.PdfGenerator
+import com.gkemon.XMLtoPDF.PdfGeneratorListener
+import com.gkemon.XMLtoPDF.model.FailureResponse
+import com.gkemon.XMLtoPDF.model.SuccessResponse
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter
 import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import com.kabirnayeem99.paymentpaid.ui.activities.WorkDetailsActivity
 import kotlinx.android.synthetic.main.fragment_works.*
-import spencerstudios.com.bungeelib.Bungee
+import kotlin.properties.Delegates
+
 
 class WorkFragment : Fragment(R.layout.fragment_works) {
     private lateinit var workAdapter: WorkAdapter
     private lateinit var workViewModel: WorkViewModel
+
+    companion object {
+        private const val TAG = "WorkFragment"
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,6 +47,62 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
         initRecyclerView()
         addNewWorkListener()
         updateWorkListener()
+
+        generatePdf(view)
+    }
+
+
+    private fun checkPermission(): Boolean {
+        return if (SDK_INT >= Build.VERSION_CODES.R) {
+            Environment.isExternalStorageManager()
+        } else {
+
+            var result by Delegates.notNull<Int>()
+            var result1 by Delegates.notNull<Int>()
+
+            context?.let { ctxt ->
+                result = ContextCompat.checkSelfPermission(ctxt, READ_EXTERNAL_STORAGE)
+                result1 = ContextCompat.checkSelfPermission(ctxt, WRITE_EXTERNAL_STORAGE)
+
+            }
+            result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED
+        }
+    }
+
+
+    private fun generatePdf(view: View) {
+        if (checkPermission()) {
+            Log.d(TAG, "generatePdf: generating pdf started")
+            PdfGenerator.getBuilder()
+                    .setContext(requireActivity())
+                    .fromViewSource()
+                    .fromView(view)
+                    .setPageSize(PdfGenerator.PageSize.A4)
+                    .setFileName("Test-PDF")
+                    .setFolderName("Test-PDF-folder")
+                    .openPDFafterGeneration(true)
+                    .build(object : PdfGeneratorListener() {
+                        override fun onFailure(failureResponse: FailureResponse) {
+                            super.onFailure(failureResponse)
+                        }
+
+                        override fun showLog(log: String) {
+                            super.showLog(log)
+                        }
+
+                        override fun onStartPDFGeneration() {
+                            /*When PDF generation begins to start*/
+                        }
+
+                        override fun onFinishPDFGeneration() {
+                            /*When PDF generation is finished*/
+                        }
+
+                        override fun onSuccess(response: SuccessResponse) {
+                            super.onSuccess(response)
+                        }
+                    })
+        }
     }
 
 

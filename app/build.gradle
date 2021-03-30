@@ -89,6 +89,9 @@ dependencies {
     // XML to PDF Generator For Android (https://github.com/Gkemon/Android-XML-to-PDF-Generator)
     implementation 'com.github.Gkemon:XML-to-PDF-generator:2.3'
 
+    // Itext
+    implementation 'com.itextpdf:itextpdf:5.5.13'
+
 
 }
 repositories {

@@ -1,12 +1,22 @@
 package com.kabirnayeem99.paymentpaid.ui.activities
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.media.ExifInterface
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.kabirnayeem99.paymentpaid.R
@@ -22,6 +32,8 @@ import com.kabirnayeem99.paymentpaid.ui.fragments.AnalyticsFragment
 import com.kabirnayeem99.paymentpaid.ui.fragments.PaymentsFragment
 import com.kabirnayeem99.paymentpaid.ui.fragments.WorkFragment
 import kotlinx.android.synthetic.main.activity_home.*
+import java.io.IOException
+import java.io.InputStream
 
 
 /**
@@ -176,26 +188,120 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Request Permission For Read Storage
+     * @param context
+     */
+    private fun requestPermissionForReadWrite(context: Context) {
+        ActivityCompat.requestPermissions(
+                context as Activity,
+                arrayOf(
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ), PERMISSION_READ_EXTERNAL_STORAGE
+        )
+    }
+
 
     /**
-     * This method creates a tab layout in the home screen
+     * Request Permission if not given
+     * @param context [Context]
      */
-//    private fun createTabLayout() {
-//        tlMainTabHome.setupWithViewPager(vpHome)
-//
-//        pagerAdapter = HomePagerAdapter(supportFragmentManager, tlMainTabHome.tabCount)
-//
-//        vpHome.adapter = pagerAdapter
-//
-//        tlMainTabHome?.addOnTabSelectedListener(object : OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab) {
-//                vpHome.currentItem = tab.position
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab) {}
-//            override fun onTabReselected(tab: TabLayout.Tab) {}
-//        })
-//    }
+    @RequiresApi(Build.VERSION_CODES.Q)
+    fun requestPermissionForAccessMediaLocation(context: Context) {
+        Log.i(TAG, "requestPermissionForAML")
 
+        ActivityCompat.requestPermissions(
+                context as Activity,
+                arrayOf(android.Manifest.permission.ACCESS_MEDIA_LOCATION),
+                MEDIA_LOCATION_PERMISSION_REQUEST_CODE
+        )
+
+    }
+
+    /**
+     * Check if Permission granted for Accessing Media Location
+     * @param context [Context]
+     * @return Boolean
+     */
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun isPermissionGrantedForMediaLocationAccess(context: Context): Boolean {
+        Log.i("Tag", "checkPermissionForAML")
+        val result: Int =
+                ContextCompat.checkSelfPermission(
+                        context,
+                        android.Manifest.permission.ACCESS_MEDIA_LOCATION
+                )
+        return result == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == OPEN_FILE_REQUEST_CODE) {
+                data?.data?.also { documentUri ->
+
+                    //Permission needed if you want to retain access even after reboot
+                    contentResolver.takePersistableUriPermission(
+                            documentUri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    )
+                    Toast.makeText(this, documentUri.path.toString(), Toast.LENGTH_LONG).show()
+                }
+            } else if (requestCode == OPEN_FOLDER_REQUEST_CODE) {
+                val directoryUri = data?.data ?: return
+
+                //Taking permission to retain access
+                contentResolver.takePersistableUriPermission(
+                        directoryUri,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+                //Now you have access to the folder, you can easily view the content or do whatever you want.
+                val documentsTree = DocumentFile.fromTreeUri(application, directoryUri) ?: return
+                val childDocuments = documentsTree.listFiles().asList()
+                Toast.makeText(
+                        this,
+                        "Total Items Under this folder =" + childDocuments.size.toString(),
+                        Toast.LENGTH_LONG
+                ).show()
+
+            } else if (requestCode == CHOOSE_FILE) {
+                if (data != null) {
+                    var inputStream: InputStream? = null
+                    //Not guaranteed to get the metadata
+                    try {
+                        inputStream = contentResolver.openInputStream(data.data!!)
+                        val exifInterface = ExifInterface(inputStream!!)
+
+                        Toast.makeText(
+                                this,
+                                "Path = " + data.data + "   ,Latitude = " + exifInterface.getAttribute(
+                                        ExifInterface.TAG_GPS_LATITUDE
+                                ) + "   ,Longitude =" + exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE),
+                                Toast.LENGTH_LONG
+                        ).show()
+                    } catch (e: IOException) {
+                        // Handle any errors
+                    } finally {
+                        if (inputStream != null) {
+                            try {
+                                inputStream.close()
+                            } catch (ignored: IOException) {
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    companion object {
+        private const val PERMISSION_READ_EXTERNAL_STORAGE = 5
+        private const val MEDIA_LOCATION_PERMISSION_REQUEST_CODE = 3
+        private const val OPEN_FILE_REQUEST_CODE = 1
+        private const val OPEN_FOLDER_REQUEST_CODE = 2
+        private const val CHOOSE_FILE = 4
+    }
 
 }

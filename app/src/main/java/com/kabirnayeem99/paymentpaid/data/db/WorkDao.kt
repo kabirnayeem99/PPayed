@@ -3,6 +3,7 @@ package com.kabirnayeem99.paymentpaid.data.db
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
+import kotlinx.coroutines.flow.Flow
 
 /**
  * WorkDao or Work Data Access Objects are used to access the persisted data.
@@ -22,6 +23,9 @@ interface WorkDao {
 
     @Query(value = "SELECT * FROM works_db_table ORDER BY submission_date DESC")
     fun getAllWorks(): LiveData<List<Work>>
+
+    @Query(value = "SELECT * FROM works_db_table ORDER BY submission_date DESC")
+    fun getAllWorksSync(): Flow<List<Work>>
 
     // Gets the payment by month, and sets a 0, where there is no work in this particular month
     @Query("SELECT IFNULL(SUM(w.payment), 0) FROM (SELECT 1 month UNION ALL SELECT 2 UNION ALL" +

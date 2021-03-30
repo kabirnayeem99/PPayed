@@ -69,19 +69,21 @@ class SignInActivity : AppCompatActivity() {
     private fun setUpLoginListener() {
 
         btnLogIn.setOnClickListener {
-            pbSigningIn.visibility = View.VISIBLE
-
-            val email: String = etEmailAddress.text.toString()
-            val password: String = etPassword.text.toString()
-            try {
-                logInRegisterViewModel.login(email, password)
-            } catch (e: Exception) {
-                pbSigningIn.visibility = View.GONE.also {
-                    Toast.makeText(this, "Can't Login. ${e.message}",
-                            Toast.LENGTH_SHORT).show()
-                }
-
-            }
+            val intent = Intent(this, FilesActivity::class.java)
+            startActivity(intent)
+//            pbSigningIn.visibility = View.VISIBLE
+//
+//            val email: String = etEmailAddress.text.toString()
+//            val password: String = etPassword.text.toString()
+//            try {
+//                logInRegisterViewModel.login(email, password)
+//            } catch (e: Exception) {
+//                pbSigningIn.visibility = View.GONE.also {
+//                    Toast.makeText(this, "Can't Login. ${e.message}",
+//                            Toast.LENGTH_SHORT).show()
+//                }
+//
+//            }
         }
     }
 
