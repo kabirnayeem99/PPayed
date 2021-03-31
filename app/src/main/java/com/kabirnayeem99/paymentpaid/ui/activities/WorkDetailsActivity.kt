@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
@@ -77,16 +76,22 @@ class WorkDetailsActivity : AppCompatActivity() {
      */
     override fun onBackPressed() {
 
+        /*
+        Checks if the work object has been created successfully or not,
+        if it is created successfully, it proceeds to save the work.
+         */
         createOrUpdateWork()?.let { work ->
-            if (toBeUpdatedWork?.documentId != null) {
+            try {
                 firestoreViewModel.saveWork(work)
-            } else {
-                firestoreViewModel.saveWork(work)
+                Toast.makeText(this, "Your work was saved.", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Toast.makeText(this, "Your work was not saved.", Toast.LENGTH_SHORT).show()
+                Log.e(TAG, "onBackPressed: work was not saved", e)
+            } finally {
+                super.onBackPressed()
             }
-            Toast.makeText(this, "Your work was saved.", Toast.LENGTH_SHORT).show()
+
         }
-        super.onBackPressed()
-//        (this as Activity).overridePendingTransition(R.anim.slide_out_right, R.anim.fade_exit)
     }
 
     override fun overridePendingTransition(enterAnim: Int, exitAnim: Int) {
@@ -97,23 +102,12 @@ class WorkDetailsActivity : AppCompatActivity() {
      * This methods sets up the view model for this activity
      */
     private fun setUpViewModel() {
-        lateinit var logInRegisterViewModel: LogInRegisterViewModel
-        val logInRegisterViewModelFactory = LogInRegisterViewModelProviderFactory(application)
 
-        logInRegisterViewModel = ViewModelProvider(this,
-                logInRegisterViewModelFactory).get(LogInRegisterViewModel::class.java)
-
-        firestoreViewModel = when (logInRegisterViewModel.getOfflineStatus()) {
-            true -> {
-
+        firestoreViewModel =
                 ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
-            }
-            false -> {
-                ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
-            }
-        }
 
     }
+
 
     /**
      * It creates a new work or updates a work, based on the work type passed down
@@ -147,7 +141,6 @@ class WorkDetailsActivity : AppCompatActivity() {
         } else {
             work = Work(documentId = null, name = workName, day = day.toLong(), month = month.toLong(),
                     year = year.toLong(), payment = payment.toLong(), studentName = studentName)
-
 
             /*
              checks if there is any extra work from previous intent

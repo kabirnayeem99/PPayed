@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Payments">
+        <menu>
+            <group
+                android:id="@+id/menuGroupNavigation"
+                android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/workNavMenu"
+                    android:icon="@drawable/ic_work"
+                    android:title="@string/label_tab_item_works" />
+
+                <item
+                    android:id="@+id/paymentNavMenu"
+                    android:icon="@drawable/ic_payment"
+                    android:title="@string/label_tab_item_payments" />
+
+                <item
+                    android:id="@+id/analyticsNavMenu"
+                    android:icon="@drawable/ic_analytics"
+                    android:title="@string/label_tab_item_analytics" />
+
+            </group>
+        </menu>
+
+    </item>
+
+    <item android:title="User">
+        <menu>
+            <group
+                android:id="@+id/menuAuth"
+                android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/userProfileNavMenu"
+                    android:icon="@drawable/ic_profile"
+                    android:title="@string/label_nav_item_profile" />
+
+                <item
+                    android:id="@+id/logOutMenu"
+                    android:icon="@drawable/ic_logout"
+                    android:title="@string/label_nav_item_logout" />
+
+
+                <item
+                    android:id="@+id/aboutNavMenu"
+                    android:icon="@drawable/ic_about"
+                    android:title="@string/label_tab_item_about" />
+            </group>
+        </menu>
+
+    </item>
+
+</menu>

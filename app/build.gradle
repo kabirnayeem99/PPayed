@@ -83,6 +83,8 @@ dependencies {
     // Bungee (https://github.com/Binary-Finery/Bungee)
     implementation 'com.github.Binary-Finery:Bungee:3.0'
 
+    // CircleImageView (https://github.com/hdodenhof/CircleImageView)
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     // Itext
     implementation 'com.itextpdf:itextpdf:5.5.13'

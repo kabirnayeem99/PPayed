@@ -39,5 +39,8 @@
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
     <string name="label_tab_item_analytics">Analytics</string>
+    <string name="hint_user_image">User image</string>
+    <string name="label_nav_item_logout">Log out</string>
+    <string name="label_nav_item_profile">Profile</string>
 
 </resources>

@@ -5,11 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
-import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModel
-import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 const val TAG = "SignInActivity"

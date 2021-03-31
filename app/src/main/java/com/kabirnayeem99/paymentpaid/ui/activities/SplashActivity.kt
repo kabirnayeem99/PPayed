@@ -14,6 +14,13 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+
+        /*
+        shows splash screen for 900 milliseconds
+        when it checks for the auth state, if it is authenticated already,
+        it loads the home activity
+        else it loads the sign in activity.
+         */
         timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {

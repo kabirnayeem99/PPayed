@@ -1,38 +1,33 @@
 package com.kabirnayeem99.paymentpaid.ui.activities
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.media.ExifInterface
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.ui.*
-import com.kabirnayeem99.paymentpaid.ui.fragments.AboutFragment
-import com.kabirnayeem99.paymentpaid.ui.fragments.AnalyticsFragment
-import com.kabirnayeem99.paymentpaid.ui.fragments.PaymentsFragment
-import com.kabirnayeem99.paymentpaid.ui.fragments.WorkFragment
+import com.kabirnayeem99.paymentpaid.ui.fragments.*
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.nav_header.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import spencerstudios.com.bungeelib.Bungee
@@ -53,9 +48,10 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var workFragment: WorkFragment
     private lateinit var analyticsFragment: AnalyticsFragment
     private lateinit var paymentsFragment: PaymentsFragment
+    private lateinit var profileFragment: ProfileFragment
     private lateinit var aboutFragment: AboutFragment
     lateinit var firestoreViewModel: FirestoreViewModel
-    private lateinit var logInRegisterViewModel: LogInRegisterViewModel
+    val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +62,14 @@ class HomeActivity : AppCompatActivity() {
         setUpNavigationDrawer()
         setUpViewModel()
         setUpLoggedOutListener()
+        val navigationView = findViewById<View>(R.id.navView) as NavigationView
+        val hView: View = navigationView.getHeaderView(0)
+        val tvUserEmail = hView.findViewById(R.id.tvUserEmail) as TextView
+        with(auth.currentUser!!) {
+            tvUserEmail.text = email
+            if (displayName?.isNotEmpty() == true)
+                tvUserEmail.text = displayName
+        }
     }
 
 
@@ -74,6 +78,7 @@ class HomeActivity : AppCompatActivity() {
         paymentsFragment = PaymentsFragment()
         aboutFragment = AboutFragment()
         analyticsFragment = AnalyticsFragment()
+        profileFragment = ProfileFragment()
     }
 
     private fun closeDrawer() {
@@ -112,6 +117,13 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.aboutNavMenu -> {
                     makeCurrentFragment(aboutFragment)
+                }
+                R.id.userProfileNavMenu -> {
+                    makeCurrentFragment(profileFragment)
+                }
+
+                R.id.logOutMenu -> {
+                    auth.signOut()
                 }
             }
             true
@@ -158,13 +170,14 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun setUpLoggedOutListener() {
-        logInRegisterViewModel.getLoggedOutLiveData().observe(this, { isLoggedOut ->
-            if (isLoggedOut) {
-                Toast.makeText(this, "You are logged out", Toast.LENGTH_SHORT).show()
+        auth.addAuthStateListener { authState ->
+            if (authState.currentUser == null) {
+                Toast.makeText(this, "You are logged out.", Toast.LENGTH_SHORT).show()
                 moveToSignInActivity()
             }
-        })
+        }
     }
+
 
     /**
      * This method starts the [SignInActivity]
@@ -179,66 +192,9 @@ class HomeActivity : AppCompatActivity() {
      * This method sets up [LogInRegisterViewModel] & [WorkViewModel] for the [HomeActivity]
      */
     private fun setUpViewModel() {
-        val logInRegisterViewModelFactory = LogInRegisterViewModelProviderFactory(application)
-
-        logInRegisterViewModel = ViewModelProvider(this,
-                logInRegisterViewModelFactory).get(LogInRegisterViewModel::class.java)
-
-
-        firestoreViewModel = if (logInRegisterViewModel.getOfflineStatus()) {
-            ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
-        } else {
-            ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
-        }
-
+        firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
     }
 
-    /**
-     * Request Permission For Read Storage
-     * @param context
-     */
-    private fun requestPermissionForReadWrite(context: Context) {
-        ActivityCompat.requestPermissions(
-                context as Activity,
-                arrayOf(
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE
-                ), PERMISSION_READ_EXTERNAL_STORAGE
-        )
-    }
-
-
-    /**
-     * Request Permission if not given
-     * @param context [Context]
-     */
-    @RequiresApi(Build.VERSION_CODES.Q)
-    fun requestPermissionForAccessMediaLocation(context: Context) {
-        Log.i(TAG, "requestPermissionForAML")
-
-        ActivityCompat.requestPermissions(
-                context as Activity,
-                arrayOf(android.Manifest.permission.ACCESS_MEDIA_LOCATION),
-                MEDIA_LOCATION_PERMISSION_REQUEST_CODE
-        )
-
-    }
-
-    /**
-     * Check if Permission granted for Accessing Media Location
-     * @param context [Context]
-     * @return Boolean
-     */
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private fun isPermissionGrantedForMediaLocationAccess(context: Context): Boolean {
-        Log.i("Tag", "checkPermissionForAML")
-        val result: Int =
-                ContextCompat.checkSelfPermission(
-                        context,
-                        android.Manifest.permission.ACCESS_MEDIA_LOCATION
-                )
-        return result == PackageManager.PERMISSION_GRANTED
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -316,8 +272,6 @@ class HomeActivity : AppCompatActivity() {
 
 
     companion object {
-        private const val PERMISSION_READ_EXTERNAL_STORAGE = 5
-        private const val MEDIA_LOCATION_PERMISSION_REQUEST_CODE = 3
         private const val OPEN_FILE_REQUEST_CODE = 6
         private const val CREATE_FILE_REQUEST_CODE = 1
         private const val OPEN_FOLDER_REQUEST_CODE = 2
@@ -325,17 +279,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    private suspend fun writeFileContent(uri: Uri?) {
+    private fun writeFileContent(uri: Uri?) {
         try {
             val file = uri?.let { this.contentResolver.openFileDescriptor(it, "w") }
 
-
-
             file?.let {
-                val fileOutputStream = FileOutputStream(
-                        it.fileDescriptor
-                )
-
+                val fileOutputStream = FileOutputStream(it.fileDescriptor)
 
 //                //dfd
 //                val document = Document()
@@ -367,15 +316,14 @@ class HomeActivity : AppCompatActivity() {
 
                 fileOutputStream.write(string.toByteArray())
 
-
                 fileOutputStream.close()
                 it.close()
             }
 
         } catch (e: FileNotFoundException) {
-            //print logs
+            Log.e(TAG, "writeFileContent: File was not found", e)
         } catch (e: IOException) {
-            //print logs
+            Log.e(TAG, "writeFileContent: there was a io exception", e)
         }
 
     }
@@ -385,7 +333,10 @@ class HomeActivity : AppCompatActivity() {
 
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TITLE, "exported_data_${Calendar.getInstance().get(Calendar.YEAR)}.txt")
+
+        with(Calendar.getInstance()) {
+            intent.putExtra(Intent.EXTRA_TITLE, "ppayed_${auth.currentUser}_data_${this.get(Calendar.YEAR)}.txt")
+        }
 
         startActivityForResult(intent, CREATE_FILE_REQUEST_CODE).also {
             Bungee.slideLeft(this)

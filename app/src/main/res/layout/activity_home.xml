@@ -72,7 +72,9 @@
         android:layout_gravity="start"
         android:clipToPadding="false"
         android:fitsSystemWindows="true"
+        android:forceDarkAllowed="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_header_menu" />
+        app:menu="@menu/nav_menu" />
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
