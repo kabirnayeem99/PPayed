@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,21 +8,25 @@
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvOverViewProfile"
         android:layout_width="match_parent"
-        android:layout_height="0sp"
+        android:layout_height="wrap_content"
         android:layout_margin="20sp"
-        android:layout_marginBottom="12sp"
-        android:layout_weight="40"
-        android:padding="12sp">
+        android:padding="12sp"
+        app:cardCornerRadius="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ivUserProfileImage"
-                android:layout_width="200sp"
-                android:layout_height="200sp"
+                android:layout_width="150sp"
+                android:layout_height="150sp"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_profile"
                 app:layout_constraintBottom_toTopOf="@+id/tvUserDisplayName"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -33,6 +37,8 @@
                 android:id="@+id/tvUserDisplayName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/ivUserProfileImage"
+                android:layout_centerHorizontal="true"
                 android:layout_margin="6sp"
                 android:text="..."
                 android:textSize="18sp"
@@ -46,6 +52,8 @@
                 android:id="@+id/tvUserEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/tvUserDisplayName"
+                android:layout_centerHorizontal="true"
                 android:layout_margin="6sp"
                 android:layout_marginBottom="20sp"
                 android:text="..."
@@ -55,16 +63,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvUserDisplayName" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 
 
-    <ListView
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvSettingsListProfile"
         android:layout_width="match_parent"
-        android:layout_height="0sp"
-        android:layout_weight="60"
-        android:orientation="vertical"
-        tools:listitem="@layout/list_item_settings" />
+        android:layout_height="wrap_content"
+        android:layout_margin="20sp"
+        android:padding="12sp"
+        app:cardCornerRadius="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mcvOverViewProfile">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="60"
+            android:orientation="vertical"
+            tools:listitem="@layout/list_item_settings" />
+    </com.google.android.material.card.MaterialCardView>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
