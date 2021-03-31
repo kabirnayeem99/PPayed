@@ -146,12 +146,19 @@ class WorkDetailsActivity : AppCompatActivity() {
             null
         } else {
             work = Work(documentId = null, name = workName, day = day.toLong(), month = month.toLong(),
-                    year = year.toLong(), payment = payment.toLong(), studentName = studentName.toString())
+                    year = year.toLong(), payment = payment.toLong(), studentName = studentName)
 
 
+            /*
+             checks if there is any extra work from previous intent
+             or in other word, it checks if any work from the list
+             or fab icon was clicked, it it is an old work, it sets the document id of the previous work
+             or if it is a new work
 
+             it creates new document id by combining user id and time in milli second
+             */
             if (toBeUpdatedWork == null) {
-                work.documentId = auth.currentUser?.uid + Calendar.getInstance().timeInMillis.toString()
+                work.documentId = Calendar.getInstance().timeInMillis.toString() + auth.currentUser?.uid
             } else if (toBeUpdatedWork != null) {
                 toBeUpdatedWork?.let { workToBeUpdated ->
                     work.documentId = workToBeUpdated.documentId

@@ -10,10 +10,8 @@ import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.ui.FirestoreViewModel
 import kotlinx.android.synthetic.main.activity_files.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
@@ -54,6 +52,7 @@ class FilesActivity : AppCompatActivity() {
         startActivityForResult(intent, CREATE_FILE_REQUEST_CODE)
     }
 
+    @ExperimentalCoroutinesApi
     private suspend fun writeFileContent(uri: Uri?) {
         try {
             val file = uri?.let { this.contentResolver.openFileDescriptor(it, "w") }
@@ -77,7 +76,7 @@ class FilesActivity : AppCompatActivity() {
 
                 var string = "file"
 
-                val workList: List<Work> = firestoreViewModel.getWorkList().value!!
+                val workList: List<Work> = firestoreViewModel.workList.value!!
 
                 for (work in workList) {
 

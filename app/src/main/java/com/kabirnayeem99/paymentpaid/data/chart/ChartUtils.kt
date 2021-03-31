@@ -13,7 +13,7 @@ object ChartUtils {
      * @param paymentList of [Int] [List] and context of [Context]
      * @return [BarData]
      */
-    fun getBarData(paymentList: List<Int>, context: Context): BarData {
+    fun getBarData(paymentList: List<Long>, context: Context): BarData {
         var position = 0f
         val barEntries = ArrayList<BarEntry>()
         paymentList.forEach {
@@ -35,7 +35,7 @@ object ChartUtils {
      * @param paymentList of [Int] [List] and context of [Context]
      * @return [PieData]
      */
-    fun getPieData(paymentList: List<Int>, context: Context): PieData {
+    fun getPieData(paymentList: List<Long>, context: Context): PieData {
 
         val pieEntries = ArrayList<PieEntry>()
 

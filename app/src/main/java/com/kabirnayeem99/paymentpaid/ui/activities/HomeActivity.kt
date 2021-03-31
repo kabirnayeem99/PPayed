@@ -32,6 +32,7 @@ import com.kabirnayeem99.paymentpaid.ui.fragments.WorkFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import spencerstudios.com.bungeelib.Bungee
@@ -349,7 +350,7 @@ class HomeActivity : AppCompatActivity() {
 
                 if (this::firestoreViewModel.isInitialized) {
 
-                    workList = firestoreViewModel.getWorkList().value!!
+                    workList = firestoreViewModel.workList.value!!
                 }
                 if (workList.isNotEmpty()) {
                     for (work in workList) {

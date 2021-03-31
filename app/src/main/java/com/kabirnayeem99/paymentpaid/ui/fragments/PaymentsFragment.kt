@@ -32,8 +32,8 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
 
     private fun manipulateData() {
 
-        Log.d(tag, "manipulateData: the manipulationg data started")
-        firestoreViewModel.getAllPaymentsByMont().observe(viewLifecycleOwner,
+        Log.d(tag, "manipulateData: the manipulating data started")
+        firestoreViewModel.paymentList.observe(viewLifecycleOwner,
                 { paymentList ->
                     Log.d(tag, "manipulateData: $paymentList")
                     paymentList?.let {
@@ -41,7 +41,7 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
                     }
                 })
 
-        firestoreViewModel.getTotalPaymentByYear().observe(viewLifecycleOwner,
+        firestoreViewModel.paymentOfCurrentYear.observe(viewLifecycleOwner,
                 { totalPayment ->
                     totalPayment?.let {
                         tvTotalPayment.text = totalPayment.toString()

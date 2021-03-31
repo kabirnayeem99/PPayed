@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,7 @@ import com.kabirnayeem99.paymentpaid.ui.FirestoreViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import com.kabirnayeem99.paymentpaid.ui.activities.WorkDetailsActivity
 import kotlinx.android.synthetic.main.fragment_works.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlin.properties.Delegates
 
 
@@ -92,10 +94,11 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
     }
 
 
+    @ExperimentalCoroutinesApi
     private fun initRecyclerView() {
         workAdapter = WorkAdapter()
 
-        firestoreViewModel.getWorkList().observe(viewLifecycleOwner, { workList ->
+        firestoreViewModel.workList.observe(viewLifecycleOwner, { workList ->
             when (workList == null) {
                 true -> showLoading()
                 false -> {

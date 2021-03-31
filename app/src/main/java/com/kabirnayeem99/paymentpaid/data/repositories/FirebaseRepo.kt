@@ -1,11 +1,17 @@
 package com.kabirnayeem99.paymentpaid.data.repositories
 
+import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
+import com.kabirnayeem99.paymentpaid.data.db.entities.Work.Companion.toWork
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
 class FirebaseRepo {
     private val TAG = "FirebaseRepo"
@@ -43,8 +49,36 @@ class FirebaseRepo {
      * inherited from {@code Query}).
      */
     fun getWorksList(): CollectionReference {
+        Log.d(TAG, "getWorksList: the collection reference is ${db.collection("users/${user.uid}/work_list")}")
         return db.collection("users/${user.uid}/work_list")
+
+//        return callbackFlow {
+//            val listenerRegistration = db.collection("users/${user.uid}/work_list")
+//                    .addSnapshotListener { querySnapshot: QuerySnapshot?, exception: FirebaseFirestoreException? ->
+//                        if (exception == null) {
+//                            cancel(message = "Error fetching works", cause = exception)
+//                            return@addSnapshotListener
+//                        }
+//
+//                        val map = querySnapshot?.documents?.mapNotNull {
+//                            it.toWork()
+//                        }
+//                        offer(map)
+//
+//                    }
+//            awaitClose {
+//                Log.d(TAG, "Cancelling posts listener")
+//                listenerRegistration.remove()
+//            }
+//        }
     }
+
+
+    fun getPaymentListByMonth(): Query {
+
+        return db.collection("public_messages").whereEqualTo("month", 3);
+    }
+
 
     /**
      * Delete work from firebase firestore
@@ -64,4 +98,6 @@ class FirebaseRepo {
 
         return docRef?.delete()
     }
+
+
 }

@@ -33,7 +33,7 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
 
     private fun initGraph() {
 
-        firestoreViewModel.getAllPaymentsByMont().observe(viewLifecycleOwner, { paymentList ->
+        firestoreViewModel.paymentList.observe(viewLifecycleOwner, { paymentList ->
             when (paymentList == null) {
                 true -> showLoading()
                 false -> {
@@ -44,7 +44,7 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
         })
     }
 
-    private fun implementDataSeries(paymentList: List<Int>) {
+    private fun implementDataSeries(paymentList: List<Long>) {
 
         CoroutineScope(Dispatchers.IO).launch {
 
