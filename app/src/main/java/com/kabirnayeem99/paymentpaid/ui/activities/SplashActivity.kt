@@ -3,6 +3,7 @@ package com.kabirnayeem99.paymentpaid.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
 import java.util.*
 
@@ -16,7 +17,14 @@ class SplashActivity : AppCompatActivity() {
         timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
-                startActivity(Intent(applicationContext, SignInActivity::class.java))
+
+                FirebaseAuth.getInstance().addAuthStateListener {
+                    if (it.currentUser != null) {
+                        startActivity(Intent(applicationContext, HomeActivity::class.java))
+                    } else {
+                        startActivity(Intent(applicationContext, SignInActivity::class.java))
+                    }
+                }
             }
         }, 900)
     }
@@ -27,6 +35,8 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        timer.cancel()
+        timer.cancel().also {
+            this.finish()
+        }
     }
 }

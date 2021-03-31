@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModel
 import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModelProviderFactory
@@ -15,54 +16,34 @@ const val TAG = "SignInActivity"
 
 class SignInActivity : AppCompatActivity() {
 
-    private lateinit var logInRegisterViewModel: LogInRegisterViewModel
+    val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
-        setUpViewModel()
+        setUpAuthListener()
         showLogInRegisterForm()
         setUpRegistrationListener()
         setUpLoginListener()
         setUpNoLoginListener()
     }
 
-    override fun overridePendingTransition(enterAnim: Int, exitAnim: Int) {
-        super.overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit)
-    }
-
-    /**
-     * This method sets up [LogInRegisterViewModel] for the [SignInActivity]
-     */
-    private fun setUpViewModel() {
-        val logInRegisterViewModelFactory = LogInRegisterViewModelProviderFactory(application)
-
-        logInRegisterViewModel = ViewModelProvider(this,
-                logInRegisterViewModelFactory).get(LogInRegisterViewModel::class.java)
-
-        logInRegisterViewModel.getUserLiveData().observe(this, { firebaseUser ->
-            if (firebaseUser != null) {
-                pbSigningIn.visibility = View.GONE
-                Toast.makeText(this,
-                        "You are signed in with ${firebaseUser.email}",
-                        Toast.LENGTH_LONG).show()
+    private fun setUpAuthListener() {
+        auth.addAuthStateListener { authState ->
+            if (authState.currentUser != null) {
                 moveToMainActivity()
             }
-        })
+        }
+    }
 
+    override fun overridePendingTransition(enterAnim: Int, exitAnim: Int) {
+        super.overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit)
     }
 
 
     private fun setUpNoLoginListener() {
         btnWithoutLogin.setOnClickListener {
-            logInRegisterViewModel.noLogin().also {
-                moveToMainActivity().also {
-                    Toast.makeText(this,
-                            "You signed in without any online syncing support.",
-                            Toast.LENGTH_LONG).show()
-
-                }
-            }
+            auth.signInAnonymously()
         }
     }
 
@@ -75,7 +56,7 @@ class SignInActivity : AppCompatActivity() {
             val email: String = etEmailAddress.text.toString()
             val password: String = etPassword.text.toString()
             try {
-                logInRegisterViewModel.login(email, password)
+                auth.signInWithEmailAndPassword(email, password)
             } catch (e: Exception) {
                 pbSigningIn.visibility = View.GONE.also {
                     Toast.makeText(this, "Can't Login. ${e.message}",
@@ -96,7 +77,7 @@ class SignInActivity : AppCompatActivity() {
             val email: String = etEmailAddress.text.toString()
             val password: String = etPassword.text.toString()
             try {
-                logInRegisterViewModel.register(email, password)
+                auth.createUserWithEmailAndPassword(email, password)
             } catch (e: Exception) {
                 Toast.makeText(this, "Can't Register. ${e.message}",
                         Toast.LENGTH_SHORT).show()
