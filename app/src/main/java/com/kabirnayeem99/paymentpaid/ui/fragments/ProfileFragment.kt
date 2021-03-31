@@ -11,6 +11,11 @@ import java.util.*
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val auth = FirebaseAuth.getInstance()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setData()
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun setData() {
         if (auth.currentUser != null) {
             with(auth.currentUser!!) {
                 if (this.displayName?.isNotEmpty() == true) {
@@ -24,7 +29,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 tvUserEmail.text = this.email
             }
         }
-        super.onViewCreated(view, savedInstanceState)
     }
 
 }
