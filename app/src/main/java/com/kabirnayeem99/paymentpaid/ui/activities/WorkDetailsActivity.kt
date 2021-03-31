@@ -6,15 +6,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
-import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
-import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository
-import com.kabirnayeem99.paymentpaid.enums.AccountStatus
-import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModel
-import com.kabirnayeem99.paymentpaid.ui.LogInRegisterViewModelProviderFactory
-import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
-import com.kabirnayeem99.paymentpaid.ui.WorkViewModelProviderFactory
+import com.kabirnayeem99.paymentpaid.ui.*
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 import kotlinx.android.synthetic.main.activity_add_new_work.*
 
@@ -24,10 +20,11 @@ import kotlinx.android.synthetic.main.activity_add_new_work.*
  * This [WorkDetailsActivity] extends [AppCompatActivity]
  */
 class WorkDetailsActivity : AppCompatActivity() {
-    private lateinit var workViewModel: WorkViewModel
+    private lateinit var firestoreViewModel: FirestoreViewModel
     private lateinit var work: Work
 
     private var toBeUpdatedWork: Work? = null
+    val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +41,7 @@ class WorkDetailsActivity : AppCompatActivity() {
      */
     private fun setUpUpdateWorkEditing() {
         toBeUpdatedWork = getWorkFromIntent()
-        toBeUpdatedWork?.id?.let { fillTheFieldIfExistingWork(toBeUpdatedWork!!) }
+        toBeUpdatedWork?.documentId?.let { fillTheFieldIfExistingWork(toBeUpdatedWork!!) }
     }
 
     /**
@@ -66,8 +63,8 @@ class WorkDetailsActivity : AppCompatActivity() {
     private fun fillTheFieldIfExistingWork(workBeingProcessed: Work) {
         tilWorkName.editText?.setText(workBeingProcessed.name)
         tilStudentName.editText?.setText(workBeingProcessed.studentName)
-        tilPayment.editText?.setText(workBeingProcessed.payment)
-        dpDate.updateDate(workBeingProcessed.year, workBeingProcessed.month, workBeingProcessed.day)
+        tilPayment.editText?.setText(workBeingProcessed.payment.toString())
+        dpDate.updateDate(workBeingProcessed.year.toInt(), workBeingProcessed.month.toInt(), workBeingProcessed.day.toInt())
     }
 
     /**
@@ -80,10 +77,10 @@ class WorkDetailsActivity : AppCompatActivity() {
     override fun onBackPressed() {
 
         createOrUpdateWork()?.let { work ->
-            if (toBeUpdatedWork?.id != null) {
-                workViewModel.update(work)
+            if (toBeUpdatedWork?.documentId != null) {
+                val success = firestoreViewModel.saveWork(work)
             } else {
-                workViewModel.insert(work)
+                firestoreViewModel.saveWork(work)
             }
             Toast.makeText(this, "Your work was saved.", Toast.LENGTH_SHORT).show()
         }
@@ -107,22 +104,11 @@ class WorkDetailsActivity : AppCompatActivity() {
 
         when (logInRegisterViewModel.getOfflineStatus()) {
             true -> {
-                val workRepository = WorkRepository(WorkDatabase(this@WorkDetailsActivity), AccountStatus.OFFLINE)
 
-                val workViewModelProviderFactory = WorkViewModelProviderFactory(workRepository)
-
-                workViewModel = ViewModelProvider(
-                        this, workViewModelProviderFactory
-                ).get(WorkViewModel::class.java)
+                firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
             }
             false -> {
-                val workRepository = WorkRepository(WorkDatabase(this@WorkDetailsActivity), AccountStatus.ONLINE)
-
-                val workViewModelProviderFactory = WorkViewModelProviderFactory(workRepository)
-
-                workViewModel = ViewModelProvider(
-                        this, workViewModelProviderFactory
-                ).get(WorkViewModel::class.java)
+                firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
             }
         }
 
@@ -158,10 +144,13 @@ class WorkDetailsActivity : AppCompatActivity() {
                 || paymentAmount.trim().isEmpty()) {
             null
         } else {
-            work = Work(workName, day, month, year, paymentAmount, studentName)
+            work = Work(documentId = auth.currentUser.uid + "3495", name = workName, day = day.toLong(), month = month.toLong(),
+                    year = year.toLong(), payment = paymentAmount.toLong(), studentName = studentName.toString())
+
+
 
             toBeUpdatedWork?.let { workToBeUpdated ->
-                work.id = workToBeUpdated.id
+                work.documentId = workToBeUpdated.documentId
             }
 
             work

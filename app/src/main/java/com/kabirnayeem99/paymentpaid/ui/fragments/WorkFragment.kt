@@ -15,14 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.gkemon.XMLtoPDF.PdfGenerator
-import com.gkemon.XMLtoPDF.PdfGeneratorListener
-import com.gkemon.XMLtoPDF.model.FailureResponse
-import com.gkemon.XMLtoPDF.model.SuccessResponse
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter
 import com.kabirnayeem99.paymentpaid.ui.FirestoreViewModel
-import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import com.kabirnayeem99.paymentpaid.ui.activities.WorkDetailsActivity
 import kotlinx.android.synthetic.main.fragment_works.*
@@ -44,7 +39,6 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
         addNewWorkListener()
         updateWorkListener()
 
-        generatePdf(view)
     }
 
 
@@ -62,42 +56,6 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
 
             }
             result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED
-        }
-    }
-
-
-    private fun generatePdf(view: View) {
-        if (checkPermission()) {
-            Log.d(TAG, "generatePdf: generating pdf started")
-            PdfGenerator.getBuilder()
-                    .setContext(requireActivity())
-                    .fromViewSource()
-                    .fromView(view)
-                    .setPageSize(PdfGenerator.PageSize.A4)
-                    .setFileName("Test-PDF")
-                    .setFolderName("Test-PDF-folder")
-                    .openPDFafterGeneration(true)
-                    .build(object : PdfGeneratorListener() {
-                        override fun onFailure(failureResponse: FailureResponse) {
-                            super.onFailure(failureResponse)
-                        }
-
-                        override fun showLog(log: String) {
-                            super.showLog(log)
-                        }
-
-                        override fun onStartPDFGeneration() {
-                            /*When PDF generation begins to start*/
-                        }
-
-                        override fun onFinishPDFGeneration() {
-                            /*When PDF generation is finished*/
-                        }
-
-                        override fun onSuccess(response: SuccessResponse) {
-                            super.onSuccess(response)
-                        }
-                    })
         }
     }
 

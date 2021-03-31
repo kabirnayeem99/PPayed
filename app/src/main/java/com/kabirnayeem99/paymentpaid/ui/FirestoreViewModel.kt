@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.gson.Gson
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
+import com.kabirnayeem99.paymentpaid.data.db.entities.Work.Companion.toWork
 import com.kabirnayeem99.paymentpaid.data.repositories.FirebaseRepo
 
 class FirestoreViewModel : ViewModel() {
@@ -16,8 +18,10 @@ class FirestoreViewModel : ViewModel() {
     private val workList = MutableLiveData<List<Work>>()
 
     fun saveWork(work: Work) {
-        repo.saveWork(work).addOnFailureListener { e ->
+        repo.saveWork(work)?.addOnFailureListener { e ->
             Log.e(TAG, "saveWork: Failed to save work. \n $e")
+        }?.addOnSuccessListener {
+            Log.d(TAG, "saveWork: successfully work saved \n")
         }
     }
 
@@ -31,8 +35,13 @@ class FirestoreViewModel : ViewModel() {
             val tempWorkList = mutableListOf<Work>()
 
             for (doc in value!!) {
-                val work = doc.toObject(Work::class.java)
-                tempWorkList.add(work)
+                Log.d(TAG, "getWorkList: the document is $doc\n")
+//                val work = Gson().fromJson(doc.data.toString(), Work::class.java)
+                val work = doc.toWork()
+                if (work != null) {
+                    Log.d(TAG, "getWorkList: the generated work is $work")
+                    tempWorkList.add(work)
+                }
             }
 
             workList.value = tempWorkList
@@ -43,8 +52,16 @@ class FirestoreViewModel : ViewModel() {
     }
 
     fun delete(work: Work) {
-        repo.deleteWork(work).addOnFailureListener { e ->
+        repo.deleteWork(work)?.addOnFailureListener { e ->
             Log.e(TAG, "delete: failed to delete work", e)
         }
+    }
+
+    fun getAllPaymentsByMont(): LiveData<List<Int>> {
+        return MutableLiveData<List<Int>>()
+    }
+
+    fun getTotalPaymentByYear(): LiveData<Int> {
+        return MutableLiveData<Int>()
     }
 }

@@ -20,14 +20,20 @@ class FirebaseRepo {
      * @return [Task], which can be successful, complete
      * and so on.
      */
-    fun saveWork(work: Work): Task<Void> {
+    fun saveWork(work: Work): Task<Void>? {
 
-        val docRef = db.collection("users")
-                .document(user.uid)
-                .collection("work_list")
-                .document(work.documentId)
+        val docRef = work.documentId?.let {
+            db.collection("users")
+                    .document(user.uid)
+                    .collection("work_list")
+                    .document(it)
+        }
 
-        return docRef.set(work)
+        if (docRef != null) {
+            return docRef.set(work)
+        }
+
+        return null
     }
 
     /**
@@ -48,12 +54,14 @@ class FirebaseRepo {
      * @return [Task], which can be successful, complete
      * and so on.
      */
-    fun deleteWork(work: Work): Task<Void> {
-        val docRef = db.collection("users")
-                .document(user.uid)
-                .collection("work_list")
-                .document(work.documentId)
+    fun deleteWork(work: Work): Task<Void>? {
+        val docRef = work.documentId?.let {
+            db.collection("users")
+                    .document(user.uid)
+                    .collection("work_list")
+                    .document(it)
+        }
 
-        return docRef.delete()
+        return docRef?.delete()
     }
 }

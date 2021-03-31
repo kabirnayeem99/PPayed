@@ -5,17 +5,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.kabirnayeem99.paymentpaid.R
-import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
-import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository
-import com.kabirnayeem99.paymentpaid.enums.AccountStatus
-import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
-import com.kabirnayeem99.paymentpaid.ui.WorkViewModelProviderFactory
+import com.kabirnayeem99.paymentpaid.data.db.entities.Work
+import com.kabirnayeem99.paymentpaid.ui.FirestoreViewModel
 import kotlinx.android.synthetic.main.activity_files.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.FileNotFoundException
@@ -24,7 +20,7 @@ import java.io.IOException
 
 class FilesActivity : AppCompatActivity() {
 
-    private lateinit var workViewModel: WorkViewModel
+    private lateinit var firestoreViewModel: FirestoreViewModel
 
     companion object {
         private const val CREATE_FILE_REQUEST_CODE = 1
@@ -43,10 +39,7 @@ class FilesActivity : AppCompatActivity() {
     }
 
     private fun setUpViewModel() {
-        val workRepository = WorkRepository(WorkDatabase(this), AccountStatus.OFFLINE)
-        val workViewModelProviderFactory = WorkViewModelProviderFactory(workRepository)
-        workViewModel = ViewModelProvider(this,
-                workViewModelProviderFactory).get(WorkViewModel::class.java)
+        firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
     }
 
 
@@ -84,7 +77,7 @@ class FilesActivity : AppCompatActivity() {
 
                 var string = "file"
 
-                val workList = workViewModel.getAllWorksSync().first()
+                val workList: List<Work> = firestoreViewModel.getWorkList().value!!
 
                 for (work in workList) {
 

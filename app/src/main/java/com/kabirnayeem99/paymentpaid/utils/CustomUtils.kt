@@ -19,7 +19,7 @@ object CustomUtils {
      * @param month which is an [Int]
      * @return month which is a [String]
      */
-    fun padMonth(month: Int): String {
+    fun padMonth(month: Long): String {
         val output = StringBuilder(month.toString())
         if (output.length < 2) {
             output.insert(0, "0")

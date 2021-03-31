@@ -59,9 +59,7 @@ dependencies {
 
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
-    // Room
-    implementation 'androidx.room:room-ktx:2.2.6'
-    kapt "androidx.room:room-compiler:2.2.6"
+
 
     // Material About Library (https://github.com/daniel-stoneuk/material-about-library)
     implementation 'com.github.daniel-stoneuk:material-about-library:3.1.2'
@@ -85,9 +83,6 @@ dependencies {
     // Bungee (https://github.com/Binary-Finery/Bungee)
     implementation 'com.github.Binary-Finery:Bungee:3.0'
 
-
-    // XML to PDF Generator For Android (https://github.com/Gkemon/Android-XML-to-PDF-Generator)
-    implementation 'com.github.Gkemon:XML-to-PDF-generator:2.3'
 
     // Itext
     implementation 'com.itextpdf:itextpdf:5.5.13'

@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.chart.ChartUtils
-import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
+import com.kabirnayeem99.paymentpaid.ui.FirestoreViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import kotlinx.android.synthetic.main.fragment_analytics.*
 import kotlinx.coroutines.CoroutineScope
@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 
 class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
 
-    private lateinit var workViewModel: WorkViewModel
+    private lateinit var firestoreViewModel: FirestoreViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,12 +28,12 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
      * Sets up the [WorkViewModel] for this [WorkFragment]
      */
     private fun setUpViewModel() {
-        workViewModel = (activity as HomeActivity).workViewModel
+        firestoreViewModel = (activity as HomeActivity).firestoreViewModel
     }
 
     private fun initGraph() {
 
-        workViewModel.getTotalPaymentsByMonth().observe(viewLifecycleOwner, { paymentList ->
+        firestoreViewModel.getAllPaymentsByMont().observe(viewLifecycleOwner, { paymentList ->
             when (paymentList == null) {
                 true -> showLoading()
                 false -> {

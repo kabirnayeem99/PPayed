@@ -23,10 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.kabirnayeem99.paymentpaid.R
-import com.kabirnayeem99.paymentpaid.data.db.WorkDatabase
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
-import com.kabirnayeem99.paymentpaid.data.repositories.WorkRepository
-import com.kabirnayeem99.paymentpaid.enums.AccountStatus
 import com.kabirnayeem99.paymentpaid.ui.*
 import com.kabirnayeem99.paymentpaid.ui.fragments.AboutFragment
 import com.kabirnayeem99.paymentpaid.ui.fragments.AnalyticsFragment
@@ -35,7 +32,6 @@ import com.kabirnayeem99.paymentpaid.ui.fragments.WorkFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import spencerstudios.com.bungeelib.Bungee
@@ -57,7 +53,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var analyticsFragment: AnalyticsFragment
     private lateinit var paymentsFragment: PaymentsFragment
     private lateinit var aboutFragment: AboutFragment
-    lateinit var workViewModel: WorkViewModel
     lateinit var firestoreViewModel: FirestoreViewModel
     private lateinit var logInRegisterViewModel: LogInRegisterViewModel
 
@@ -183,26 +178,16 @@ class HomeActivity : AppCompatActivity() {
      * This method sets up [LogInRegisterViewModel] & [WorkViewModel] for the [HomeActivity]
      */
     private fun setUpViewModel() {
-        lateinit var accountStatus: AccountStatus
-
-
         val logInRegisterViewModelFactory = LogInRegisterViewModelProviderFactory(application)
 
         logInRegisterViewModel = ViewModelProvider(this,
                 logInRegisterViewModelFactory).get(LogInRegisterViewModel::class.java)
 
 
-        if (logInRegisterViewModel.getOfflineStatus()) {
-            accountStatus = AccountStatus.OFFLINE
-            val workRepository = WorkRepository(WorkDatabase(this), accountStatus)
-            val workViewModelProviderFactory = WorkViewModelProviderFactory(workRepository)
-            firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
+        firestoreViewModel = if (logInRegisterViewModel.getOfflineStatus()) {
+            ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
         } else {
-
-            accountStatus = AccountStatus.ONLINE
-            val workRepository = WorkRepository(WorkDatabase(this), accountStatus)
-            val workViewModelProviderFactory = WorkViewModelProviderFactory(workRepository)
-            firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
+            ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
         }
 
     }
@@ -362,9 +347,9 @@ class HomeActivity : AppCompatActivity() {
                 var string = ""
                 var workList: List<Work> = listOf()
 
-                if (this::workViewModel.isInitialized) {
+                if (this::firestoreViewModel.isInitialized) {
 
-                    workList = workViewModel.getAllWorksSync().first()
+                    workList = firestoreViewModel.getWorkList().value!!
                 }
                 if (workList.isNotEmpty()) {
                     for (work in workList) {

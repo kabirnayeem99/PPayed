@@ -25,7 +25,7 @@ class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
      */
     private var differCallBack: DiffUtil.ItemCallback<Work> = object : DiffUtil.ItemCallback<Work>() {
         override fun areItemsTheSame(oldItem: Work, newItem: Work): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.documentId == newItem.documentId
         }
 
         override fun areContentsTheSame(oldItem: Work, newItem: Work): Boolean {
@@ -57,7 +57,7 @@ class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
         val workListItemTitle = work.name
         val workListItemDate = "${work.day}-${CustomUtils.padMonth(work.month)}-${work.year}"
         val workListItemStudentName = work.studentName
-        val workListItemPayment: String = work.payment
+        val workListItemPayment: String = work.payment.toString()
 
         holder.itemView.apply {
             tvWorkNameListItemWork.text = workListItemTitle

@@ -70,19 +70,19 @@ class SignInActivity : AppCompatActivity() {
 
         btnLogIn.setOnClickListener {
 
-//            pbSigningIn.visibility = View.VISIBLE
-//
-//            val email: String = etEmailAddress.text.toString()
-//            val password: String = etPassword.text.toString()
-//            try {
-//                logInRegisterViewModel.login(email, password)
-//            } catch (e: Exception) {
-//                pbSigningIn.visibility = View.GONE.also {
-//                    Toast.makeText(this, "Can't Login. ${e.message}",
-//                            Toast.LENGTH_SHORT).show()
-//                }
-//
-//            }
+            pbSigningIn.visibility = View.VISIBLE
+
+            val email: String = etEmailAddress.text.toString()
+            val password: String = etPassword.text.toString()
+            try {
+                logInRegisterViewModel.login(email, password)
+            } catch (e: Exception) {
+                pbSigningIn.visibility = View.GONE.also {
+                    Toast.makeText(this, "Can't Login. ${e.message}",
+                            Toast.LENGTH_SHORT).show()
+                }
+
+            }
         }
     }
 

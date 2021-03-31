@@ -7,23 +7,22 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.adapters.PaymentAdapter
-import com.kabirnayeem99.paymentpaid.ui.WorkViewModel
+import com.kabirnayeem99.paymentpaid.ui.FirestoreViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import kotlinx.android.synthetic.main.fragment_payments.*
-import kotlinx.android.synthetic.main.fragment_payments.view.*
 
 class PaymentsFragment : Fragment(R.layout.fragment_payments) {
 
 
     private lateinit var paymentAdapter: PaymentAdapter
-    private lateinit var workViewModel: WorkViewModel
+    private lateinit var firestoreViewModel: FirestoreViewModel
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
 
-        workViewModel = (activity as HomeActivity).workViewModel
+        firestoreViewModel = (activity as HomeActivity).firestoreViewModel
 
         initRecyclerView()
 
@@ -34,7 +33,7 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
     private fun manipulateData() {
 
         Log.d(tag, "manipulateData: the manipulationg data started")
-        workViewModel.getTotalPaymentsByMonth().observe(viewLifecycleOwner,
+        firestoreViewModel.getAllPaymentsByMont().observe(viewLifecycleOwner,
                 { paymentList ->
                     Log.d(tag, "manipulateData: $paymentList")
                     paymentList?.let {
@@ -42,7 +41,7 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
                     }
                 })
 
-        workViewModel.getTotalPaymentByYear().observe(viewLifecycleOwner,
+        firestoreViewModel.getTotalPaymentByYear().observe(viewLifecycleOwner,
                 { totalPayment ->
                     totalPayment?.let {
                         tvTotalPayment.text = totalPayment.toString()

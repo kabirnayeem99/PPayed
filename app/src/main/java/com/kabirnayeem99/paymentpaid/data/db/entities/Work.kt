@@ -15,14 +15,15 @@ import java.lang.Exception
  */
 @Parcelize
 data class Work(
-        val documentId: String,
-        val name: String,
-        val day: Long,
-        val month: Long,
-        val year: Long,
-        val payment: Long,
-        val studentName: String
+        var documentId: String?,
+        var name: String,
+        var day: Long,
+        var month: Long,
+        var year: Long,
+        var payment: Long,
+        var studentName: String
 ) : Parcelable {
+
 
     companion object {
         private const val TAG = "Work"
@@ -33,7 +34,7 @@ data class Work(
                 val month = getLong("month")!!
                 val year = getLong("year")!!
                 val payment = getLong("payment")!!
-                val studentName = getString("student_name")!!
+                val studentName = getString("studentName")!!
 
                 return Work(id, name, day, month, year, payment, studentName)
             } catch (e: Exception) {
