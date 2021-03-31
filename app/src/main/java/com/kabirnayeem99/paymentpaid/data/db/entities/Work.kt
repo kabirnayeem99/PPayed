@@ -47,5 +47,9 @@ data class Work(
                 return null
             }
         }
+
+        fun createWork(){
+
+        }
     }
 }

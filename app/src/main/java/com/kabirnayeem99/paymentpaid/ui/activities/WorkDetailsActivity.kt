@@ -13,6 +13,7 @@ import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.ui.*
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 import kotlinx.android.synthetic.main.activity_add_new_work.*
+import java.util.*
 
 
 /**
@@ -24,7 +25,7 @@ class WorkDetailsActivity : AppCompatActivity() {
     private lateinit var work: Work
 
     private var toBeUpdatedWork: Work? = null
-    val auth = FirebaseAuth.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +52,7 @@ class WorkDetailsActivity : AppCompatActivity() {
         val intent: Intent = intent
 
         val bundle = intent.extras
-        return bundle?.getSerializable("work") as? Work
+        return bundle?.getParcelable("work") as? Work
 
     }
 
@@ -78,7 +79,7 @@ class WorkDetailsActivity : AppCompatActivity() {
 
         createOrUpdateWork()?.let { work ->
             if (toBeUpdatedWork?.documentId != null) {
-                val success = firestoreViewModel.saveWork(work)
+                firestoreViewModel.saveWork(work)
             } else {
                 firestoreViewModel.saveWork(work)
             }
@@ -102,13 +103,13 @@ class WorkDetailsActivity : AppCompatActivity() {
         logInRegisterViewModel = ViewModelProvider(this,
                 logInRegisterViewModelFactory).get(LogInRegisterViewModel::class.java)
 
-        when (logInRegisterViewModel.getOfflineStatus()) {
+        firestoreViewModel = when (logInRegisterViewModel.getOfflineStatus()) {
             true -> {
 
-                firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
+                ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
             }
             false -> {
-                firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
+                ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
             }
         }
 
@@ -122,7 +123,7 @@ class WorkDetailsActivity : AppCompatActivity() {
     private fun createOrUpdateWork(): Work? {
         val workName: String = tilWorkName.editText?.text.toString()
         val studentName: String = tilStudentName.editText?.text.toString()
-        val paymentAmount: String = tilPayment.editText?.text.toString()
+        val payment: String = tilPayment.editText?.text.toString()
 
         var month = CustomUtils.currentMonth
         var year = CustomUtils.currentYear
@@ -141,17 +142,22 @@ class WorkDetailsActivity : AppCompatActivity() {
          */
         return if (workName.trim().isEmpty()
                 || studentName.trim().isEmpty()
-                || paymentAmount.trim().isEmpty()) {
+                || payment.trim().isEmpty()) {
             null
         } else {
-            work = Work(documentId = auth.currentUser.uid + "3495", name = workName, day = day.toLong(), month = month.toLong(),
-                    year = year.toLong(), payment = paymentAmount.toLong(), studentName = studentName.toString())
+            work = Work(documentId = null, name = workName, day = day.toLong(), month = month.toLong(),
+                    year = year.toLong(), payment = payment.toLong(), studentName = studentName.toString())
 
 
 
-            toBeUpdatedWork?.let { workToBeUpdated ->
-                work.documentId = workToBeUpdated.documentId
+            if (toBeUpdatedWork == null) {
+                work.documentId = auth.currentUser?.uid + Calendar.getInstance().timeInMillis.toString()
+            } else if (toBeUpdatedWork != null) {
+                toBeUpdatedWork?.let { workToBeUpdated ->
+                    work.documentId = workToBeUpdated.documentId
+                }
             }
+
 
             work
         }
