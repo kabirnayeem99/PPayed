@@ -20,12 +20,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val auth = FirebaseAuth.getInstance()
     private val user: FirebaseUser? = auth.currentUser
 
-    val settingsItemListLiveData: MutableLiveData<List<ProfileSettingsItem>> = MutableLiveData()
+    private val settingsItemListLiveData: MutableLiveData<List<ProfileSettingsItem>> = MutableLiveData()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setData()
         setUpRecyclerView()
+        ivUserProfileImage.setOnClickListener(View.OnClickListener {
+            fragmentManager?.let { it1 -> SettingsModifyingFragment().newInstance("T").show(it1, "") }
+        })
     }
 
     private fun setUpRecyclerView() {
