@@ -13,6 +13,9 @@ import kotlinx.android.synthetic.main.fragment_payments.*
 
 class PaymentsFragment : Fragment(R.layout.fragment_payments) {
 
+    companion object {
+        const val TAG = "PaymentsFragment"
+    }
 
     private lateinit var paymentAdapter: PaymentAdapter
     private lateinit var firestoreViewModel: FirestoreViewModel

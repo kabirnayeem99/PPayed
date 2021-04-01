@@ -13,7 +13,7 @@ const val TAG = "SignInActivity"
 
 class SignInActivity : AppCompatActivity() {
 
-    val auth = FirebaseAuth.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +46,10 @@ class SignInActivity : AppCompatActivity() {
 
     private fun setUpLoginListener() {
 
-        btnLogIn.setOnClickListener {
+        btnLogIn.setOnClickListener { btn ->
 
             pbSigningIn.visibility = View.VISIBLE
+            btn.isEnabled = false
 
             val email: String = etEmailAddress.text.toString()
             val password: String = etPassword.text.toString()
@@ -58,6 +59,7 @@ class SignInActivity : AppCompatActivity() {
                 pbSigningIn.visibility = View.GONE.also {
                     Toast.makeText(this, "Can't Login. ${e.message}",
                             Toast.LENGTH_SHORT).show()
+                    btn.isEnabled = true
                 }
 
             }
@@ -70,6 +72,7 @@ class SignInActivity : AppCompatActivity() {
      */
     private fun setUpRegistrationListener() {
         btnRegister.setOnClickListener {
+            it.isEnabled = false
             pbSigningIn.visibility = View.VISIBLE
             val email: String = etEmailAddress.text.toString()
             val password: String = etPassword.text.toString()
@@ -79,6 +82,7 @@ class SignInActivity : AppCompatActivity() {
                 Toast.makeText(this, "Can't Register. ${e.message}",
                         Toast.LENGTH_SHORT).show()
                 pbSigningIn.visibility = View.GONE
+                it.isEnabled = true
             }
         }
     }

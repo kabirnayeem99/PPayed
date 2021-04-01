@@ -31,7 +31,7 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
     private lateinit var firestoreViewModel: FirestoreViewModel
 
     companion object {
-        private const val TAG = "WorkFragment"
+        public const val TAG = "WorkFragment"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

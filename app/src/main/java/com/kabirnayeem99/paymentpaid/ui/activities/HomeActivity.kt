@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.ui.*
@@ -107,19 +106,19 @@ class HomeActivity : AppCompatActivity() {
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.workNavMenu -> {
-                    makeCurrentFragment(workFragment)
+                    makeCurrentFragment(workFragment, WorkFragment.TAG)
                 }
                 R.id.paymentNavMenu -> {
-                    makeCurrentFragment(paymentsFragment)
+                    makeCurrentFragment(paymentsFragment, PaymentsFragment.TAG)
                 }
                 R.id.analyticsNavMenu -> {
-                    makeCurrentFragment(analyticsFragment)
+                    makeCurrentFragment(analyticsFragment, AnalyticsFragment.TAG)
                 }
                 R.id.aboutNavMenu -> {
-                    makeCurrentFragment(aboutFragment)
+                    makeCurrentFragment(aboutFragment, AboutFragment.TAG)
                 }
                 R.id.userProfileNavMenu -> {
-                    makeCurrentFragment(profileFragment)
+                    makeCurrentFragment(profileFragment, ProfileFragment.TAG)
                 }
 
                 R.id.logOutMenu -> {
@@ -134,13 +133,13 @@ class HomeActivity : AppCompatActivity() {
      * This method will show the current fragment on screen
      * @param fragment of [Fragment] type
      */
-    private fun makeCurrentFragment(fragment: Fragment) {
+    private fun makeCurrentFragment(fragment: Fragment, tag: String) {
         closeDrawer()
         supportFragmentManager
                 .beginTransaction()
                 // adds animation from https://github.com/yendangn/Fragment-Transaction-Animation
                 .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
-                .replace(R.id.flFragmentPlaceholder, fragment)
+                .replace(R.id.flFragmentPlaceholder, fragment, tag)
                 .commit()
     }
 
@@ -176,6 +175,14 @@ class HomeActivity : AppCompatActivity() {
                 moveToSignInActivity()
             }
         }
+    }
+
+
+    override fun onBackPressed() {
+        val homeIntent = Intent(Intent.ACTION_MAIN)
+        homeIntent.addCategory(Intent.CATEGORY_HOME)
+        homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(homeIntent)
     }
 
 

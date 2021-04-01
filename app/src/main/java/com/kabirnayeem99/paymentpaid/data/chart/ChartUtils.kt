@@ -1,12 +1,16 @@
 package com.kabirnayeem99.paymentpaid.data.chart
 
 import android.content.Context
+import android.util.Log
 import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.data.*
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 
 object ChartUtils {
+    private const val TAG = "ChartUtils"
+
+    private val colorTemplate = CustomUtils.getColorsFromTemplate()
 
     /**
      * This method will create a BarData object based on the payment list
@@ -16,15 +20,22 @@ object ChartUtils {
     fun getBarData(paymentList: List<Long>, context: Context): BarData {
         var position = 0f
         val barEntries = ArrayList<BarEntry>()
-        paymentList.forEach {
-            barEntries.add(BarEntry(position, it.toFloat()))
+
+        for ((index, payment) in paymentList.withIndex()) {
+            if (payment == 0L) {
+                barEntries.add(BarEntry(index.toFloat(), 0f))
+            } else {
+                barEntries.add(BarEntry(index.toFloat(), payment.toFloat()))
+            }
+            barEntries.add(BarEntry(index.toFloat(), payment.toFloat()))
             position += 1f
         }
-        val barDataSet = BarDataSet(barEntries, "Payments")
 
-        barDataSet.valueTextColor = ContextCompat.getColor(context, R.color.material_grey)
-        barDataSet.color = ContextCompat.getColor(context, R.color.material_dark_green_dark)
-        barDataSet.colors = CustomUtils.getColorsFromTemplate()
+        val barDataSet = BarDataSet(barEntries, "Payments in Bar Template")
+
+        barDataSet.valueTextColor = ContextCompat.getColor(context, R.color.material_black)
+        barDataSet.color = ContextCompat.getColor(context, R.color.material_black)
+        barDataSet.colors = colorTemplate
 
         return BarData(barDataSet)
     }
@@ -42,15 +53,15 @@ object ChartUtils {
         var position = 0f
         paymentList.forEach {
             if (it > 0) {
-                pieEntries.add(PieEntry(it.toFloat(),
-                        CustomUtils.getCurrentMonthName(position.toInt())))
+                pieEntries.add(PieEntry(it.toFloat(), CustomUtils.getCurrentMonthName(position.toInt())))
             }
             position += 1f
         }
-        val pieDataSet = PieDataSet(pieEntries, "payments")
-        pieDataSet.valueTextColor = ContextCompat.getColor(context, R.color.material_grey)
-        pieDataSet.color = ContextCompat.getColor(context, R.color.material_dark_green_dark)
-        pieDataSet.colors = CustomUtils.getColorsFromTemplate()
+
+        val pieDataSet = PieDataSet(pieEntries, "Payments Comparison in Pie By month")
+        pieDataSet.valueTextColor = ContextCompat.getColor(context, R.color.material_black)
+        pieDataSet.color = ContextCompat.getColor(context, R.color.material_black)
+        pieDataSet.colors = colorTemplate
 
         return PieData(pieDataSet)
     }

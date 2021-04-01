@@ -17,6 +17,10 @@ import com.kabirnayeem99.paymentpaid.R
  * Extends [MaterialAboutFragment]
  */
 class AboutFragment : MaterialAboutFragment() {
+    companion object {
+        const val TAG = "AboutFragment"
+    }
+
     override fun getMaterialAboutList(activityContext: Context): MaterialAboutList {
         val context = requireContext()
 

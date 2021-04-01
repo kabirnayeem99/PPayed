@@ -20,6 +20,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val auth = FirebaseAuth.getInstance()
     private val user: FirebaseUser? = auth.currentUser
 
+    companion object {
+        const val TAG = "ProfileFragment"
+    }
+
     private val settingsItemListLiveData: MutableLiveData<List<ProfileSettingsItem>> = MutableLiveData()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
