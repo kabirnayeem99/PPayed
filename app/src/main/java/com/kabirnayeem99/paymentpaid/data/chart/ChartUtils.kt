@@ -8,7 +8,6 @@ import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.utils.CustomUtils
 
 object ChartUtils {
-    private const val TAG = "ChartUtils"
 
     private val colorTemplate = CustomUtils.getColorsFromTemplate()
 

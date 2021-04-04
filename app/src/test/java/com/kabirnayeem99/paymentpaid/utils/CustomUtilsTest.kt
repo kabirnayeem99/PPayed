@@ -1,9 +1,7 @@
 package com.kabirnayeem99.paymentpaid.utils
 
-import android.util.Log
 import junit.framework.TestCase
 import org.junit.Test
-import java.text.DecimalFormat
 
 class CustomUtilsTest : TestCase() {
 

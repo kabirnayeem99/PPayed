@@ -90,7 +90,7 @@ dependencies {
     implementation 'com.itextpdf:itextpdf:5.5.13'
 
     // Truth
-//    testImplementation "com.google.truth:truth:1.1.2"
+    testImplementation "com.google.truth:truth:1.1.2"
 
 
 }
