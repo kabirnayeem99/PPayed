@@ -38,18 +38,9 @@ data class Work(
 
                 return Work(id, name, day, month, year, payment, studentName)
             } catch (e: Exception) {
-
                 Log.e(TAG, "toWork: error converting work $e")
-                //todo: implement crash analytics later
-//                FirebaseCrashlytics.getInstance().log("Error converting user profile")
-//                FirebaseCrashlytics.getInstance().setCustomKey("userId", id)
-//                FirebaseCrashlytics.getInstance().recordException(e)
                 return null
             }
-        }
-
-        fun createWork(){
-
         }
     }
 }

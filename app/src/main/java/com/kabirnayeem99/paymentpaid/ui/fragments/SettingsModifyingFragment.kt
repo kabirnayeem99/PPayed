@@ -1,8 +1,5 @@
 package com.kabirnayeem99.paymentpaid.ui.fragments
 
-import android.app.AlertDialog
-import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +7,18 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatDialogFragment
-import androidx.fragment.app.DialogFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.UserInfo
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.kabirnayeem99.paymentpaid.R
+import kotlinx.android.synthetic.main.activity_files.*
+import kotlinx.android.synthetic.main.fragment_settings_modifying.*
 
 
 class SettingsModifyingFragment : AppCompatDialogFragment() {
-    private lateinit var mEditText: EditText
+    private lateinit var etText: EditText
+    val auth = FirebaseAuth.getInstance()
 
 //    fun SettingsModifyingFragment() {
 //        // Empty constructor is required for DialogFragment
@@ -37,16 +40,28 @@ class SettingsModifyingFragment : AppCompatDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mEditText = view.findViewById(R.id.etSettingsModifyingfragment) as EditText
+        etText = view.findViewById(R.id.etSettingsModifyingfragment) as EditText
         // Fetch arguments from bundle and set title
         // Fetch arguments from bundle and set title
         val title = requireArguments().getString("title", "Change the settings.")
         dialog!!.setTitle(title)
         // Show soft keyboard automatically and request focus to field
         // Show soft keyboard automatically and request focus to field
-        mEditText.requestFocus()
+        etText.requestFocus()
         dialog!!.window!!.setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+
+        btnSaveProfileDialog.setOnClickListener {
+//            val providerData: MutableList<out UserInfo> = auth.currentUser.providerData
+//            auth.currentUser.updatePhoneNumber(PhoneAuthCredential.zzb("", "01872184679"))
+//            val profileUpdates = UserProfileChangeRequest.Builder()
+//                    .setDisplayName(this.displayName).build()
+            this.dismiss()
+        }
+
+        btnCancelProfileDialog.setOnClickListener {
+            this.dismiss()
+        }
     }
 
 

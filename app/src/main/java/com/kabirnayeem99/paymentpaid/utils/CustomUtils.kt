@@ -11,8 +11,6 @@ import java.util.*
  */
 object CustomUtils {
 
-    private const val TAG = "Utils"
-
     /**
      * This method adds a 0 before the month, if the month
      * is a single digit number, such as 08, 04
@@ -24,7 +22,6 @@ object CustomUtils {
         if (output.length < 2) {
             output.insert(0, "0")
         }
-        Log.d(TAG, "padMonth: $output")
         return output.toString()
     }
 
@@ -35,15 +32,15 @@ object CustomUtils {
      * @return formattedMoney [String], such as 20,000
      */
     fun formatMoney(unformattedMoney: String): String {
-        var formattedMoney: String = unformattedMoney
-        formattedMoney = if (formattedMoney.length <= 3) {
-            return String.format("৳%s", formattedMoney)
+        val formattedMoney: String = unformattedMoney
+        return if (formattedMoney.length <= 3) {
+            String.format("৳%s", formattedMoney)
         } else {
             val amount = formattedMoney.toDouble()
             val formatter = DecimalFormat("#,###")
-            formatter.format(amount)
+            val amountString = formatter.format(amount)
+            String.format("৳%s", amountString)
         }
-        return String.format("৳%s", formattedMoney)
     }
 
 
@@ -53,9 +50,12 @@ object CustomUtils {
     /***
      * @param position
      * gets a month position
+     * the index starts from 0
+     * so, something like OCTOBER is 9
      * returns a month name
      */
     fun getCurrentMonthName(position: Int): String {
+        // the months are as index
         val month = Month.values()
         return month[position].toString()
     }

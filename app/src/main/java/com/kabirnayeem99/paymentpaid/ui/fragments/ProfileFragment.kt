@@ -30,9 +30,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         setData()
         setUpRecyclerView()
-        ivUserProfileImage.setOnClickListener(View.OnClickListener {
-            fragmentManager?.let { it1 -> SettingsModifyingFragment().newInstance("T").show(it1, "") }
-        })
+        ivUserProfileImage.setOnClickListener {
+            activity?.supportFragmentManager.let { fragment ->
+                if (fragment != null) {
+                    SettingsModifyingFragment().newInstance("Change DisplayName").show(fragment, ProfileFragment.TAG)
+                }
+            }
+        }
     }
 
     private fun setUpRecyclerView() {
@@ -56,7 +60,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             with(user) {
                 lateinit var settingsName: ProfileSettingsItem
 
-                if (this.displayName?.isNotEmpty() == true) {
+                if (displayName != null && displayName?.isNotEmpty() == true) {
                     settingsName = ProfileSettingsItem(1, "Name", displayName)
                 } else {
                     with(StringTokenizer(email, "@")) {
@@ -77,7 +81,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     ProfileSettingsItem(3, "Phone Number", "N/A")
                 }
 
-                val settingsEmail: ProfileSettingsItem = if (this.phoneNumber != null && this.phoneNumber?.isNotEmpty() == true) {
+                val settingsEmail: ProfileSettingsItem = if (this.email != null && this.email?.isNotEmpty() == true) {
                     ProfileSettingsItem(4, "Email", email!!)
                 } else {
                     ProfileSettingsItem(4, "Email", "N/A")
