@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kabirnayeem99.paymentpaid.R
-import com.kabirnayeem99.paymentpaid.utils.CustomUtils
+import com.kabirnayeem99.paymentpaid.other.Utils
 import kotlinx.android.synthetic.main.list_item_payment.view.*
 
 class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
@@ -38,8 +38,8 @@ class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
 
         holder.itemView.apply {
             if (position < 12)
-                tvPaymentMonthListItemPayment.text = CustomUtils.getCurrentMonthName(position)
-            tvPaymentAmountListItemPayment.text = CustomUtils.formatMoney(differ.currentList[position].toString())
+                tvPaymentMonthListItemPayment.text = Utils.getCurrentMonthName(position)
+            tvPaymentAmountListItemPayment.text = Utils.formatMoney(differ.currentList[position].toString())
         }
 
     }

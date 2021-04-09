@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
-import com.kabirnayeem99.paymentpaid.utils.CustomUtils
+import com.kabirnayeem99.paymentpaid.other.Utils
 import kotlinx.android.synthetic.main.list_item_work.view.*
 
 /**
@@ -55,7 +55,7 @@ class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
         val work = differ.currentList[position]
 
         val workListItemTitle = work.name
-        val workListItemDate = "${work.day}-${CustomUtils.padMonth(work.month)}-${work.year}"
+        val workListItemDate = "${work.day}-${Utils.padMonth(work.month)}-${work.year}"
         val workListItemStudentName = work.studentName
         val workListItemPayment: String = work.payment.toString()
 

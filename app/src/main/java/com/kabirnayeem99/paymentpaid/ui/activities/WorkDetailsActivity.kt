@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.ui.*
-import com.kabirnayeem99.paymentpaid.utils.CustomUtils
+import com.kabirnayeem99.paymentpaid.other.Utils
 import kotlinx.android.synthetic.main.activity_add_new_work.*
 import java.util.*
 
@@ -119,9 +119,9 @@ class WorkDetailsActivity : AppCompatActivity() {
         val studentName: String = tilStudentName.editText?.text.toString()
         val payment: String = tilPayment.editText?.text.toString()
 
-        var month = CustomUtils.currentMonth
-        var year = CustomUtils.currentYear
-        var day = CustomUtils.currentDay
+        var month = Utils.currentMonth
+        var year = Utils.currentYear
+        var day = Utils.currentDay
 
         dpDate?.let { dpDate ->
             month = dpDate.month + 1

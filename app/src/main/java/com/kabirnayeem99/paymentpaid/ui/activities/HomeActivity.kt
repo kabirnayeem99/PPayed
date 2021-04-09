@@ -50,7 +50,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var profileFragment: ProfileFragment
     private lateinit var aboutFragment: AboutFragment
     lateinit var firestoreViewModel: FirestoreViewModel
-    val auth = FirebaseAuth.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +72,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * This method instantiate all the fragments required.
+     */
     private fun initFragments() {
         workFragment = WorkFragment()
         paymentsFragment = PaymentsFragment()
@@ -80,18 +83,16 @@ class HomeActivity : AppCompatActivity() {
         profileFragment = ProfileFragment()
     }
 
-    private fun closeDrawer() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        }
+    /**
+     * With the start of the activity, it first sets the current
+     * fragment to the [WorkFragment]
+     */
+    private fun setUpFragmentNavigation() {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.flFragmentPlaceholder, WorkFragment())
+                .commit()
     }
-
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_export, menu)
-        return true
-    }
-
 
     /**
      * This method sets up the DrawerLayout for the home activity
@@ -130,8 +131,46 @@ class HomeActivity : AppCompatActivity() {
     }
 
     /**
+     * This simple method sets up [FirestoreViewModel]
+     */
+    private fun setUpViewModel() {
+        firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
+    }
+
+
+    /**
+     * This method instantly moves user to the sign in activity once he is logged out
+     *  in some way.
+     */
+    private fun setUpLoggedOutListener() {
+        auth.addAuthStateListener { authState ->
+            if (authState.currentUser == null) {
+                Toast.makeText(this, "You are logged out.", Toast.LENGTH_SHORT).show()
+                moveToSignInActivity()
+            }
+        }
+    }
+
+    /**
+     * This method closes the drawer if the drawer is open
+     */
+    private fun closeDrawer() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_export, menu)
+        return true
+    }
+
+
+    /**
      * This method will show the current fragment on screen
      * @param fragment of [Fragment] type
+     * @param tag of [String] type, which can be something like [WorkFragment.TAG]
      */
     private fun makeCurrentFragment(fragment: Fragment, tag: String) {
         closeDrawer()
@@ -148,12 +187,6 @@ class HomeActivity : AppCompatActivity() {
         super.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
-    private fun setUpFragmentNavigation() {
-        supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.flFragmentPlaceholder, WorkFragment())
-                .commit()
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
@@ -168,16 +201,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    private fun setUpLoggedOutListener() {
-        auth.addAuthStateListener { authState ->
-            if (authState.currentUser == null) {
-                Toast.makeText(this, "You are logged out.", Toast.LENGTH_SHORT).show()
-                moveToSignInActivity()
-            }
-        }
-    }
-
-
+    /**
+     * Pressing back button in the home activity will move user to the home
+     * launcher, not in the sign in or splash screen activity.
+     */
     override fun onBackPressed() {
         val homeIntent = Intent(Intent.ACTION_MAIN)
         homeIntent.addCategory(Intent.CATEGORY_HOME)
@@ -187,19 +214,12 @@ class HomeActivity : AppCompatActivity() {
 
 
     /**
-     * This method starts the [SignInActivity]
+     * This method moves user back to the [SignInActivity]
      */
     private fun moveToSignInActivity() {
         val intent = Intent(this, SignInActivity::class.java)
         startActivity(intent)
         this.finish()
-    }
-
-    /**
-     * This method sets up [LogInRegisterViewModel] & [WorkViewModel] for the [HomeActivity]
-     */
-    private fun setUpViewModel() {
-        firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
     }
 
 
@@ -278,14 +298,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    companion object {
-        private const val OPEN_FILE_REQUEST_CODE = 6
-        private const val CREATE_FILE_REQUEST_CODE = 1
-        private const val OPEN_FOLDER_REQUEST_CODE = 2
-        private const val CHOOSE_FILE = 4
-    }
-
-
     private fun writeFileContent(uri: Uri?) {
         try {
             val file = uri?.let { this.contentResolver.openFileDescriptor(it, "w") }
@@ -311,7 +323,7 @@ class HomeActivity : AppCompatActivity() {
                 if (workList.isNotEmpty()) {
                     for (work in workList) {
 
-                        val tempStr = "________________________________________________\n" +
+                        val tempStr = "__________________________________________\n" +
                                 "Work name: ${work.name}\n" +
                                 "Student name: ${work.studentName}\n" +
                                 "Payment: ${work.payment}\n" +
@@ -322,19 +334,22 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 fileOutputStream.write(string.toByteArray())
-
                 fileOutputStream.close()
                 it.close()
             }
 
         } catch (e: FileNotFoundException) {
-            Log.e(TAG, "writeFileContent: File was not found", e)
+            Toast.makeText(this, "File was not found", Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
-            Log.e(TAG, "writeFileContent: there was a io exception", e)
+            Toast.makeText(this, "File could not be saved.", Toast.LENGTH_SHORT).show()
         }
 
     }
 
+
+    /**
+     * This private method creates a [text/plain] file.
+     */
     private fun createFile() {
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
 
@@ -349,5 +364,13 @@ class HomeActivity : AppCompatActivity() {
             Bungee.slideLeft(this)
         }
     }
+
+    companion object {
+        private const val OPEN_FILE_REQUEST_CODE = 6
+        private const val CREATE_FILE_REQUEST_CODE = 1
+        private const val OPEN_FOLDER_REQUEST_CODE = 2
+        private const val CHOOSE_FILE = 4
+    }
+
 
 }

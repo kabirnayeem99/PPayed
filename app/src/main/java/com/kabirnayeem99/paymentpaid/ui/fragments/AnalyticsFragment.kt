@@ -2,7 +2,6 @@ package com.kabirnayeem99.paymentpaid.ui.fragments
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.renderscript.Type
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -11,7 +10,7 @@ import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.chart.ChartUtils
 import com.kabirnayeem99.paymentpaid.ui.FirestoreViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
-import com.kabirnayeem99.paymentpaid.utils.CustomUtils
+import com.kabirnayeem99.paymentpaid.other.Utils
 import kotlinx.android.synthetic.main.fragment_analytics.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -77,7 +76,7 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
                 }
 
                 val currentMonth = Calendar.getInstance().get(Calendar.MONTH)
-                val centerText = "${currentMonth}\n${CustomUtils.getCurrentMonthName(currentMonth)}"
+                val centerText = "${currentMonth}\n${Utils.getCurrentMonthName(currentMonth)}"
                 pieChart.let { pc ->
                     pc.data = pieData
                     pc.description = description

@@ -7,7 +7,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work.Companion.toWork
 import com.kabirnayeem99.paymentpaid.data.repositories.FirebaseRepo
-import com.kabirnayeem99.paymentpaid.utils.CustomUtils
+import com.kabirnayeem99.paymentpaid.other.Utils
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
@@ -156,7 +156,7 @@ class FirestoreViewModel : ViewModel() {
             var tempTotalPaymentOfCurrentYear: Long = 0
 
             for (doc in value!!) {
-                if (doc.get("year").toString().toInt() == CustomUtils.currentYear) {
+                if (doc.get("year").toString().toInt() == Utils.currentYear) {
                     tempTotalPaymentOfCurrentYear += doc.get("payment").toString().toLong()
                 }
             }

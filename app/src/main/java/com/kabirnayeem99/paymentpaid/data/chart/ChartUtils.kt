@@ -1,15 +1,14 @@
 package com.kabirnayeem99.paymentpaid.data.chart
 
 import android.content.Context
-import android.util.Log
 import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.data.*
 import com.kabirnayeem99.paymentpaid.R
-import com.kabirnayeem99.paymentpaid.utils.CustomUtils
+import com.kabirnayeem99.paymentpaid.other.Utils
 
 object ChartUtils {
 
-    private val colorTemplate = CustomUtils.getColorsFromTemplate()
+    private val colorTemplate = Utils.getColorsFromTemplate()
 
     /**
      * This method will create a BarData object based on the payment list
@@ -52,7 +51,7 @@ object ChartUtils {
         var position = 0f
         paymentList.forEach {
             if (it > 0) {
-                pieEntries.add(PieEntry(it.toFloat(), CustomUtils.getCurrentMonthName(position.toInt())))
+                pieEntries.add(PieEntry(it.toFloat(), Utils.getCurrentMonthName(position.toInt())))
             }
             position += 1f
         }
