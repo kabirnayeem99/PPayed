@@ -5,14 +5,7 @@
 <h3 align="center">FOSS Payment Manager Android Application</h3>
 
 <p align="center">
-  <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">
-    <img src="https://github.com/kabirnayeem99/PPayed/workflows/Build%20Status/badge.svg">
-  </a>
 
-  <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">
-    <img src="https://github.com/kabirnayeem99/PPayed/workflows/CodeQL/badge.svg">
-    
-  </a>
 </p>
 
 ### About the project
