@@ -8,8 +8,6 @@ import com.kabirnayeem99.paymentpaid.getOrAwaitValueForTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 
 class FirestoreViewModelTest {
 
@@ -34,6 +32,17 @@ class FirestoreViewModelTest {
     }
 
 
+    @Test
+    fun testDeleteWork() {
+        val viewModel = FirestoreViewModel(FakeRepo())
+        val work1 = Work("1", "work name", 1, 1, 2021, 200, "student name")
+        val work2 = Work("2", "work name", 1, 1, 2021, 200, "student name")
+        viewModel.saveWork(work1)
+        viewModel.saveWork(work2)
+        viewModel.delete(work1)
+        val list = viewModel.workList.getOrAwaitValueForTest()
+        assertThat(list).doesNotContain(work1)
+    }
 
 
 }
