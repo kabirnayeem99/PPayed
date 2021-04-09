@@ -16,11 +16,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
+import com.kabirnayeem99.paymentpaid.data.repositories.FirebaseRepo
 import com.kabirnayeem99.paymentpaid.ui.*
 import com.kabirnayeem99.paymentpaid.ui.fragments.*
 import kotlinx.android.synthetic.main.activity_home.*
@@ -49,7 +51,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var paymentsFragment: PaymentsFragment
     private lateinit var profileFragment: ProfileFragment
     private lateinit var aboutFragment: AboutFragment
-    lateinit var firestoreViewModel: FirestoreViewModel
+
+    //    lateinit var firestoreViewModel: FirestoreViewModel
     private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +62,7 @@ class HomeActivity : AppCompatActivity() {
         initFragments()
         setUpFragmentNavigation()
         setUpNavigationDrawer()
-        setUpViewModel()
+//        setUpViewModel()
         setUpLoggedOutListener()
         val navigationView = findViewById<View>(R.id.navView) as NavigationView
         val hView: View = navigationView.getHeaderView(0)
@@ -133,9 +136,20 @@ class HomeActivity : AppCompatActivity() {
     /**
      * This simple method sets up [FirestoreViewModel]
      */
-    private fun setUpViewModel() {
-        firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
+    val firestoreViewModel: FirestoreViewModel by lazy {
+        val activity = requireNotNull(this) {
+            "You can only access the viewModel after onActivityCreated()"
+        }
+
+        val repo = FirebaseRepo()
+        val factory = FirestoreViewModelProviderFactory(repo)
+        ViewModelProviders.of(activity, factory)
+                .get(FirestoreViewModel::class.java)
     }
+
+//    private fun setUpViewModel() {
+//        firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
+//    }
 
 
     /**
@@ -316,10 +330,8 @@ class HomeActivity : AppCompatActivity() {
                 var string = ""
                 var workList: List<Work> = listOf()
 
-                if (this::firestoreViewModel.isInitialized) {
 
-                    workList = firestoreViewModel.workList.value!!
-                }
+                workList = firestoreViewModel.workList.value!!
                 if (workList.isNotEmpty()) {
                     for (work in workList) {
 
