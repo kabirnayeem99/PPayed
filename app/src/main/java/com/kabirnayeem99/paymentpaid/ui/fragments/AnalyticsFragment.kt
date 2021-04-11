@@ -44,7 +44,7 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
 
     private fun initGraph() {
 
-        firestoreViewModel.paymentList.observe(viewLifecycleOwner, { paymentList ->
+        firestoreViewModel.paymentListByMonth.observe(viewLifecycleOwner, { paymentList ->
             when (paymentList == null || paymentList.isEmpty()) {
                 true -> showLoading()
                 false -> {

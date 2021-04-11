@@ -36,7 +36,7 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
     private fun manipulateData() {
 
         Log.d(tag, "manipulateData: the manipulating data started")
-        firestoreViewModel.paymentList.observe(viewLifecycleOwner,
+        firestoreViewModel.paymentListByMonth.observe(viewLifecycleOwner,
                 { paymentList ->
                     Log.d(tag, "manipulateData: $paymentList")
                     paymentList?.let {

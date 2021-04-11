@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
 
@@ -11,10 +11,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-
-      # Make Gradle Executable
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
 
       # Execute unit tests
       - name: Unit Test
