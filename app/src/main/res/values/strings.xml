@@ -42,5 +42,7 @@
     <string name="hint_user_image">User image</string>
     <string name="label_nav_item_logout">Log out</string>
     <string name="label_nav_item_profile">Profile</string>
+    <string name="menu_label_export">Export</string>
+    <string name="menu_label_search_works">Search Works</string>
 
 </resources>

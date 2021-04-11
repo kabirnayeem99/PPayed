@@ -1,8 +1,11 @@
 package com.kabirnayeem99.paymentpaid.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,12 +13,13 @@ import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.other.Utils
 import kotlinx.android.synthetic.main.list_item_work.view.*
+import java.util.*
 
 /**
  * The <h1>WorkRecyclerView</h1> needs this [WorkAdapter]
  * to populate the views in each row with the [Work] data.
  */
-class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
+class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>(), Filterable {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -86,5 +90,46 @@ class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
         onItemClickListener = listener
     }
 
-    companion object
+
+    override fun getFilter(): Filter {
+        return filter
+    }
+
+    private var filter: Filter = object : Filter() {
+        /*
+         Invoked in a worker thread to filter the data according
+         to the constraint. Results computed by the filtering
+         operation are returned as a Filter
+        */
+        override fun performFiltering(searchEntry: CharSequence?): FilterResults {
+            val filteredWorks: MutableList<Work> = mutableListOf()
+
+
+            if (searchEntry == null || searchEntry.isEmpty() || searchEntry.length <= 1) {
+                filteredWorks.addAll(differ.currentList)
+                Log.d(TAG, "performFiltering: $filteredWorks")
+            } else {
+                val searchEntryPattern = searchEntry.toString().toLowerCase(Locale.getDefault()).trim()
+                for (work in differ.currentList) {
+                    if (work.name.toLowerCase(Locale.ROOT)
+                                    .contains(searchEntryPattern) || work.studentName.toLowerCase(Locale.getDefault())
+                                    .contains(searchEntryPattern)
+                    ) {
+                        filteredWorks.add(work)
+                    }
+                }
+            }
+            val filterResults = FilterResults()
+            filterResults.values = filteredWorks
+            return filterResults
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            differ.submitList(results?.values as List<Work>)
+        }
+    }
+
+    companion object {
+        private const val TAG = "WorkAdapter"
+    }
 }

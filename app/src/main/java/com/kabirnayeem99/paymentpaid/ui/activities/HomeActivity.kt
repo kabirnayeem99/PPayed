@@ -5,10 +5,10 @@ import android.content.Intent
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -16,17 +16,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
+import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.data.repositories.FirebaseRepo
 import com.kabirnayeem99.paymentpaid.ui.*
 import com.kabirnayeem99.paymentpaid.ui.fragments.*
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.nav_header.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -176,7 +175,8 @@ class HomeActivity : AppCompatActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_export, menu)
+        menuInflater.inflate(R.menu.menu_appbar, menu)
+//        setUpSearchListener(menu)
         return true
     }
 
@@ -208,6 +208,8 @@ class HomeActivity : AppCompatActivity() {
             createFile()
             return true
         }
+
+
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true
         }
@@ -376,6 +378,35 @@ class HomeActivity : AppCompatActivity() {
             Bungee.slideLeft(this)
         }
     }
+
+
+//    /**
+//     * This function listens to the change in search field aciton view
+//     * and passes it to place adapter
+//     */
+//    private fun setUpSearchListener(menu: Menu?) {
+//        val searchItem = menu!!.findItem(R.id.menuSearch)
+//        val searchView = searchItem.actionView as androidx.appcompat.widget.SearchView
+//        searchView.queryHint = "Search your works...";
+//
+//        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                workFragment.workAdapter.filter.filter(query)
+//                Toast.makeText(this@HomeActivity, "Searching for $query", Toast.LENGTH_SHORT).show()
+//                return true
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                if (newText?.length!! > 3) {
+//                    Toast.makeText(this@HomeActivity, "Searching for $newText", Toast.LENGTH_SHORT).show()
+//                    workFragment.workAdapter.filter.filter(newText)
+//                }
+//
+//                return true
+//            }
+//        })
+//
+//    }
 
     companion object {
         private const val OPEN_FILE_REQUEST_CODE = 6

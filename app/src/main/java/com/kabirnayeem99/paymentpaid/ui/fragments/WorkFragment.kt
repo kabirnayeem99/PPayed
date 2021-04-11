@@ -8,11 +8,13 @@ import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,12 +28,13 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlin.properties.Delegates
 
 
+@ExperimentalCoroutinesApi
 class WorkFragment : Fragment(R.layout.fragment_works) {
-    private lateinit var workAdapter: WorkAdapter
+    var workAdapter: WorkAdapter = WorkAdapter()
     private lateinit var firestoreViewModel: FirestoreViewModel
 
     companion object {
-        public const val TAG = "WorkFragment"
+        const val TAG = "WorkFragment"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,10 +64,11 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
         }
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
-    /**
-     * Sets up the [WorkViewModel] for this [WorkFragment]
-     */
     private fun setUpViewModel() {
         firestoreViewModel = (activity as HomeActivity).firestoreViewModel
     }
@@ -96,10 +100,20 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
 
     @ExperimentalCoroutinesApi
     private fun initRecyclerView() {
-        workAdapter = WorkAdapter()
 
+        loadDataIntoRv()
+        rvWorkListWorks.apply {
+            adapter = workAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
+
+        val itemTouchHelper = ItemTouchHelper(setUpSwipeToDelete())
+        itemTouchHelper.attachToRecyclerView(rvWorkListWorks)
+    }
+
+    private fun loadDataIntoRv() {
         firestoreViewModel.workList.observe(viewLifecycleOwner, { workList ->
-            when (workList == null) {
+            when (workList == null || workList.isEmpty()) {
                 true -> showLoading()
                 false -> {
                     hideLoading()
@@ -108,14 +122,6 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
             }
         })
 
-        rvWorkListWorks.apply {
-            adapter = workAdapter
-            layoutManager = LinearLayoutManager(activity)
-//            itemAnimator = SlideInLeftAnimator()
-        }
-
-        val itemTouchHelper = ItemTouchHelper(setUpSwipeToDelete())
-        itemTouchHelper.attachToRecyclerView(rvWorkListWorks)
     }
 
     private fun showLoading() {
@@ -146,5 +152,29 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_appbar, menu)
+        val item = menu.findItem(R.id.menuSearch)
+        val searchView = item.actionView as SearchView
+        searchView.queryHint = "Search your works..."
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        item.actionView = searchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrEmpty()) {
+                    workAdapter.filter.filter("")
+                    initRecyclerView()
+                } else {
+                    workAdapter.filter.filter(newText)
+                }
+                return true
+            }
+
+        })
+    }
 
 }
