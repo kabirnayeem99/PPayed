@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PaymentPaid"
         tools:replace="android:label">
+
         <activity
             android:name=".ui.activities.SplashActivity"
             android:noHistory="true"

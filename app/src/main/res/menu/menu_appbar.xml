@@ -2,13 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/menuSearch"
-        android:enabled="true"
-        android:icon="@drawable/ic_search"
-        android:title="@string/menu_label_search_works"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="collapseActionView|ifRoom" />
 
     <item
         android:id="@+id/menuExport"

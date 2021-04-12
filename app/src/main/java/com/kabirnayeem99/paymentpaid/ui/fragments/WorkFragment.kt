@@ -8,9 +8,9 @@ import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.adapters.WorkAdapter
+import com.kabirnayeem99.paymentpaid.data.db.entities.Work
 import com.kabirnayeem99.paymentpaid.ui.FirestoreViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import com.kabirnayeem99.paymentpaid.ui.activities.WorkDetailsActivity
@@ -100,8 +101,12 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
 
     @ExperimentalCoroutinesApi
     private fun initRecyclerView() {
-
-        loadDataIntoRv()
+        firestoreViewModel.workList.observe(viewLifecycleOwner, { workList ->
+            if (workList.isNullOrEmpty()) {
+                showLoading()
+            }
+            workAdapter.differ.submitList(workList).also { hideLoading() }
+        })
         rvWorkListWorks.apply {
             adapter = workAdapter
             layoutManager = LinearLayoutManager(activity)
@@ -111,18 +116,6 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
         itemTouchHelper.attachToRecyclerView(rvWorkListWorks)
     }
 
-    private fun loadDataIntoRv() {
-        firestoreViewModel.workList.observe(viewLifecycleOwner, { workList ->
-            when (workList == null || workList.isEmpty()) {
-                true -> showLoading()
-                false -> {
-                    hideLoading()
-                    workAdapter.differ.submitList(workList)
-                }
-            }
-        })
-
-    }
 
     private fun showLoading() {
         progressBarWork.visibility = View.VISIBLE
@@ -150,31 +143,6 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
             }
 
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_appbar, menu)
-        val item = menu.findItem(R.id.menuSearch)
-        val searchView = item.actionView as SearchView
-        searchView.queryHint = "Search your works..."
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
-        item.actionView = searchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText.isNullOrEmpty()) {
-                    workAdapter.filter.filter("")
-                    initRecyclerView()
-                } else {
-                    workAdapter.filter.filter(newText)
-                }
-                return true
-            }
-
-        })
     }
 
 }

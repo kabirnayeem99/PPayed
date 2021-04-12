@@ -19,7 +19,7 @@ import java.util.*
  * The <h1>WorkRecyclerView</h1> needs this [WorkAdapter]
  * to populate the views in each row with the [Work] data.
  */
-class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>(), Filterable {
+class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -27,7 +27,7 @@ class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>(), Filterable {
     Callback for calculating the differences between
     the newly created list and the already existed list.
      */
-    private var differCallBack: DiffUtil.ItemCallback<Work> = object : DiffUtil.ItemCallback<Work>() {
+    private var differCallBack = object : DiffUtil.ItemCallback<Work>() {
         override fun areItemsTheSame(oldItem: Work, newItem: Work): Boolean {
             return oldItem.documentId == newItem.documentId
         }
@@ -42,7 +42,7 @@ class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>(), Filterable {
     Helper for computing the difference between
     two lists via DiffUtil on a background thread.
      */
-    var differ = AsyncListDiffer(this, differCallBack)
+    val differ = AsyncListDiffer(this, differCallBack)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkAdapter.ViewHolder {
         return ViewHolder(
@@ -88,45 +88,6 @@ class WorkAdapter : RecyclerView.Adapter<WorkAdapter.ViewHolder>(), Filterable {
      */
     fun setOnItemClickListener(listener: (Work) -> Unit) {
         onItemClickListener = listener
-    }
-
-
-    override fun getFilter(): Filter {
-        return filter
-    }
-
-    private var filter: Filter = object : Filter() {
-        /*
-         Invoked in a worker thread to filter the data according
-         to the constraint. Results computed by the filtering
-         operation are returned as a Filter
-        */
-        override fun performFiltering(searchEntry: CharSequence?): FilterResults {
-            val filteredWorks: MutableList<Work> = mutableListOf()
-
-
-            if (searchEntry == null || searchEntry.isEmpty() || searchEntry.length <= 1) {
-                filteredWorks.addAll(differ.currentList)
-                Log.d(TAG, "performFiltering: $filteredWorks")
-            } else {
-                val searchEntryPattern = searchEntry.toString().toLowerCase(Locale.getDefault()).trim()
-                for (work in differ.currentList) {
-                    if (work.name.toLowerCase(Locale.ROOT)
-                                    .contains(searchEntryPattern) || work.studentName.toLowerCase(Locale.getDefault())
-                                    .contains(searchEntryPattern)
-                    ) {
-                        filteredWorks.add(work)
-                    }
-                }
-            }
-            val filterResults = FilterResults()
-            filterResults.values = filteredWorks
-            return filterResults
-        }
-
-        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-            differ.submitList(results?.values as List<Work>)
-        }
     }
 
     companion object {
