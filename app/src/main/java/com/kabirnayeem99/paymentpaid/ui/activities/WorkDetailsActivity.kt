@@ -9,8 +9,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.db.entities.Work
+import com.kabirnayeem99.paymentpaid.data.repositories.FirebaseRepo
 import com.kabirnayeem99.paymentpaid.ui.*
 import com.kabirnayeem99.paymentpaid.other.Utils
+import com.kabirnayeem99.paymentpaid.ui.fragments.FirestoreViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_add_new_work.*
 import java.util.*
 
@@ -20,7 +22,6 @@ import java.util.*
  * This [WorkDetailsActivity] extends [AppCompatActivity]
  */
 class WorkDetailsActivity : AppCompatActivity() {
-    private lateinit var firestoreViewModel: FirestoreViewModel
     private lateinit var work: Work
 
     private var toBeUpdatedWork: Work? = null
@@ -30,7 +31,6 @@ class WorkDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_work)
         setUpUpdateWorkEditing()
-        setUpViewModel()
     }
 
 
@@ -82,6 +82,7 @@ class WorkDetailsActivity : AppCompatActivity() {
          */
         createOrUpdateWork()?.let { work ->
             try {
+                Log.d(TAG, "onBackPressed: $work")
                 firestoreViewModel.saveWork(work)
                 Toast.makeText(this, "Your work was saved.", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
@@ -101,13 +102,17 @@ class WorkDetailsActivity : AppCompatActivity() {
     /**
      * This methods sets up the view model for this activity
      */
-    private fun setUpViewModel() {
 
-        firestoreViewModel =
-                ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
+    private val firestoreViewModel: FirestoreViewModel by lazy {
+        val activity = requireNotNull(this) {
+            "You can only access the viewModel after onActivityCreated()"
+        }
 
+        val repo = FirebaseRepo()
+        val factory = FirestoreViewModelProviderFactory(repo)
+        ViewModelProviders.of(activity, factory)
+                .get(FirestoreViewModel::class.java)
     }
-
 
     /**
      * It creates a new work or updates a work, based on the work type passed down
