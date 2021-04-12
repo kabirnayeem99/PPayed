@@ -9,10 +9,8 @@
 </p>
 
 ### About the project
-PPayed is your payment management app for your contract-based works.
-
-It is fully open source, and requires little to no permission, even doesn't ask for the internet permission.
-
+PPayed is a payment management app for your contract-based academic writing works with online syncing, combined with a very eye-soothing material UI, smooth animation and visual analytics feature.
+This application is fully open source, and requires little to no permission.
 By using the app and reporting bugs and issues, help me to make the app more useful for you. 
 
 This application is developed by Naimul Kabir and released under the GNU GPLv2.
@@ -22,14 +20,16 @@ This application is developed by Naimul Kabir and released under the GNU GPLv2.
 
 The android app lets you:
 - Keep track of your contract works.
+- The work is synced with your account and you can access them from anywhere.
 - Add work including client's name, submission date and payment.
 - Keep track of monthly payments and total income the respective year.
+- Compare your income on monthly basis with visually appealing graphs and charts.
 - Use the app without any unnecessary permissions.
 - Have a great experience with a functional UX and eye-soothing material design UI. 
-- Have an ad-free experience.
+- No ad to annoy you.
 
 ## Screenshots
-
+[<a href="https://imgur.com/g6CDebE"><img src="https://i.imgur.com/g6CDebE.jpg" title="source: imgur.com" /></a>](https://i.imgur.com/g6CDebE.jpg)
 [<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/login_screen.png" align="center"
 width="200"
     hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/login_screen.png)
@@ -59,10 +59,6 @@ width="200"
 - [Material About Library](https://github.com/daniel-stoneuk/material-about-library) - Makes it easy to create a beautiful about screen.
 - [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart) - A powerful & easy to use chart library for Android
 - [RecyclerView Animators](https://github.com/wasabeef/recyclerview-animators) - A library to easily create RecyclerView with animations.
-
-## TODO
-* Remove room completely
-* Remove previous viewmodels
 
 ## Contributing
 
