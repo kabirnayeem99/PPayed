@@ -29,7 +29,8 @@ The android app lets you:
 - No ad to annoy you.
 
 ## Screenshots
-[<a href="https://imgur.com/g6CDebE"><img src="https://i.imgur.com/g6CDebE.jpg" title="source: imgur.com" /></a>](https://i.imgur.com/g6CDebE.jpg)
+[<a href="https://imgur.com/g6CDebE"><img src="https://i.imgur.com/g6CDebE.jpg" title="source: imgur.com" width="200"
+                                                                                                              hspace="10" vspace="10" /></a>](https://i.imgur.com/g6CDebE.jpg)
 [<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/login_screen.png" align="center"
 width="200"
     hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/login_screen.png)
