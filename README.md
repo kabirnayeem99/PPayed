@@ -29,29 +29,10 @@ The android app lets you:
 - No ad to annoy you.
 
 ## Screenshots
-[<a href="https://imgur.com/g6CDebE"><img src="https://i.imgur.com/g6CDebE.jpg" title="source: imgur.com" width="200"
-                                                                                                              hspace="10" vspace="10" /></a>](https://i.imgur.com/g6CDebE.jpg)
-[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/login_screen.png" align="center"
-width="200"
-    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/login_screen.png)
-[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/bar.png" align="center"
-width="200"
-    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/bar.png)
-[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/work_screen.png" align="center"
-width="200"
-    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/work_screen.png)
-[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/payment_screen.png" align="center"
-width="200"
-    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/payment_screen.png)
-[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/add_new_work_screen.png" align="center"
-width="200"
-    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/add_new_work_screen.png)
-[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/about_screen.png" align="center"
-width="200"
-    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/about_screen.png)
-[<img src="https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/analytics_screen.png" align="center"
-width="200"
-    hspace="10" vspace="10">](https://github.com/kabirnayeem99/android_paymentpaid_app/blob/main/github_assets/analytics_screen.png)
+[<img src="https://i.imgur.com/p6KjN6Q.jpg" title="Login page in PPayed" width="200" hspace="10" vspace="10" />](https://i.imgur.com/p6KjN6Q.jpg)
+[<img src="https://i.imgur.com/uRQRf9y.jpg" title="Home page in PPayed" width="200" hspace="10" vspace="10" />](https://i.imgur.com/uRQRf9y.jpg)
+[<img src="https://i.imgur.com/HJJdjLt.jpg" title="Navigation drawer in PPayed" width="200" hspace="10" vspace="10" />](https://i.imgur.com/HJJdjLt.jpg)
+[<img src="https://i.imgur.com/g6CDebE.jpg" title="Analytics page in PPayed" width="200" hspace="10" vspace="10" />](https://i.imgur.com/g6CDebE.jpg)
 
 ## Built with
 
