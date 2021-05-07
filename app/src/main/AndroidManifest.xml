@@ -33,13 +33,7 @@
         </activity>
         <activity
             android:name=".ui.activities.SignInActivity"
-            android:noHistory="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:noHistory="true" />
         <activity
             android:name=".ui.activities.HomeActivity"
             android:label="@string/static_app_name" />
