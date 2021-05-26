@@ -2,23 +2,23 @@ package com.kabirnayeem99.paymentpaid.ui.fragments
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.github.mikephil.charting.components.Description
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.chart.ChartUtils
+import com.kabirnayeem99.paymentpaid.other.Utils
 import com.kabirnayeem99.paymentpaid.ui.FirestoreViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
-import com.kabirnayeem99.paymentpaid.other.Utils
 import kotlinx.android.synthetic.main.fragment_analytics.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.util.*
 
 
+@ExperimentalCoroutinesApi
 class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
 
     companion object {
@@ -33,6 +33,24 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
         setUpViewModel()
         typeFace = context?.let { ResourcesCompat.getFont(it, R.font.lobster) }!!
         initGraph()
+
+        setupPopBack(view)
+    }
+
+
+    private fun setupPopBack(view: View) {
+        view.isFocusableInTouchMode = true
+        view.requestFocus()
+        view.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                fragmentManager?.popBackStack(
+                    HomeActivity.TAG,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
+                return@OnKeyListener true
+            }
+            false
+        })
     }
 
     /**

@@ -57,8 +57,10 @@ class SignInActivity : AppCompatActivity() {
                 auth.signInWithEmailAndPassword(email, password)
             } catch (e: Exception) {
                 pbSigningIn.visibility = View.GONE.also {
-                    Toast.makeText(this, "Can't Login. ${e.message}",
-                            Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this, "Can't Login. ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     btn.isEnabled = true
                 }
 
@@ -79,8 +81,10 @@ class SignInActivity : AppCompatActivity() {
             try {
                 auth.createUserWithEmailAndPassword(email, password)
             } catch (e: Exception) {
-                Toast.makeText(this, "Can't Register. ${e.message}",
-                        Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this, "Can't Register. ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
                 pbSigningIn.visibility = View.GONE
                 it.isEnabled = true
             }
@@ -88,7 +92,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     /**
-     * This method shows the login and registration form, which is hidden now
+     * This method shows the login and registration form, which is hidden in start
      */
     private fun showLogInRegisterForm() {
         appLogoSplash.visibility = View.GONE

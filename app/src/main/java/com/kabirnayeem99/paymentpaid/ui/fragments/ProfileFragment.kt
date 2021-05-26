@@ -1,10 +1,10 @@
 package com.kabirnayeem99.paymentpaid.ui.fragments
 
-import android.net.Uri
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
@@ -12,10 +12,12 @@ import com.google.firebase.auth.FirebaseUser
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.adapters.ProfileSettingsAdapter
 import com.kabirnayeem99.paymentpaid.adapters.ProfileSettingsItem
+import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.*
 
+@ExperimentalCoroutinesApi
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val auth = FirebaseAuth.getInstance()
     private val user: FirebaseUser? = auth.currentUser
@@ -24,7 +26,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         const val TAG = "ProfileFragment"
     }
 
-    private val settingsItemListLiveData: MutableLiveData<List<ProfileSettingsItem>> = MutableLiveData()
+    private val settingsItemListLiveData: MutableLiveData<List<ProfileSettingsItem>> =
+        MutableLiveData()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,10 +36,28 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         ivUserProfileImage.setOnClickListener {
             activity?.supportFragmentManager.let { fragment ->
                 if (fragment != null) {
-                    SettingsModifyingFragment().newInstance("Change DisplayName").show(fragment, ProfileFragment.TAG)
+                    SettingsModifyingFragment().newInstance("Change DisplayName")
+                        .show(fragment, ProfileFragment.TAG)
                 }
             }
         }
+        setupPopBack(view)
+    }
+
+
+    private fun setupPopBack(view: View) {
+        view.isFocusableInTouchMode = true
+        view.requestFocus()
+        view.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                fragmentManager?.popBackStack(
+                    HomeActivity.TAG,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
+                return@OnKeyListener true
+            }
+            false
+        })
     }
 
     private fun setUpRecyclerView() {
@@ -75,18 +96,21 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     ProfileSettingsItem(2, "Image", "N/A")
                 }
 
-                val settingsPhoneNumber: ProfileSettingsItem = if (this.phoneNumber != null && this.phoneNumber?.isNotEmpty() == true) {
-                    ProfileSettingsItem(3, "Phone Number", this.phoneNumber?.toString()!!)
-                } else {
-                    ProfileSettingsItem(3, "Phone Number", "N/A")
-                }
+                val settingsPhoneNumber: ProfileSettingsItem =
+                    if (this.phoneNumber != null && this.phoneNumber?.isNotEmpty() == true) {
+                        ProfileSettingsItem(3, "Phone Number", this.phoneNumber?.toString()!!)
+                    } else {
+                        ProfileSettingsItem(3, "Phone Number", "N/A")
+                    }
 
-                val settingsEmail: ProfileSettingsItem = if (this.email != null && this.email?.isNotEmpty() == true) {
-                    ProfileSettingsItem(4, "Email", email!!)
-                } else {
-                    ProfileSettingsItem(4, "Email", "N/A")
-                }
-                settingsItemListLiveData.value = listOf(settingsName, settingsImage, settingsPhoneNumber, settingsEmail)
+                val settingsEmail: ProfileSettingsItem =
+                    if (this.email != null && this.email?.isNotEmpty() == true) {
+                        ProfileSettingsItem(4, "Email", email!!)
+                    } else {
+                        ProfileSettingsItem(4, "Email", "N/A")
+                    }
+                settingsItemListLiveData.value =
+                    listOf(settingsName, settingsImage, settingsPhoneNumber, settingsEmail)
             }
         }
     }

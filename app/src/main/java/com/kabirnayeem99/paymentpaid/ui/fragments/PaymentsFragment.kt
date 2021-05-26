@@ -2,15 +2,19 @@ package com.kabirnayeem99.paymentpaid.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.adapters.PaymentAdapter
 import com.kabirnayeem99.paymentpaid.ui.FirestoreViewModel
 import com.kabirnayeem99.paymentpaid.ui.activities.HomeActivity
 import kotlinx.android.synthetic.main.fragment_payments.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class PaymentsFragment : Fragment(R.layout.fragment_payments) {
 
     companion object {
@@ -31,25 +35,42 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
 
         manipulateData()
 
+        setupPopBack(view)
+    }
+
+
+    private fun setupPopBack(view: View) {
+        view.isFocusableInTouchMode = true
+        view.requestFocus()
+        view.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                fragmentManager?.popBackStack(
+                    HomeActivity.TAG,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
+                return@OnKeyListener true
+            }
+            false
+        })
     }
 
     private fun manipulateData() {
 
         Log.d(tag, "manipulateData: the manipulating data started")
         firestoreViewModel.paymentListByMonth.observe(viewLifecycleOwner,
-                { paymentList ->
-                    Log.d(tag, "manipulateData: $paymentList")
-                    paymentList?.let {
-                        paymentAdapter.differ.submitList(paymentList)
-                    }
-                })
+            { paymentList ->
+                Log.d(tag, "manipulateData: $paymentList")
+                paymentList?.let {
+                    paymentAdapter.differ.submitList(paymentList)
+                }
+            })
 
         firestoreViewModel.paymentOfCurrentYear.observe(viewLifecycleOwner,
-                { totalPayment ->
-                    totalPayment?.let {
-                        tvTotalPayment.text = totalPayment.toString()
-                    }
-                })
+            { totalPayment ->
+                totalPayment?.let {
+                    tvTotalPayment.text = totalPayment.toString()
+                }
+            })
     }
 
 
