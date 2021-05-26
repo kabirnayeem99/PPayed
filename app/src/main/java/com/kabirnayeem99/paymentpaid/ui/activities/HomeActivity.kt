@@ -24,10 +24,7 @@ import com.kabirnayeem99.paymentpaid.data.repositories.FirebaseRepo
 import com.kabirnayeem99.paymentpaid.ui.FirestoreViewModel
 import com.kabirnayeem99.paymentpaid.ui.fragments.*
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
@@ -39,6 +36,7 @@ import java.util.*
  * This Activity is the entry point of the application
  * and holds three fragment, such as works fragment, payment fragment and about fragment.
  */
+@ExperimentalCoroutinesApi
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var drawerToggle: ActionBarDrawerToggle
@@ -183,11 +181,13 @@ class HomeActivity : AppCompatActivity() {
      */
     private fun makeCurrentFragment(fragment: Fragment, tag: String) {
         closeDrawer()
+
         supportFragmentManager
             .beginTransaction()
             // adds animation from https://github.com/yendangn/Fragment-Transaction-Animation
             .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
             .replace(R.id.flFragmentPlaceholder, fragment, tag)
+            .addToBackStack(TAG)
             .commit()
     }
 
@@ -381,6 +381,7 @@ class HomeActivity : AppCompatActivity() {
         private const val CREATE_FILE_REQUEST_CODE = 1
         private const val OPEN_FOLDER_REQUEST_CODE = 2
         private const val CHOOSE_FILE = 4
+        const val TAG = "HomeActivity"
     }
 
 
