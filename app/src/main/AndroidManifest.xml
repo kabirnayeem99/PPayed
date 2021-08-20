@@ -19,7 +19,7 @@
         android:theme="@style/Theme.PaymentPaid">
 
         <activity
-            android:name=".ui.activities.SplashActivity"
+            android:name=".presentation.activities.SplashActivity"
             android:noHistory="true"
             android:theme="@style/SplashScreen">
             <intent-filter>
@@ -29,13 +29,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.SignInActivity"
+            android:name=".presentation.activities.SignInActivity"
             android:noHistory="true" />
         <activity
-            android:name=".ui.activities.HomeActivity"
+            android:name=".presentation.activities.HomeActivity"
             android:label="@string/static_app_name" />
         <activity
-            android:name=".ui.activities.WorkDetailsActivity"
+            android:name=".presentation.activities.WorkDetailsActivity"
             android:label="@string/action_add_new_work" />
 
         <meta-data
