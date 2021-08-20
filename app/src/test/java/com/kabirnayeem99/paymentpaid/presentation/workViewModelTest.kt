@@ -12,7 +12,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
-class FirestoreViewModelTest {
+class workViewModelTest {
 
     /**
      * InstantTaskExecutorRule swaps the background executor
@@ -30,7 +30,7 @@ class FirestoreViewModelTest {
      */
     @Test
     fun testSaveWork() {
-        val viewModel = FirestoreViewModel(FakeWorkRepository())
+        val viewModel = WorkViewModel(FakeWorkRepository())
 
         val work = Work("1", "work name", 1, 1, 2021, 200, "student name")
 
@@ -50,14 +50,14 @@ class FirestoreViewModelTest {
     @Test
     fun testDeleteWork() {
 
-        val viewModel = FirestoreViewModel(FakeWorkRepository())
+        val viewModel = WorkViewModel(FakeWorkRepository())
 
         val work1 = Work("1", "work name", 1, 1, 2021, 200, "student name")
         val work2 = Work("2", "work name", 1, 1, 2021, 200, "student name")
 
         viewModel.saveWork(work1)
         viewModel.saveWork(work2)
-        viewModel.delete(work1)
+        viewModel.deleteWork(work1)
 
         val list = viewModel.workList.getOrAwaitValueForTest()
 
@@ -73,7 +73,7 @@ class FirestoreViewModelTest {
     @Test
     fun testWorkList() {
 
-        val viewModel = FirestoreViewModel(FakeWorkRepository())
+        val viewModel = WorkViewModel(FakeWorkRepository())
 
         val work1 = Work("1", "work name", 1, 1, 2021, 200, "student name")
         val work2 = Work("2", "work name", 1, 1, 2021, 200, "student name")
@@ -82,7 +82,7 @@ class FirestoreViewModelTest {
         viewModel.saveWork(work1)
         viewModel.saveWork(work2)
         viewModel.saveWork(work3)
-        viewModel.delete(work1)
+        viewModel.deleteWork(work1)
 
         val expectedResult = listOf(work2, work3)
         val originalResult = viewModel.workList.getOrAwaitValueForTest()
@@ -101,7 +101,7 @@ class FirestoreViewModelTest {
     @Test
     fun testPaymentOfCurrentYear() {
 
-        val viewModel = FirestoreViewModel(FakeWorkRepository())
+        val viewModel = WorkViewModel(FakeWorkRepository())
 
         val work1 = Work("1", "work name", 1, 1, Utils.currentYear.toLong(), 100, "student name")
         val work2 = Work("2", "work name", 1, 1, Utils.currentYear.toLong(), 200, "student name")

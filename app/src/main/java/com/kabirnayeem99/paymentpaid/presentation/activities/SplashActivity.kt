@@ -5,11 +5,19 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.*
+import javax.inject.Inject
 
 
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
-    private lateinit var timer: Timer
+
+    @Inject
+    lateinit var timer: Timer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -21,7 +29,6 @@ class SplashActivity : AppCompatActivity() {
         it loads the home activity
         else it loads the sign in activity.
          */
-        timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
 

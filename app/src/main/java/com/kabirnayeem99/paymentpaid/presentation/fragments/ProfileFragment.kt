@@ -82,7 +82,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 lateinit var settingsName: ProfileSettingsItem
 
                 if (displayName != null && displayName?.isNotEmpty() == true) {
-                    settingsName = ProfileSettingsItem(1, "Name", displayName)
+                    settingsName = ProfileSettingsItem(1, "Name", displayName!!)
                 } else {
                     with(StringTokenizer(email, "@")) {
                         val username: String = this.nextToken()

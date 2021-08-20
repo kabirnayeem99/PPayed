@@ -6,7 +6,7 @@ import com.kabirnayeem99.paymentpaid.domain.models.Work
 import com.kabirnayeem99.paymentpaid.data.sources.FirebaseDataSource
 import com.kabirnayeem99.paymentpaid.domain.repositories.WorkRepository
 
-class FirebaseWorkRepositoryImpl : WorkRepository {
+class WorkRepositoryImpl : WorkRepository {
 
     private val firebaseDataSource: FirebaseDataSource = FirebaseDataSource()
 

@@ -4,15 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.domain.models.Work
-import com.kabirnayeem99.paymentpaid.data.repositories.FirebaseWorkRepositoryImpl
 import com.kabirnayeem99.paymentpaid.presentation.*
 import com.kabirnayeem99.paymentpaid.other.Utils
-import com.kabirnayeem99.paymentpaid.presentation.fragments.FirestoreViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_add_new_work.*
 import java.util.*
 
@@ -64,7 +62,11 @@ class WorkDetailsActivity : AppCompatActivity() {
         tilWorkName.editText?.setText(workBeingProcessed.name)
         tilStudentName.editText?.setText(workBeingProcessed.studentName)
         tilPayment.editText?.setText(workBeingProcessed.payment.toString())
-        dpDate.updateDate(workBeingProcessed.year.toInt(), workBeingProcessed.month.toInt(), workBeingProcessed.day.toInt())
+        dpDate.updateDate(
+            workBeingProcessed.year.toInt(),
+            workBeingProcessed.month.toInt(),
+            workBeingProcessed.day.toInt()
+        )
     }
 
     /**
@@ -83,7 +85,7 @@ class WorkDetailsActivity : AppCompatActivity() {
         createOrUpdateWork()?.let { work ->
             try {
                 Log.d(TAG, "onBackPressed: $work")
-                firestoreViewModel.saveWork(work)
+                workViewModel.saveWork(work)
                 Toast.makeText(this, "Your work was saved.", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 Toast.makeText(this, "Your work was not saved.", Toast.LENGTH_SHORT).show()
@@ -103,16 +105,7 @@ class WorkDetailsActivity : AppCompatActivity() {
      * This methods sets up the view model for this activity
      */
 
-    private val firestoreViewModel: FirestoreViewModel by lazy {
-        val activity = requireNotNull(this) {
-            "You can only access the viewModel after onActivityCreated()"
-        }
-
-        val repo = FirebaseWorkRepositoryImpl()
-        val factory = FirestoreViewModelProviderFactory(repo)
-        ViewModelProviders.of(activity, factory)
-                .get(FirestoreViewModel::class.java)
-    }
+    private val workViewModel: WorkViewModel by viewModels()
 
     /**
      * It creates a new work or updates a work, based on the work type passed down
@@ -140,12 +133,15 @@ class WorkDetailsActivity : AppCompatActivity() {
         or returns a newly created work object
          */
         return if (workName.trim().isEmpty()
-                || studentName.trim().isEmpty()
-                || payment.trim().isEmpty()) {
+            || studentName.trim().isEmpty()
+            || payment.trim().isEmpty()
+        ) {
             null
         } else {
-            work = Work(documentId = null, name = workName, day = day.toLong(), month = month.toLong(),
-                    year = year.toLong(), payment = payment.toLong(), studentName = studentName)
+            work = Work(
+                documentId = null, name = workName, day = day.toLong(), month = month.toLong(),
+                year = year.toLong(), payment = payment.toLong(), studentName = studentName
+            )
 
             /*
              checks if there is any extra work from previous intent
@@ -156,7 +152,8 @@ class WorkDetailsActivity : AppCompatActivity() {
              it creates new document id by combining user id and time in milli second
              */
             if (toBeUpdatedWork == null) {
-                work.documentId = Calendar.getInstance().timeInMillis.toString() + auth.currentUser?.uid
+                work.documentId =
+                    Calendar.getInstance().timeInMillis.toString() + auth.currentUser?.uid
             } else if (toBeUpdatedWork != null) {
                 toBeUpdatedWork?.let { workToBeUpdated ->
                     work.documentId = workToBeUpdated.documentId

@@ -10,19 +10,19 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.domain.models.Work
-import com.kabirnayeem99.paymentpaid.data.repositories.FirebaseWorkRepositoryImpl
-import com.kabirnayeem99.paymentpaid.presentation.FirestoreViewModel
+import com.kabirnayeem99.paymentpaid.presentation.WorkViewModel
 import com.kabirnayeem99.paymentpaid.presentation.fragments.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.*
 import java.io.FileNotFoundException
@@ -30,6 +30,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.util.*
+import javax.inject.Inject
 
 
 /**
@@ -37,23 +38,33 @@ import java.util.*
  * and holds three fragment, such as works fragment, payment fragment and about fragment.
  */
 @ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var drawerToggle: ActionBarDrawerToggle
-    private lateinit var workFragment: WorkFragment
-    private lateinit var analyticsFragment: AnalyticsFragment
-    private lateinit var paymentsFragment: PaymentsFragment
-    private lateinit var profileFragment: ProfileFragment
-    private lateinit var aboutFragment: AboutFragment
 
-    //    lateinit var firestoreViewModel: FirestoreViewModel
-    private val auth = FirebaseAuth.getInstance()
+    @Inject
+    lateinit var workFragment: WorkFragment
+
+    @Inject
+    lateinit var analyticsFragment: AnalyticsFragment
+
+    @Inject
+    lateinit var paymentsFragment: PaymentsFragment
+
+    @Inject
+    lateinit var profileFragment: ProfileFragment
+
+    @Inject
+    lateinit var aboutFragment: AboutFragment
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_PaymentPaid)
         setContentView(R.layout.activity_home)
-        initFragments()
         setUpFragmentNavigation()
         setUpNavigationDrawer()
         setUpLoggedOutListener()
@@ -67,17 +78,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-
-    /**
-     * This method instantiate all the fragments required.
-     */
-    private fun initFragments() {
-        workFragment = WorkFragment()
-        paymentsFragment = PaymentsFragment()
-        aboutFragment = AboutFragment()
-        analyticsFragment = AnalyticsFragment()
-        profileFragment = ProfileFragment()
-    }
 
     /**
      * With the start of the activity, it first sets the current
@@ -127,18 +127,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
     /**
-     * This simple method sets up [FirestoreViewModel]
+     * This simple method sets up [WorkViewModel]
      */
-    val firestoreViewModel: FirestoreViewModel by lazy {
-        val activity = requireNotNull(this) {
-            "You can only access the viewModel after onActivityCreated()"
-        }
-
-        val repo = FirebaseWorkRepositoryImpl()
-        val factory = FirestoreViewModelProviderFactory(repo)
-        ViewModelProviders.of(activity, factory)
-            .get(FirestoreViewModel::class.java)
-    }
+    val workViewModel: WorkViewModel by viewModels()
 
 //    private fun setUpViewModel() {
 //        firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
@@ -328,7 +319,7 @@ class HomeActivity : AppCompatActivity() {
                 var workList: List<Work> = listOf()
 
 
-                workList = firestoreViewModel.workList.value!!
+                workList = workViewModel.workList.value!!
                 if (workList.isNotEmpty()) {
                     for (work in workList) {
 

@@ -12,24 +12,28 @@ import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.repositories.ChartRepositoryImpl
 import com.kabirnayeem99.paymentpaid.domain.repositories.ChartRepository
 import com.kabirnayeem99.paymentpaid.other.Utils
-import com.kabirnayeem99.paymentpaid.presentation.FirestoreViewModel
+import com.kabirnayeem99.paymentpaid.presentation.WorkViewModel
 import com.kabirnayeem99.paymentpaid.presentation.activities.HomeActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_analytics.*
 import kotlinx.coroutines.*
 import java.util.*
+import javax.inject.Inject
 
 
 @ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
 
     companion object {
         const val TAG = "AnalyticsFragment"
     }
 
-    private lateinit var firestoreViewModel: FirestoreViewModel
+    private lateinit var workViewModel: WorkViewModel
     private lateinit var typeFace: Typeface
 
-    private lateinit var charRepository: ChartRepository
+    @Inject
+    lateinit var chartRepository: ChartRepository
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,12 +64,12 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
      * Sets up the [WorkViewModel] for this [WorkFragment]
      */
     private fun setUpViewModel() {
-        firestoreViewModel = (activity as HomeActivity).firestoreViewModel
+        workViewModel = (activity as HomeActivity).workViewModel
     }
 
     private fun initGraph() {
 
-        firestoreViewModel.paymentListByMonth.observe(viewLifecycleOwner, { paymentList ->
+        workViewModel.paymentListByMonth.observe(viewLifecycleOwner, { paymentList ->
             when (paymentList == null || paymentList.isEmpty()) {
                 true -> showLoading()
                 false -> {
@@ -83,10 +87,10 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
             val description = Description()
             description.text = "Payments"
 
-            charRepository = ChartRepositoryImpl()
+            chartRepository = ChartRepositoryImpl()
 
-            val barData = charRepository.getBarData(paymentList, requireContext())
-            val pieData = charRepository.getPieData(paymentList, requireContext())
+            val barData = chartRepository.getBarData(paymentList, requireContext())
+            val pieData = chartRepository.getPieData(paymentList, requireContext())
 
             withContext(Dispatchers.Main) {
                 barChart.let { bc ->
