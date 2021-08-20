@@ -1,8 +1,12 @@
 package com.kabirnayeem99.paymentpaid.di
 
 import com.google.firebase.auth.FirebaseAuth
+import com.kabirnayeem99.paymentpaid.data.repositories.AuthRepositoryImpl
 import com.kabirnayeem99.paymentpaid.data.repositories.ChartRepositoryImpl
+import com.kabirnayeem99.paymentpaid.data.sources.FirebaseAuthDataSource
+import com.kabirnayeem99.paymentpaid.domain.repositories.AuthRepository
 import com.kabirnayeem99.paymentpaid.domain.repositories.ChartRepository
+import com.kabirnayeem99.paymentpaid.domain.sources.AuthDataSource
 import com.kabirnayeem99.paymentpaid.presentation.fragments.*
 import dagger.Module
 import dagger.Provides
@@ -43,5 +47,7 @@ object ActivityModule {
 
     @Provides
     fun provideTimer(): Timer = Timer()
+
+
 
 }

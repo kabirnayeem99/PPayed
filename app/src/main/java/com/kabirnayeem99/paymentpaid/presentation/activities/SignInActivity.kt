@@ -4,9 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
+import com.kabirnayeem99.paymentpaid.other.Resource
+import com.kabirnayeem99.paymentpaid.presentation.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,6 +24,8 @@ class SignInActivity : AppCompatActivity() {
     @Inject
     lateinit var auth: FirebaseAuth
 
+    private val authViewModel: AuthViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
@@ -28,6 +34,18 @@ class SignInActivity : AppCompatActivity() {
         setUpRegistrationListener()
         setUpLoginListener()
         setUpNoLoginListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        etEmailAddress.setText(authViewModel.email)
+        etPassword.setText(authViewModel.password)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        authViewModel.email = etEmailAddress.text.toString()
+        authViewModel.password = etPassword.text.toString()
     }
 
     private fun setUpAuthListener() {
@@ -45,7 +63,17 @@ class SignInActivity : AppCompatActivity() {
 
     private fun setUpNoLoginListener() {
         btnWithoutLogin.setOnClickListener {
-            auth.signInAnonymously()
+            showLoading()
+            when (val signInResource = authViewModel.signWithoutWithEmailAndPassword()) {
+                is Resource.Error -> {
+                    hideLoading()
+                    getSnackBar(signInResource.message)
+                }
+                else -> {
+                    getSnackBar("Logged in temporarily.").show()
+                    moveToMainActivity()
+                }
+            }
         }
     }
 
@@ -53,24 +81,37 @@ class SignInActivity : AppCompatActivity() {
 
         btnLogIn.setOnClickListener { btn ->
 
-            pbSigningIn.visibility = View.VISIBLE
-            btn.isEnabled = false
+            showLoading()
 
-            val email: String = etEmailAddress.text.toString()
-            val password: String = etPassword.text.toString()
-            try {
-                auth.signInWithEmailAndPassword(email, password)
-            } catch (e: Exception) {
-                pbSigningIn.visibility = View.GONE.also {
-                    Toast.makeText(
-                        this, "Can't Login. ${e.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    btn.isEnabled = true
+
+            when (val signInResource = authViewModel.signInWithEmailAndPassword()) {
+                is Resource.Error -> {
+                    hideLoading()
+                    getSnackBar(signInResource.message).show()
                 }
-
+                else -> {
+                    getSnackBar("Logged in with ${signInResource.data?.email ?: "unknown email address"}").show()
+                    moveToMainActivity()
+                }
             }
         }
+    }
+
+    private fun getSnackBar(message: String?): Snackbar {
+        return Snackbar.make(
+            findViewById<View>(android.R.id.content).rootView,
+            message ?: "Something went wrong",
+            Snackbar.LENGTH_LONG
+        )
+    }
+
+    private fun showLoading() {
+        pbSigningIn.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        pbSigningIn.visibility = View.GONE
+
     }
 
     /**
@@ -79,22 +120,25 @@ class SignInActivity : AppCompatActivity() {
      */
     private fun setUpRegistrationListener() {
         btnRegister.setOnClickListener {
-            it.isEnabled = false
-            pbSigningIn.visibility = View.VISIBLE
-            val email: String = etEmailAddress.text.toString()
-            val password: String = etPassword.text.toString()
-            try {
-                auth.createUserWithEmailAndPassword(email, password)
-            } catch (e: Exception) {
-                Toast.makeText(
-                    this, "Can't Register. ${e.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-                pbSigningIn.visibility = View.GONE
-                it.isEnabled = true
+            showLoading()
+
+
+
+            when (val registerResource =
+                authViewModel.registerWithEmailAndPassword()) {
+                is Resource.Error -> {
+                    hideLoading()
+                    getSnackBar(registerResource.message).show()
+                }
+                else -> {
+                    getSnackBar("Registered with ${registerResource.data?.email ?: "unknown email"}").show()
+                    moveToMainActivity()
+                }
             }
+
         }
     }
+
 
     /**
      * This method shows the login and registration form, which is hidden in start

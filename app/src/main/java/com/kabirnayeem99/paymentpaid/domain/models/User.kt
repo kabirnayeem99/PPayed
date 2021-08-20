@@ -2,6 +2,7 @@ package com.kabirnayeem99.paymentpaid.domain.models
 
 import android.os.Parcelable
 import android.util.Log
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.android.parcel.Parcelize
 import timber.log.Timber
@@ -17,6 +18,19 @@ data class User(
 ) : Parcelable {
     companion object {
 
+        fun FirebaseUser.toUser(): User? {
+            return try {
+                val id = this.uid
+                val name = this.displayName ?: "Unknown"
+                val email = this.email ?: "unknown"
+                val phoneNumber = this.phoneNumber ?: "unknown"
+                val imageUrl = this.photoUrl.toString()
+                    ?: "https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
+                User(id, name, phoneNumber, email, imageUrl)
+            } catch (e: Exception) {
+                null
+            }
+        }
 
         fun DocumentSnapshot.toUser(): User? {
             try {

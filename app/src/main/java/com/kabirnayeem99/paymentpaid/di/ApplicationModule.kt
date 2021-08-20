@@ -1,6 +1,8 @@
 package com.kabirnayeem99.paymentpaid.di
 
+import com.kabirnayeem99.paymentpaid.data.sources.FirebaseAuthDataSource
 import com.kabirnayeem99.paymentpaid.data.sources.FirebaseDataSource
+import com.kabirnayeem99.paymentpaid.domain.sources.AuthDataSource
 import com.kabirnayeem99.paymentpaid.domain.sources.RemoteDataSource
 import dagger.Module
 import dagger.Provides
@@ -17,4 +19,9 @@ object ApplicationModule {
     fun provideRemoteDataSource(): RemoteDataSource {
         return FirebaseDataSource()
     }
+
+    @Provides
+    @Singleton
+    fun provideAuthDataSource(): AuthDataSource = FirebaseAuthDataSource()
+
 }
