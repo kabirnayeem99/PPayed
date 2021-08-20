@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
-const val TAG = "SignInActivity"
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint

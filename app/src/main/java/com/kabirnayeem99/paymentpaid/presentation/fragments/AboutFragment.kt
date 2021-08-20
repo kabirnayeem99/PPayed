@@ -17,9 +17,7 @@ import com.kabirnayeem99.paymentpaid.R
  * Extends [MaterialAboutFragment]
  */
 class AboutFragment : MaterialAboutFragment() {
-    companion object {
-        const val TAG = "AboutFragment"
-    }
+
 
     override fun getMaterialAboutList(activityContext: Context): MaterialAboutList {
         val context = requireContext()
@@ -34,9 +32,9 @@ class AboutFragment : MaterialAboutFragment() {
         buildAuthor(context, authorCardBuilder)
 
         return MaterialAboutList(
-                miscCardBuilder.build(),
-                authorCardBuilder.build(),
-                appCardBuilder.build(),
+            miscCardBuilder.build(),
+            authorCardBuilder.build(),
+            appCardBuilder.build(),
         )
     }
 
@@ -47,13 +45,23 @@ class AboutFragment : MaterialAboutFragment() {
      */
     private fun buildAuthor(context: Context, authorCardBuilder: MaterialAboutCard.Builder) {
         authorCardBuilder.title(R.string.desc_developer_name)
-        authorCardBuilder.addItem(MaterialAboutActionItem.Builder()
+        authorCardBuilder.addItem(
+            MaterialAboutActionItem.Builder()
                 .text("Naimul Kabir")
                 .subText("Naimul Kabir")
                 .icon(ContextCompat.getDrawable(context, R.drawable.ic_profile))
-                .build())
-                .addItem(ConvenienceBuilder.createEmailItem(context, ContextCompat.getDrawable(context, R.drawable.ic_email),
-                        getString(R.string.send_email), true, getString(R.string.email_address), getString(R.string.question_concerning_ppayed)))
+                .build()
+        )
+            .addItem(
+                ConvenienceBuilder.createEmailItem(
+                    context,
+                    ContextCompat.getDrawable(context, R.drawable.ic_email),
+                    getString(R.string.send_email),
+                    true,
+                    getString(R.string.email_address),
+                    getString(R.string.question_concerning_ppayed)
+                )
+            )
     }
 
     /**
@@ -62,20 +70,23 @@ class AboutFragment : MaterialAboutFragment() {
      * @param appCardBuilder of [MaterialAboutCard.Builder] type
      */
     private fun buildApp(context: Context, appCardBuilder: MaterialAboutCard.Builder) {
-        appCardBuilder.addItem(MaterialAboutActionItem.Builder()
+        appCardBuilder.addItem(
+            MaterialAboutActionItem.Builder()
                 .text(getString(R.string.version))
                 .icon(ContextCompat.getDrawable(context, R.drawable.ic_update))
                 .subText(R.string.version_detail)
+                .build()
+        )
+            .addItem(MaterialAboutActionItem.Builder()
+                .text(R.string.report_issue)
+                .subText(R.string.report_issue_here)
+                .icon(ContextCompat.getDrawable(context, R.drawable.ic_bug))
+                .setOnClickAction {
+                    val browserIntent =
+                        Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.issue_url)))
+                    startActivity(browserIntent)
+                }
                 .build())
-                .addItem(MaterialAboutActionItem.Builder()
-                        .text(R.string.report_issue)
-                        .subText(R.string.report_issue_here)
-                        .icon(ContextCompat.getDrawable(context, R.drawable.ic_bug))
-                        .setOnClickAction {
-                            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.issue_url)))
-                            startActivity(browserIntent)
-                        }
-                        .build())
     }
 
     /**
@@ -86,14 +97,15 @@ class AboutFragment : MaterialAboutFragment() {
      */
     private fun buildMisc(context: Context, miscCardBuilder: MaterialAboutCard.Builder) {
         miscCardBuilder.title(R.string.about)
-                .addItem(MaterialAboutActionItem.Builder()
-                        .text(R.string.changelog)
-                        .icon(ContextCompat.getDrawable(context, R.drawable.ic_track_changes))
-                        .setOnClickAction {
-                            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.changes_url)))
-                            startActivity(browserIntent)
-                        }
-                        .build())
+            .addItem(MaterialAboutActionItem.Builder()
+                .text(R.string.changelog)
+                .icon(ContextCompat.getDrawable(context, R.drawable.ic_track_changes))
+                .setOnClickAction {
+                    val browserIntent =
+                        Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.changes_url)))
+                    startActivity(browserIntent)
+                }
+                .build())
     }
 
 }

@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -17,6 +18,9 @@ class SplashActivity : AppCompatActivity() {
 
     @Inject
     lateinit var timer: Timer
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +36,10 @@ class SplashActivity : AppCompatActivity() {
         timer.schedule(object : TimerTask() {
             override fun run() {
 
-                FirebaseAuth.getInstance().addAuthStateListener {
-                    if (it.currentUser != null) {
+                auth.addAuthStateListener { authListener ->
+                    if (authListener.currentUser != null) {
+
+                        Timber.d("current user is ${auth.currentUser ?: "null"}")
                         startActivity(Intent(applicationContext, HomeActivity::class.java))
                     } else {
                         startActivity(Intent(applicationContext, SignInActivity::class.java))

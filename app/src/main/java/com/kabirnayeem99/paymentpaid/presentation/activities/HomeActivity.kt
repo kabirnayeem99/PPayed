@@ -103,19 +103,19 @@ class HomeActivity : AppCompatActivity() {
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.workNavMenu -> {
-                    makeCurrentFragment(workFragment, WorkFragment.TAG)
+                    makeCurrentFragment(workFragment, WorkFragment::class.java.simpleName)
                 }
                 R.id.paymentNavMenu -> {
-                    makeCurrentFragment(paymentsFragment, PaymentsFragment.TAG)
+                    makeCurrentFragment(paymentsFragment, PaymentsFragment::class.java.simpleName)
                 }
                 R.id.analyticsNavMenu -> {
-                    makeCurrentFragment(analyticsFragment, AnalyticsFragment.TAG)
+                    makeCurrentFragment(analyticsFragment, AnalyticsFragment::class.java.simpleName)
                 }
                 R.id.aboutNavMenu -> {
-                    makeCurrentFragment(aboutFragment, AboutFragment.TAG)
+                    makeCurrentFragment(aboutFragment, AboutFragment::class.java.simpleName)
                 }
                 R.id.userProfileNavMenu -> {
-                    makeCurrentFragment(profileFragment, ProfileFragment.TAG)
+                    makeCurrentFragment(profileFragment, ProfileFragment::class.java.simpleName)
                 }
 
                 R.id.logOutMenu -> {

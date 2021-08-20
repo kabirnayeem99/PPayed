@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.other.Utils
 import kotlinx.android.synthetic.main.list_item_payment.view.*
+import timber.log.Timber
 
 class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
 
@@ -29,8 +30,10 @@ class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
     var differ = AsyncListDiffer(this, diffCallBack)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_payment,
-                parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.list_item_payment,
+            parent, false
+        )
         return ViewHolder(view)
     }
 
@@ -39,14 +42,15 @@ class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
         holder.itemView.apply {
             if (position < 12)
                 tvPaymentMonthListItemPayment.text = Utils.getCurrentMonthName(position)
-            tvPaymentAmountListItemPayment.text = Utils.formatMoney(differ.currentList[position].toString())
+            tvPaymentAmountListItemPayment.text =
+                Utils.formatMoney(differ.currentList[position].toString())
         }
 
     }
 
 
     override fun getItemCount(): Int {
-        Log.d(TAG, "getItemCount: ${differ.currentList}")
+        Timber.d("getItemCount: the current list of payment \n ${differ.currentList}")
         return differ.currentList.size
     }
 

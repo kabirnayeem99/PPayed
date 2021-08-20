@@ -1,6 +1,7 @@
 package com.kabirnayeem99.paymentpaid.other
 
 import com.github.mikephil.charting.utils.ColorTemplate
+import timber.log.Timber
 import java.text.DecimalFormat
 import java.time.Month
 import java.util.*
@@ -21,6 +22,9 @@ object Utils {
         if (output.length < 2) {
             output.insert(0, "0")
         }
+
+        Timber.d("padMonth: month has been padded to $output")
+
         return output.toString()
     }
 

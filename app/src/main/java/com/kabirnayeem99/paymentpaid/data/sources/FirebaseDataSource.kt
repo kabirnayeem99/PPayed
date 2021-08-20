@@ -1,6 +1,5 @@
 package com.kabirnayeem99.paymentpaid.data.sources
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -12,6 +11,7 @@ import com.kabirnayeem99.paymentpaid.domain.models.Work
 import com.kabirnayeem99.paymentpaid.domain.models.Work.Companion.toWork
 import com.kabirnayeem99.paymentpaid.domain.sources.RemoteDataSource
 import com.kabirnayeem99.paymentpaid.other.Utils
+import timber.log.Timber
 
 class FirebaseDataSource : RemoteDataSource {
 
@@ -24,23 +24,25 @@ class FirebaseDataSource : RemoteDataSource {
     private val db = FirebaseFirestore.getInstance()
     private val user: FirebaseUser = FirebaseAuth.getInstance().currentUser!!
 
-    private val TAG = "FirebaseDataSource"
-
 
     override fun saveWork(work: Work) {
-        work.documentId?.let {
-            db.collection("users")
-                .document(user.uid)
-                .collection("work_list")
-                .document(it)
-        }?.set(work)
+        try {
+            work.documentId?.let {
+                db.collection("users")
+                    .document(user.uid)
+                    .collection("work_list")
+                    .document(it)
+            }?.set(work)
+        } catch (e: Exception) {
+            Timber.e("saveWork: could not save the work due to $e")
+        }
     }
 
     override fun getWorksList(): LiveData<List<Work>> {
-        Log.d(
-            TAG,
+        Timber.d(
             "getWorksList: the collection reference is ${db.collection("users/${user.uid}/work_list")}"
         )
+
         db.collection("users/${user.uid}/work_list").addSnapshotListener(
             EventListener<QuerySnapshot> { value, error ->
 
@@ -52,7 +54,7 @@ class FirebaseDataSource : RemoteDataSource {
 
                 for (doc in value!!) {
                     doc.toWork()?.let { temp.add(it) }
-                    Log.d(TAG, "getWorkList:  the documents in json form: $doc")
+                    Timber.d("getWorkList:  the documents in json form: $doc")
                 }
 
                 workList.value = temp
@@ -65,14 +67,18 @@ class FirebaseDataSource : RemoteDataSource {
 
 
     override fun deleteWork(work: Work) {
-        val docRef = work.documentId?.let {
-            db.collection("users")
-                .document(user.uid)
-                .collection("work_list")
-                .document(it)
-        }
+        try {
+            val docRef = work.documentId?.let {
+                db.collection("users")
+                    .document(user.uid)
+                    .collection("work_list")
+                    .document(it)
+            }
 
-        docRef?.delete()
+            docRef?.delete()
+        } catch (e: Exception) {
+            Timber.e("Could not delete the work due to $e")
+        }
     }
 
     override fun getPaymentListByMonth(): LiveData<List<Long>> {

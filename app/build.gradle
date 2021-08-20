@@ -98,6 +98,9 @@ dependencies {
     // Local Unit test
     testImplementation "androidx.arch.core:core-testing:2.1.0"
 
+    // Timber for logging
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
 }
 repositories {
     mavenCentral()

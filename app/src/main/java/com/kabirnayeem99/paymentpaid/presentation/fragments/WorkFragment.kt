@@ -29,9 +29,6 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
     var workAdapter: WorkAdapter = WorkAdapter()
     private lateinit var workViewModel: WorkViewModel
 
-    companion object {
-        const val TAG = "WorkFragment"
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

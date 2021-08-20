@@ -4,6 +4,7 @@ import android.os.Parcelable
 import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.android.parcel.Parcelize
+import timber.log.Timber
 import java.lang.Exception
 
 /**
@@ -15,13 +16,13 @@ import java.lang.Exception
  */
 @Parcelize
 data class Work(
-        var documentId: String?,
-        var name: String,
-        var day: Long,
-        var month: Long,
-        var year: Long,
-        var payment: Long,
-        var studentName: String
+    var documentId: String?,
+    var name: String,
+    var day: Long,
+    var month: Long,
+    var year: Long,
+    var payment: Long,
+    var studentName: String
 ) : Parcelable {
 
 
@@ -38,7 +39,7 @@ data class Work(
 
                 return Work(id, name, day, month, year, payment, studentName)
             } catch (e: Exception) {
-                Log.e(TAG, "toWork: error converting work $e")
+                Timber.e("toWork: error converting work $e")
                 return null
             }
         }

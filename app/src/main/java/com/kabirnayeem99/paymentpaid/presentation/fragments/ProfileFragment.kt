@@ -22,10 +22,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val auth = FirebaseAuth.getInstance()
     private val user: FirebaseUser? = auth.currentUser
 
-    companion object {
-        const val TAG = "ProfileFragment"
-    }
-
     private val settingsItemListLiveData: MutableLiveData<List<ProfileSettingsItem>> =
         MutableLiveData()
 
@@ -37,7 +33,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             activity?.supportFragmentManager.let { fragment ->
                 if (fragment != null) {
                     SettingsModifyingFragment().newInstance("Change DisplayName")
-                        .show(fragment, ProfileFragment.TAG)
+                        .show(fragment, ProfileFragment::class.java.simpleName)
                 }
             }
         }

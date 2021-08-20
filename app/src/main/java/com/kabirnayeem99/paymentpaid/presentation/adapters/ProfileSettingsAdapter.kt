@@ -17,11 +17,13 @@ class ProfileSettingsAdapter : RecyclerView.Adapter<ProfileSettingsAdapter.ViewH
      This call back informs about the changes
     */
     private var differCallBack: DiffUtil.ItemCallback<ProfileSettingsItem> =
-            object : DiffUtil.ItemCallback<ProfileSettingsItem>() {
-                override fun areItemsTheSame(oi: ProfileSettingsItem, ni: ProfileSettingsItem) = oi.id == ni.id
+        object : DiffUtil.ItemCallback<ProfileSettingsItem>() {
+            override fun areItemsTheSame(oi: ProfileSettingsItem, ni: ProfileSettingsItem) =
+                oi.id == ni.id
 
-                override fun areContentsTheSame(oi: ProfileSettingsItem, ni: ProfileSettingsItem) = oi == ni
-            }
+            override fun areContentsTheSame(oi: ProfileSettingsItem, ni: ProfileSettingsItem) =
+                oi.name == ni.name
+        }
 
     /*
     The AsyncListDiffer can consume the values from a LiveData of
@@ -36,7 +38,8 @@ class ProfileSettingsAdapter : RecyclerView.Adapter<ProfileSettingsAdapter.ViewH
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.list_item_settings, parent, false)
+        val view: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_settings, parent, false)
         return ViewHolder(view)
     }
 

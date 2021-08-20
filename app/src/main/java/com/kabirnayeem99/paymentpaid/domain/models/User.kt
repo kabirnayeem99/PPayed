@@ -4,19 +4,19 @@ import android.os.Parcelable
 import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.android.parcel.Parcelize
+import timber.log.Timber
 import java.lang.Exception
 
 @Parcelize
 data class User(
-        val userId: String,
-        val name: String,
-        val phoneNumber: String,
-        val email: String,
-        val imageUrl: String
+    val userId: String,
+    val name: String,
+    val phoneNumber: String,
+    val email: String,
+    val imageUrl: String
 ) : Parcelable {
     companion object {
 
-        private const val TAG = "User"
 
         fun DocumentSnapshot.toUser(): User? {
             try {
@@ -26,7 +26,7 @@ data class User(
                 val imageUrl = getString("image_url")!!
                 return User(id, name, phoneNumber, email, imageUrl)
             } catch (e: Exception) {
-                Log.e(TAG, "toUser: error converting it to user $e")
+                Timber.e("toUser: error converting it to user $e")
 
                 return null
             }

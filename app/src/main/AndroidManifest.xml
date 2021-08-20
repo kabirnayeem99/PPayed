@@ -11,6 +11,7 @@
         android:maxSdkVersion="28" />
 
     <application
+        android:name=".PpayedApp"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"

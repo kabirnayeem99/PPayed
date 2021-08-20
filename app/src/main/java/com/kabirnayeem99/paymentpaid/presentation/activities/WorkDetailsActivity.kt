@@ -12,6 +12,7 @@ import com.kabirnayeem99.paymentpaid.domain.models.Work
 import com.kabirnayeem99.paymentpaid.presentation.*
 import com.kabirnayeem99.paymentpaid.other.Utils
 import kotlinx.android.synthetic.main.activity_add_new_work.*
+import timber.log.Timber
 import java.util.*
 
 
@@ -84,12 +85,12 @@ class WorkDetailsActivity : AppCompatActivity() {
          */
         createOrUpdateWork()?.let { work ->
             try {
-                Log.d(TAG, "onBackPressed: $work")
+                Timber.d("onBackPressed: the saved work is \n $work")
                 workViewModel.saveWork(work)
                 Toast.makeText(this, "Your work was saved.", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 Toast.makeText(this, "Your work was not saved.", Toast.LENGTH_SHORT).show()
-                Log.e(TAG, "onBackPressed: work was not saved", e)
+                Timber.e("onBackPressed: work was not saved due to $e")
             } finally {
                 super.onBackPressed()
             }
@@ -123,7 +124,7 @@ class WorkDetailsActivity : AppCompatActivity() {
 
         dpDate?.let { dpDate ->
             month = dpDate.month + 1
-            Log.d(TAG, "createOrUpdateWork: month $month")
+            Timber.d("createOrUpdateWork: month $month")
             year = dpDate.year
             day = dpDate.dayOfMonth
         }
