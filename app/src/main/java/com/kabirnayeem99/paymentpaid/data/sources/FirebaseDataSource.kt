@@ -10,9 +10,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.kabirnayeem99.paymentpaid.domain.models.Work
 import com.kabirnayeem99.paymentpaid.domain.models.Work.Companion.toWork
+import com.kabirnayeem99.paymentpaid.domain.sources.RemoteDataSource
 import com.kabirnayeem99.paymentpaid.other.Utils
 
-class FirebaseDataSource {
+class FirebaseDataSource : RemoteDataSource {
 
 
     private val workList = MutableLiveData<List<Work>>()
@@ -26,7 +27,7 @@ class FirebaseDataSource {
     private val TAG = "FirebaseDataSource"
 
 
-    fun saveWork(work: Work) {
+    override fun saveWork(work: Work) {
         work.documentId?.let {
             db.collection("users")
                 .document(user.uid)
@@ -35,7 +36,7 @@ class FirebaseDataSource {
         }?.set(work)
     }
 
-    fun getWorksList(): LiveData<List<Work>> {
+    override fun getWorksList(): LiveData<List<Work>> {
         Log.d(
             TAG,
             "getWorksList: the collection reference is ${db.collection("users/${user.uid}/work_list")}"
@@ -63,7 +64,7 @@ class FirebaseDataSource {
     }
 
 
-    fun deleteWork(work: Work) {
+    override fun deleteWork(work: Work) {
         val docRef = work.documentId?.let {
             db.collection("users")
                 .document(user.uid)
@@ -74,7 +75,7 @@ class FirebaseDataSource {
         docRef?.delete()
     }
 
-    fun getPaymentListByMonth(): LiveData<List<Long>> {
+    override fun getPaymentListByMonth(): LiveData<List<Long>> {
         db.collection("users/${user.uid}/work_list").addSnapshotListener(
             EventListener<QuerySnapshot> { value, error ->
 
@@ -147,7 +148,7 @@ class FirebaseDataSource {
 
     }
 
-    fun getTotalPaymentsByYear(): LiveData<Long> {
+    override fun getTotalPaymentsByYear(): LiveData<Long> {
         db.collection("users/${user.uid}/work_list").addSnapshotListener(
             EventListener<QuerySnapshot> { value, error ->
                 if (error != null) {

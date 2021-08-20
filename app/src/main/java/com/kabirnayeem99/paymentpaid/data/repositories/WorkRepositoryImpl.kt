@@ -3,12 +3,14 @@ package com.kabirnayeem99.paymentpaid.data.repositories
 import androidx.lifecycle.LiveData
 import com.google.android.gms.tasks.Task
 import com.kabirnayeem99.paymentpaid.domain.models.Work
-import com.kabirnayeem99.paymentpaid.data.sources.FirebaseDataSource
 import com.kabirnayeem99.paymentpaid.domain.repositories.WorkRepository
+import com.kabirnayeem99.paymentpaid.domain.sources.RemoteDataSource
+import javax.inject.Inject
 
-class WorkRepositoryImpl : WorkRepository {
+class WorkRepositoryImpl @Inject constructor(
+    var dataSource: RemoteDataSource
+) : WorkRepository {
 
-    private val firebaseDataSource: FirebaseDataSource = FirebaseDataSource()
 
     /**
      * Save work to firebase firestore
@@ -18,7 +20,7 @@ class WorkRepositoryImpl : WorkRepository {
      * @return [Task], which can be successful, complete
      * and so on.
      */
-    override fun saveWork(work: Work) = firebaseDataSource.saveWork(work)
+    override fun saveWork(work: Work) = dataSource.saveWork(work)
 
 
     /**
@@ -27,14 +29,14 @@ class WorkRepositoryImpl : WorkRepository {
      * querying for documents (using the methods
      * inherited from {@code Query}).
      */
-    override fun getWorksList(): LiveData<List<Work>> = firebaseDataSource.getWorksList()
+    override fun getWorksList(): LiveData<List<Work>> = dataSource.getWorksList()
 
 
     override fun getPaymentListByMonth(): LiveData<List<Long>> =
-        firebaseDataSource.getPaymentListByMonth()
+        dataSource.getPaymentListByMonth()
 
     override fun getTotalPaymentsByYear(): LiveData<Long> =
-        firebaseDataSource.getTotalPaymentsByYear()
+        dataSource.getTotalPaymentsByYear()
 
 
     /**
@@ -45,7 +47,7 @@ class WorkRepositoryImpl : WorkRepository {
      * @return [Task], which can be successful, complete
      * and so on.
      */
-    override fun deleteWork(work: Work) = firebaseDataSource.deleteWork(work)
+    override fun deleteWork(work: Work) = dataSource.deleteWork(work)
 
 
 }
