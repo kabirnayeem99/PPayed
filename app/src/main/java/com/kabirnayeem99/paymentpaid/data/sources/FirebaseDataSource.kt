@@ -10,43 +10,56 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.kabirnayeem99.paymentpaid.domain.models.Work
 import com.kabirnayeem99.paymentpaid.domain.models.Work.Companion.toWork
 import com.kabirnayeem99.paymentpaid.domain.sources.RemoteDataSource
+import com.kabirnayeem99.paymentpaid.other.Constants
+import com.kabirnayeem99.paymentpaid.other.Resource
 import com.kabirnayeem99.paymentpaid.other.Utils
 import timber.log.Timber
 
 class FirebaseDataSource : RemoteDataSource {
 
 
-    private val workList = MutableLiveData<List<Work>>()
-    private val paymentList = MutableLiveData<List<Long>>()
-    private val paymentOfCurrentYear = MutableLiveData<Long>()
+    private val workList = MutableLiveData<Resource<List<Work>>>()
+    private val paymentList = MutableLiveData<Resource<List<Long>>>()
+    private val paymentOfCurrentYear = MutableLiveData<Resource<Long>>()
 
 
     private val db = FirebaseFirestore.getInstance()
     private val user: FirebaseUser = FirebaseAuth.getInstance().currentUser!!
 
 
-    override fun saveWork(work: Work) {
+    override fun saveWork(work: Work): Resource<String> {
         try {
+
             work.documentId?.let {
                 db.collection("users")
                     .document(user.uid)
                     .collection("work_list")
                     .document(it)
             }?.set(work)
+
+            Timber.d("saveWork: saved work ${work.name}")
+
+            return Resource.Success(work.name)
         } catch (e: Exception) {
+
             Timber.e("saveWork: could not save the work due to $e")
+
+            return Resource.Error(e.message ?: Constants.UNKNOWN_ERROR)
         }
     }
 
-    override fun getWorksList(): LiveData<List<Work>> {
+    override fun getWorksList(): LiveData<Resource<List<Work>>> {
         Timber.d(
             "getWorksList: the collection reference is ${db.collection("users/${user.uid}/work_list")}"
         )
+
+        workList.value = Resource.Loading()
 
         db.collection("users/${user.uid}/work_list").addSnapshotListener(
             EventListener<QuerySnapshot> { value, error ->
 
                 if (error != null) {
+                    workList.value = Resource.Error(error.message ?: Constants.UNKNOWN_ERROR)
                     return@EventListener
                 }
 
@@ -57,7 +70,7 @@ class FirebaseDataSource : RemoteDataSource {
                     Timber.d("getWorkList:  the documents in json form: $doc")
                 }
 
-                workList.value = temp
+                workList.value = Resource.Success(temp)
             }
 
         )
@@ -66,7 +79,7 @@ class FirebaseDataSource : RemoteDataSource {
     }
 
 
-    override fun deleteWork(work: Work) {
+    override fun deleteWork(work: Work): Resource<String> {
         try {
             val docRef = work.documentId?.let {
                 db.collection("users")
@@ -76,16 +89,24 @@ class FirebaseDataSource : RemoteDataSource {
             }
 
             docRef?.delete()
+
+            return Resource.Success(work.name)
         } catch (e: Exception) {
             Timber.e("Could not delete the work due to $e")
+
+            return Resource.Error(e.message ?: Constants.UNKNOWN_ERROR + work.name)
         }
     }
 
-    override fun getPaymentListByMonth(): LiveData<List<Long>> {
+    override fun getPaymentListByMonth(): LiveData<Resource<List<Long>>> {
+        paymentList.value = Resource.Loading()
+
         db.collection("users/${user.uid}/work_list").addSnapshotListener(
             EventListener<QuerySnapshot> { value, error ->
 
                 if (error != null) {
+
+                    paymentList.value = Resource.Error(error.message ?: Constants.UNKNOWN_ERROR)
                     return@EventListener
                 }
 
@@ -146,7 +167,7 @@ class FirebaseDataSource : RemoteDataSource {
 
                 val tempPaymentList =
                     arrayListOf(jan, feb, mar, apr, may, jun, july, aug, sep, oct, nov, dec)
-                paymentList.value = tempPaymentList
+                paymentList.value = Resource.Success(tempPaymentList)
 
             })
 
@@ -154,10 +175,16 @@ class FirebaseDataSource : RemoteDataSource {
 
     }
 
-    override fun getTotalPaymentsByYear(): LiveData<Long> {
+    override fun getTotalPaymentsByYear(): LiveData<Resource<Long>> {
+
+        paymentOfCurrentYear.value = Resource.Loading()
+
         db.collection("users/${user.uid}/work_list").addSnapshotListener(
             EventListener<QuerySnapshot> { value, error ->
                 if (error != null) {
+
+                    paymentOfCurrentYear.value =
+                        Resource.Error(error.message ?: Constants.UNKNOWN_ERROR)
                     return@EventListener
                 }
                 var tempTotalPaymentOfCurrentYear: Long = 0
@@ -167,7 +194,7 @@ class FirebaseDataSource : RemoteDataSource {
                     }
                 }
 
-                paymentOfCurrentYear.value = tempTotalPaymentOfCurrentYear
+                paymentOfCurrentYear.value = Resource.Success(tempTotalPaymentOfCurrentYear)
             })
 
         return paymentOfCurrentYear

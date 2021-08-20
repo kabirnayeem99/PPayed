@@ -3,12 +3,15 @@ package com.kabirnayeem99.paymentpaid.presentation.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.domain.models.Work
+import com.kabirnayeem99.paymentpaid.other.Resource
 import com.kabirnayeem99.paymentpaid.presentation.*
 import com.kabirnayeem99.paymentpaid.other.Utils
 import kotlinx.android.synthetic.main.activity_add_new_work.*
@@ -84,19 +87,30 @@ class WorkDetailsActivity : AppCompatActivity() {
         if it is created successfully, it proceeds to save the work.
          */
         createOrUpdateWork()?.let { work ->
-            try {
-                Timber.d("onBackPressed: the saved work is \n $work")
-                workViewModel.saveWork(work)
-                Toast.makeText(this, "Your work was saved.", Toast.LENGTH_SHORT).show()
-            } catch (e: Exception) {
-                Toast.makeText(this, "Your work was not saved.", Toast.LENGTH_SHORT).show()
-                Timber.e("onBackPressed: work was not saved due to $e")
-            } finally {
-                super.onBackPressed()
+
+            when (val resource = workViewModel.saveWork(work)) {
+                is Resource.Error -> {
+                    Timber.e("onBackPressed: work was not saved due to ${resource.message ?: "null"}")
+                    getSnackBar(resource.message).show()
+                }
+                is Resource.Success -> {
+                    Timber.d("onBackPressed: ${resource.data} is saved")
+                    super.onBackPressed()
+                }
             }
 
         }
     }
+
+
+    private fun getSnackBar(message: String?): Snackbar {
+        return Snackbar.make(
+            findViewById<View>(android.R.id.content).rootView,
+            message ?: "Something went wrong",
+            Snackbar.LENGTH_LONG
+        )
+    }
+
 
     override fun overridePendingTransition(enterAnim: Int, exitAnim: Int) {
         super.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
@@ -160,7 +174,6 @@ class WorkDetailsActivity : AppCompatActivity() {
                     work.documentId = workToBeUpdated.documentId
                 }
             }
-
 
             work
         }

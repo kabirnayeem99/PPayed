@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.Task
 import com.kabirnayeem99.paymentpaid.domain.models.Work
 import com.kabirnayeem99.paymentpaid.domain.repositories.WorkRepository
 import com.kabirnayeem99.paymentpaid.domain.sources.RemoteDataSource
+import com.kabirnayeem99.paymentpaid.other.Resource
 import javax.inject.Inject
 
 class WorkRepositoryImpl @Inject constructor(
@@ -29,13 +30,13 @@ class WorkRepositoryImpl @Inject constructor(
      * querying for documents (using the methods
      * inherited from {@code Query}).
      */
-    override fun getWorksList(): LiveData<List<Work>> = dataSource.getWorksList()
+    override fun getWorksList(): LiveData<Resource<List<Work>>> = dataSource.getWorksList()
 
 
-    override fun getPaymentListByMonth(): LiveData<List<Long>> =
+    override fun getPaymentListByMonth(): LiveData<Resource<List<Long>>> =
         dataSource.getPaymentListByMonth()
 
-    override fun getTotalPaymentsByYear(): LiveData<Long> =
+    override fun getTotalPaymentsByYear(): LiveData<Resource<Long>> =
         dataSource.getTotalPaymentsByYear()
 
 

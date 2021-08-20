@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/alex/StudioProjects/PPayed/app/src/main/res/layout/fragment_analytics.xml" value="0.14895833333333333" />
+        <entry key="..\:/Users/alex/StudioProjects/PPayed/app/src/main/res/layout/fragment_payments.xml" value="0.13179347826086957" />
+      </map>
+    </option>
+  </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0">
       <entry_point TYPE="field" FQNAME="com.kabirnayeem99.paymentpaid.MainActivity paymentButton" />

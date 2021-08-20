@@ -2,11 +2,12 @@ package com.kabirnayeem99.paymentpaid.domain.sources
 
 import androidx.lifecycle.LiveData
 import com.kabirnayeem99.paymentpaid.domain.models.Work
+import com.kabirnayeem99.paymentpaid.other.Resource
 
 interface RemoteDataSource {
-    fun saveWork(work: Work)
-    fun getWorksList(): LiveData<List<Work>>
-    fun deleteWork(work: Work)
-    fun getPaymentListByMonth(): LiveData<List<Long>>
-    fun getTotalPaymentsByYear(): LiveData<Long>
+    fun saveWork(work: Work): Resource<String>
+    fun getWorksList(): LiveData<Resource<List<Work>>>
+    fun deleteWork(work: Work): Resource<String>
+    fun getPaymentListByMonth(): LiveData<Resource<List<Long>>>
+    fun getTotalPaymentsByYear(): LiveData<Resource<Long>>
 }

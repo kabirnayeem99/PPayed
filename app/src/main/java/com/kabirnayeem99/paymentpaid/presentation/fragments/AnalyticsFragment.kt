@@ -8,9 +8,11 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.github.mikephil.charting.components.Description
+import com.google.android.material.snackbar.Snackbar
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.data.repositories.ChartRepositoryImpl
 import com.kabirnayeem99.paymentpaid.domain.repositories.ChartRepository
+import com.kabirnayeem99.paymentpaid.other.Resource
 import com.kabirnayeem99.paymentpaid.other.Utils
 import com.kabirnayeem99.paymentpaid.presentation.WorkViewModel
 import com.kabirnayeem99.paymentpaid.presentation.activities.HomeActivity
@@ -25,9 +27,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
 
-    companion object {
-        const val TAG = "AnalyticsFragment"
-    }
 
     private lateinit var workViewModel: WorkViewModel
     private lateinit var typeFace: Typeface
@@ -67,18 +66,40 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
         workViewModel = (activity as HomeActivity).workViewModel
     }
 
+
     private fun initGraph() {
 
-        workViewModel.paymentListByMonth.observe(viewLifecycleOwner, { paymentList ->
-            when (paymentList == null || paymentList.isEmpty()) {
-                true -> showLoading()
-                false -> {
+        workViewModel.paymentListByMonth.observe(viewLifecycleOwner, { resource ->
+
+            when (resource) {
+                is Resource.Loading -> {
+                    showLoading()
+                }
+                is Resource.Error -> {
                     hideLoading()
-                    implementDataSeries(paymentList)
+                    getSnackBar(resource.message)
+                }
+
+                is Resource.Success -> {
+                    hideLoading()
+                    resource.data?.let {
+                        implementDataSeries(it)
+                    }
                 }
             }
+
         })
     }
+
+
+    private fun getSnackBar(message: String?): Snackbar {
+        return Snackbar.make(
+            this.requireView(),
+            message ?: "Something went wrong",
+            Snackbar.LENGTH_LONG
+        )
+    }
+
 
     private fun implementDataSeries(paymentList: List<Long>) {
 
@@ -87,7 +108,6 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
             val description = Description()
             description.text = "Payments"
 
-            chartRepository = ChartRepositoryImpl()
 
             val barData = chartRepository.getBarData(paymentList, requireContext())
             val pieData = chartRepository.getPieData(paymentList, requireContext())

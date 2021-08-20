@@ -17,9 +17,11 @@ import androidx.core.view.GravityCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.domain.models.Work
+import com.kabirnayeem99.paymentpaid.other.Resource
 import com.kabirnayeem99.paymentpaid.presentation.WorkViewModel
 import com.kabirnayeem99.paymentpaid.presentation.fragments.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,6 +70,10 @@ class HomeActivity : AppCompatActivity() {
         setUpFragmentNavigation()
         setUpNavigationDrawer()
         setUpLoggedOutListener()
+        setUpNavigationView()
+    }
+
+    private fun setUpNavigationView() {
         val navigationView = findViewById<View>(R.id.navView) as NavigationView
         val hView: View = navigationView.getHeaderView(0)
         val tvUserEmail = hView.findViewById(R.id.tvUserEmail) as TextView
@@ -178,7 +184,7 @@ class HomeActivity : AppCompatActivity() {
             // adds animation from https://github.com/yendangn/Fragment-Transaction-Animation
             .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
             .replace(R.id.flFragmentPlaceholder, fragment, tag)
-            .addToBackStack(TAG)
+            .addToBackStack(this::class.java.simpleName)
             .commit()
     }
 
@@ -300,6 +306,15 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
+    private fun getSnackBar(message: String?): Snackbar {
+        return Snackbar.make(
+            findViewById<View>(android.R.id.content).rootView,
+            message ?: "Something went wrong",
+            Snackbar.LENGTH_LONG
+        )
+    }
+
+
     private fun writeFileContent(uri: Uri?) {
         try {
             val file = uri?.let { this.contentResolver.openFileDescriptor(it, "w") }
@@ -319,7 +334,16 @@ class HomeActivity : AppCompatActivity() {
                 var workList: List<Work> = listOf()
 
 
-                workList = workViewModel.workList.value!!
+                when (val resource = workViewModel.workList.value) {
+                    is Resource.Success -> {
+                        workList = resource.data!!
+                    }
+                    else -> {
+                        getSnackBar("Could not get the list of works").show()
+                    }
+                }
+
+
                 if (workList.isNotEmpty()) {
                     for (work in workList) {
 
@@ -339,9 +363,9 @@ class HomeActivity : AppCompatActivity() {
             }
 
         } catch (e: FileNotFoundException) {
-            Toast.makeText(this, "File was not found", Toast.LENGTH_SHORT).show()
+            getSnackBar("File was not found").show()
         } catch (e: IOException) {
-            Toast.makeText(this, "File could not be saved.", Toast.LENGTH_SHORT).show()
+            getSnackBar("File could not be saved.").show()
         }
 
     }
@@ -372,7 +396,6 @@ class HomeActivity : AppCompatActivity() {
         private const val CREATE_FILE_REQUEST_CODE = 1
         private const val OPEN_FOLDER_REQUEST_CODE = 2
         private const val CHOOSE_FILE = 4
-        const val TAG = "HomeActivity"
     }
 
 

@@ -55,7 +55,4 @@ class PaymentAdapter : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
     }
 
 
-    companion object {
-        private const val TAG = "PaymentAdapter"
-    }
 }

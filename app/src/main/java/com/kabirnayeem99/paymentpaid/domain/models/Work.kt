@@ -27,7 +27,6 @@ data class Work(
 
 
     companion object {
-        private const val TAG = "Work"
         fun DocumentSnapshot.toWork(): Work? {
             try {
                 val name = getString("name")!!
@@ -39,7 +38,7 @@ data class Work(
 
                 return Work(id, name, day, month, year, payment, studentName)
             } catch (e: Exception) {
-                Timber.e("toWork: error converting work $e")
+                Timber.e("toWork: error converting work due to $e")
                 return null
             }
         }

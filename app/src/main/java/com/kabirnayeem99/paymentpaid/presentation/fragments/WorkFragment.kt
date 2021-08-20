@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Environment
+import android.os.Message
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kabirnayeem99.paymentpaid.R
+import com.kabirnayeem99.paymentpaid.other.Resource
 import com.kabirnayeem99.paymentpaid.presentation.adapters.WorkAdapter
 import com.kabirnayeem99.paymentpaid.presentation.WorkViewModel
 import com.kabirnayeem99.paymentpaid.presentation.activities.HomeActivity
@@ -22,6 +24,8 @@ import com.kabirnayeem99.paymentpaid.presentation.activities.WorkDetailsActivity
 import kotlinx.android.synthetic.main.fragment_works.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlin.properties.Delegates
+import com.google.android.material.snackbar.Snackbar
+import com.kabirnayeem99.paymentpaid.other.Constants
 
 
 @ExperimentalCoroutinesApi
@@ -93,12 +97,27 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
 
     @ExperimentalCoroutinesApi
     private fun initRecyclerView() {
-        workViewModel.workList.observe(viewLifecycleOwner, { workList ->
-            if (workList.isNullOrEmpty()) {
-                showLoading()
+        workViewModel.workList.observe(viewLifecycleOwner, { resource ->
+
+            when (resource) {
+                is Resource.Loading -> {
+                    showLoading()
+                }
+                is Resource.Error -> {
+                    hideLoading()
+                    getSnackBar(resource.message).show()
+                }
+                is Resource.Success -> {
+                    workAdapter.differ.submitList(resource.data)
+                        .also {
+                            hideLoading()
+                        }
+
+                }
             }
-            workAdapter.differ.submitList(workList).also { hideLoading() }
+
         })
+
         rvWorkListWorks.apply {
             adapter = workAdapter
             layoutManager = LinearLayoutManager(activity)
@@ -106,6 +125,7 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
 
         val itemTouchHelper = ItemTouchHelper(setUpSwipeToDelete())
         itemTouchHelper.attachToRecyclerView(rvWorkListWorks)
+
     }
 
 
@@ -115,6 +135,14 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
 
     private fun hideLoading() {
         progressBarWork.visibility = View.INVISIBLE
+    }
+
+    private fun getSnackBar(message: String?): Snackbar {
+        return Snackbar.make(
+            this.requireView(),
+            message ?: "Something went wrong",
+            Snackbar.LENGTH_LONG
+        )
     }
 
     /**
@@ -135,7 +163,15 @@ class WorkFragment : Fragment(R.layout.fragment_works) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val currentItemPosition = viewHolder.adapterPosition
                 val currentWork = workAdapter.differ.currentList[currentItemPosition]
-                workViewModel.deleteWork(currentWork)
+
+                when (val resource = workViewModel.deleteWork(currentWork)) {
+                    is Resource.Success -> {
+                        getSnackBar("${resource.data} was deleted.")
+                    }
+                    else -> {
+                        getSnackBar("${resource.data} could not be deleted.")
+                    }
+                }
             }
 
         }
