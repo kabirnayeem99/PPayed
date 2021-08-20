@@ -1,7 +1,6 @@
 package com.kabirnayeem99.paymentpaid.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -11,7 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.other.Resource
 import com.kabirnayeem99.paymentpaid.presentation.adapters.PaymentAdapter
-import com.kabirnayeem99.paymentpaid.presentation.WorkViewModel
+import com.kabirnayeem99.paymentpaid.presentation.viewmodels.WorkViewModel
 import com.kabirnayeem99.paymentpaid.presentation.activities.HomeActivity
 import kotlinx.android.synthetic.main.fragment_payments.*
 import kotlinx.android.synthetic.main.fragment_works.*

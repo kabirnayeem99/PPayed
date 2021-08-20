@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.domain.models.Work
 import com.kabirnayeem99.paymentpaid.other.Resource
-import com.kabirnayeem99.paymentpaid.presentation.WorkViewModel
+import com.kabirnayeem99.paymentpaid.presentation.viewmodels.WorkViewModel
 import com.kabirnayeem99.paymentpaid.presentation.fragments.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_home.*

@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Environment
-import android.os.Message
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -18,14 +17,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.other.Resource
 import com.kabirnayeem99.paymentpaid.presentation.adapters.WorkAdapter
-import com.kabirnayeem99.paymentpaid.presentation.WorkViewModel
+import com.kabirnayeem99.paymentpaid.presentation.viewmodels.WorkViewModel
 import com.kabirnayeem99.paymentpaid.presentation.activities.HomeActivity
 import com.kabirnayeem99.paymentpaid.presentation.activities.WorkDetailsActivity
 import kotlinx.android.synthetic.main.fragment_works.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlin.properties.Delegates
 import com.google.android.material.snackbar.Snackbar
-import com.kabirnayeem99.paymentpaid.other.Constants
 
 
 @ExperimentalCoroutinesApi

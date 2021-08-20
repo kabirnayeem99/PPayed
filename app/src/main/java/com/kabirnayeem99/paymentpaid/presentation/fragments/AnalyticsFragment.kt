@@ -10,11 +10,10 @@ import androidx.fragment.app.FragmentManager
 import com.github.mikephil.charting.components.Description
 import com.google.android.material.snackbar.Snackbar
 import com.kabirnayeem99.paymentpaid.R
-import com.kabirnayeem99.paymentpaid.data.repositories.ChartRepositoryImpl
 import com.kabirnayeem99.paymentpaid.domain.repositories.ChartRepository
 import com.kabirnayeem99.paymentpaid.other.Resource
 import com.kabirnayeem99.paymentpaid.other.Utils
-import com.kabirnayeem99.paymentpaid.presentation.WorkViewModel
+import com.kabirnayeem99.paymentpaid.presentation.viewmodels.WorkViewModel
 import com.kabirnayeem99.paymentpaid.presentation.activities.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_analytics.*

@@ -6,6 +6,7 @@ import com.kabirnayeem99.paymentpaid.domain.models.Work
 import com.kabirnayeem99.paymentpaid.data.repositories.FakeWorkRepository
 import com.kabirnayeem99.paymentpaid.getOrAwaitValueForTest
 import com.kabirnayeem99.paymentpaid.other.Utils
+import com.kabirnayeem99.paymentpaid.presentation.viewmodels.WorkViewModel
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

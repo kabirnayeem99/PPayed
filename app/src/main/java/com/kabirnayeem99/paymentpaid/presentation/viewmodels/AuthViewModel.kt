@@ -1,4 +1,4 @@
-package com.kabirnayeem99.paymentpaid.presentation
+package com.kabirnayeem99.paymentpaid.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.kabirnayeem99.paymentpaid.domain.models.User

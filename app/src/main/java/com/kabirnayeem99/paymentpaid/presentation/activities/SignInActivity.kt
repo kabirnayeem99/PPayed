@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.other.Resource
-import com.kabirnayeem99.paymentpaid.presentation.AuthViewModel
+import com.kabirnayeem99.paymentpaid.presentation.viewmodels.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -2,9 +2,7 @@ package com.kabirnayeem99.paymentpaid.presentation.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -12,8 +10,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.R
 import com.kabirnayeem99.paymentpaid.domain.models.Work
 import com.kabirnayeem99.paymentpaid.other.Resource
-import com.kabirnayeem99.paymentpaid.presentation.*
 import com.kabirnayeem99.paymentpaid.other.Utils
+import com.kabirnayeem99.paymentpaid.presentation.viewmodels.WorkViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_add_new_work.*
 import timber.log.Timber
@@ -88,7 +86,8 @@ class WorkDetailsActivity : AppCompatActivity() {
         Checks if the work object has been created successfully or not,
         if it is created successfully, it proceeds to save the work.
          */
-        createOrUpdateWork()?.let { work ->
+        val work = createOrUpdateWork()
+        if (work != null) {
 
             when (val resource = workViewModel.saveWork(work)) {
                 is Resource.Error -> {
@@ -101,6 +100,9 @@ class WorkDetailsActivity : AppCompatActivity() {
                 }
             }
 
+        } else {
+            Timber.e("onBackPressed: there were no work to save")
+            super.onBackPressed()
         }
     }
 
