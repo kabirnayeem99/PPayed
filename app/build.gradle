@@ -101,6 +101,8 @@ dependencies {
     // Timber for logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    implementation "io.grpc:grpc-okhttp:1.32.2"
+
 }
 repositories {
     mavenCentral()

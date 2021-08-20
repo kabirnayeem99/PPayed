@@ -2,6 +2,8 @@ package com.kabirnayeem99.paymentpaid.presentation.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -36,10 +38,38 @@ class SignInActivity : AppCompatActivity() {
         setUpNoLoginListener()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         etEmailAddress.setText(authViewModel.email)
         etPassword.setText(authViewModel.password)
+
+        etEmailAddress.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                authViewModel.email = s.toString()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+
+        etPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                authViewModel.password = s.toString()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
     }
 
     override fun onPause() {

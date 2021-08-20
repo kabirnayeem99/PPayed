@@ -13,6 +13,5 @@ import javax.inject.Singleton
 class FragmentModule {
 
     @Provides
-    @Singleton
     fun provideChartRepository(): ChartRepository = ChartRepositoryImpl()
 }

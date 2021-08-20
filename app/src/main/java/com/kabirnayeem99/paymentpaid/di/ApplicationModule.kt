@@ -1,5 +1,6 @@
 package com.kabirnayeem99.paymentpaid.di
 
+import com.google.firebase.auth.FirebaseAuth
 import com.kabirnayeem99.paymentpaid.data.sources.FirebaseAuthDataSource
 import com.kabirnayeem99.paymentpaid.data.sources.FirebaseDataSource
 import com.kabirnayeem99.paymentpaid.domain.sources.AuthDataSource
@@ -15,13 +16,14 @@ import javax.inject.Singleton
 object ApplicationModule {
 
     @Provides
-    @Singleton
     fun provideRemoteDataSource(): RemoteDataSource {
         return FirebaseDataSource()
     }
 
     @Provides
-    @Singleton
     fun provideAuthDataSource(): AuthDataSource = FirebaseAuthDataSource()
+
+    @Provides
+    fun provideFirebaseAuth() = FirebaseAuth.getInstance()
 
 }

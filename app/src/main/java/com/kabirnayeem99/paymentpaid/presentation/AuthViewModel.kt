@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import com.kabirnayeem99.paymentpaid.domain.models.User
 import com.kabirnayeem99.paymentpaid.domain.repositories.AuthRepository
 import com.kabirnayeem99.paymentpaid.other.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-class AuthViewModel @Inject constructor(var repo: AuthRepository) : ViewModel() {
 
+@HiltViewModel
+class AuthViewModel @Inject constructor(var repo: AuthRepository) : ViewModel() {
 
     var email: String = ""
     var password: String = ""

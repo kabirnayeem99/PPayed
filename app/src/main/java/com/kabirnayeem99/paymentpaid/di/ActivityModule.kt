@@ -22,32 +22,23 @@ import javax.inject.Singleton
 object ActivityModule {
 
     @Provides
-    @Singleton
     fun provideWorkFragment() = WorkFragment()
 
     @Provides
-    @Singleton
     fun providePaymentsFragment() = PaymentsFragment()
 
     @Provides
-    @Singleton
     fun provideAboutFragment() = AboutFragment()
 
     @Provides
-    @Singleton
     fun provideAnalyticsFragment() = AnalyticsFragment()
 
     @Provides
-    @Singleton
     fun provideProfileFragment() = ProfileFragment()
 
-    @Provides
-    @Singleton
-    fun provideFirebaseAuth() = FirebaseAuth.getInstance()
 
     @Provides
     fun provideTimer(): Timer = Timer()
-
 
 
 }

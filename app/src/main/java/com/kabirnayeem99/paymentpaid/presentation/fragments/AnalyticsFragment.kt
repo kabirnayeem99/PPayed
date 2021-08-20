@@ -50,7 +50,7 @@ class AnalyticsFragment : Fragment(R.layout.fragment_analytics) {
         view.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
                 fragmentManager?.popBackStack(
-                    HomeActivity.TAG,
+                    HomeActivity::class.java.simpleName,
                     FragmentManager.POP_BACK_STACK_INCLUSIVE
                 )
                 return@OnKeyListener true

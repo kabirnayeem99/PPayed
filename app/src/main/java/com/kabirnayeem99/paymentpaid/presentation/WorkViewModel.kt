@@ -4,9 +4,11 @@ import androidx.lifecycle.*
 import com.kabirnayeem99.paymentpaid.domain.models.Work
 import com.kabirnayeem99.paymentpaid.domain.repositories.WorkRepository
 import com.kabirnayeem99.paymentpaid.other.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
+@HiltViewModel
 class WorkViewModel @Inject constructor(var workRepository: WorkRepository) : ViewModel() {
 
     private val _workList = workRepository.getWorksList()

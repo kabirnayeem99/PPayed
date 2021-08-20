@@ -14,6 +14,7 @@ import com.kabirnayeem99.paymentpaid.domain.models.Work
 import com.kabirnayeem99.paymentpaid.other.Resource
 import com.kabirnayeem99.paymentpaid.presentation.*
 import com.kabirnayeem99.paymentpaid.other.Utils
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_add_new_work.*
 import timber.log.Timber
 import java.util.*
@@ -23,6 +24,7 @@ import java.util.*
  * This Activity is for creating a new work or edit an existing work.
  * This [WorkDetailsActivity] extends [AppCompatActivity]
  */
+@AndroidEntryPoint
 class WorkDetailsActivity : AppCompatActivity() {
     private lateinit var work: Work
 
